@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El-Mawsili — Musique arabo-andalouse d'Alger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#182b30;
+  --teal-deep:#12333a;
+  --teal-mid:#2c5f66;
+  --parchment:#f4efe1;
+  --parchment-2:#ece3cd;
+  --brass:#a97e42;
+  --brass-light:#c79d5e;
+  --line: rgba(24,43,48,.16);
+  --bg: var(--parchment);
+  --text: var(--ink);
+  --card-bg:#fffdf7;
+  box-sizing:border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101c20; --text:#eee6d3; --card-bg:#182a2f; --line: rgba(238,230,211,.14);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101c20; --text:#eee6d3; --card-bg:#182a2f; --line: rgba(238,230,211,.14);
+}
+html{ scroll-padding-top: 76px; }
+*{ box-sizing:border-box; }
+html,body{ height:auto; margin:0; }
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'Work Sans', sans-serif;
+  font-size:16.5px; line-height:1.65;
+}
+h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; margin:0; color:var(--text); }
+p{ margin:0 0 1em; max-width:66ch; }
+a{ color:inherit; }
+.wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+
+/* nav */
+header.site{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+  background:var(--teal-deep); color:var(--parchment);
+  border-bottom:1px solid rgba(201,166,108,.35);
+}
+.navbar{ display:flex; align-items:center; justify-content:space-between; padding:14px 24px; max-width:1080px; margin:0 auto; }
+.brand{ font-family:'Fraunces', serif; font-size:1.25rem; font-weight:700; letter-spacing:.02em; color:var(--brass-light); text-decoration:none; }
+.brand span{ display:block; font-family:'Work Sans',sans-serif; font-size:.62rem; font-weight:500; letter-spacing:.14em; color:var(--parchment); opacity:.75; margin-top:2px; }
+nav.links{ display:flex; gap:22px; flex-wrap:wrap; }
+nav.links a{ text-decoration:none; font-size:.92rem; color:var(--parchment); opacity:.86; padding:4px 0; border-bottom:1px solid transparent; }
+nav.links a:hover{ opacity:1; border-color:var(--brass-light); }
+.navtoggle{ display:none; background:none; border:1px solid rgba(244,239,225,.4); color:var(--parchment); border-radius:6px; padding:6px 10px; font-size:1rem; }
+@media (max-width:820px){
+  nav.links{ position:absolute; top:100%; left:0; right:0; background:var(--teal-deep); flex-direction:column; gap:0; padding:6px 24px 16px; display:none; }
+  nav.links.open{ display:flex; }
+  nav.links a{ padding:10px 0; border-bottom:1px solid rgba(244,239,225,.1); }
+  .navtoggle{ display:inline-block; }
+}
+
+/* hero */
+.hero{
+  background: linear-gradient(180deg, var(--teal-deep), var(--teal-mid));
+  color:var(--parchment); position:relative; overflow:hidden;
+  padding:88px 24px 76px;
+}
+.hero-bg{ position:absolute; inset:0; opacity:.4; }
+.hero-bg svg{ width:100%; height:100%; object-fit:cover; }
+.hero-overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(18,51,58,.55), rgba(18,51,58,.82)); }
+.hero::before{
+  content:""; position:absolute; inset:0; opacity:.16; pointer-events:none; z-index:1;
+  background-image:
+    repeating-linear-gradient(45deg, var(--brass-light) 0 1.5px, transparent 1.5px 34px),
+    repeating-linear-gradient(-45deg, var(--brass-light) 0 1.5px, transparent 1.5px 34px);
+}
+.hero-inner{ max-width:1080px; margin:0 auto; position:relative; z-index:2; }
+.eyebrow-motif{ display:flex; align-items:center; gap:10px; margin-bottom:22px; color:var(--brass-light); font-size:.82rem; letter-spacing:.06em; }
+.eyebrow-motif svg{ width:26px; height:26px; flex:none; }
+.hero h1{ font-size:clamp(2.4rem, 5.2vw, 3.9rem); line-height:1.05; max-width:14ch; margin-bottom:20px; }
+.hero p.lede{ font-size:1.15rem; max-width:46ch; opacity:.92; }
+.hero .ctas{ display:flex; gap:14px; margin-top:30px; flex-wrap:wrap; }
+.btn{ display:inline-block; padding:13px 26px; border-radius:2px; text-decoration:none; font-size:.95rem; font-weight:500; border:1px solid transparent; }
+.btn-primary{ background:var(--brass-light); color:var(--teal-deep); }
+.btn-primary:hover{ background:#d6ae72; }
+.btn-ghost{ border-color:rgba(244,239,225,.55); color:var(--parchment); }
+.btn-ghost:hover{ border-color:var(--parchment); }
+
+.featured-event{
+  display:flex; align-items:stretch; gap:0; background:var(--card-bg);
+  border:1px solid var(--line); border-left:5px solid var(--brass); margin:0 24px;
+}
+.fe-tag{
+  writing-mode:vertical-rl; text-orientation:mixed; background:var(--teal-deep); color:var(--brass-light);
+  font-size:.78rem; letter-spacing:.08em; padding:18px 10px; flex:none; display:flex; align-items:center; justify-content:center;
+}
+.fe-body{ padding:28px 30px; }
+.fe-date{ font-size:.85rem; color:var(--brass); }
+.fe-body h2{ font-size:1.5rem; margin:6px 0 12px; }
+.fe-actions{ display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; }
+@media (max-width:600px){ .featured-event{ flex-direction:column; margin:0 16px; } .fe-tag{ writing-mode:horizontal-tb; padding:8px 16px; } }
+
+[data-roles]{ display:none; }
+[data-roles].visible{ display:block; }
+.role-panel{ margin-top:34px; padding-top:30px; border-top:1px solid var(--line); }
+.role-panel .role-badge{ display:inline-block; font-size:.74rem; letter-spacing:.06em; color:var(--brass); border:1px solid var(--line); padding:3px 10px; margin-bottom:14px; }
+.restricted{ background:var(--card-bg); border:1px dashed var(--line); padding:28px; text-align:center; color:var(--text); opacity:.75; font-size:.92rem; }
+.admin-table{ width:100%; border-collapse:collapse; font-size:.88rem; margin-top:8px; }
+.admin-table th, .admin-table td{ text-align:left; padding:9px 8px; border-top:1px solid var(--line); }
+.admin-table select{ font-family:'Work Sans',sans-serif; font-size:.85rem; padding:6px 8px; border:1px solid var(--line); background:var(--bg); color:var(--text); }
+
+/* login gate */
+.login-gate{ max-width:400px; background:var(--card-bg); border:1px solid var(--line); padding:26px; margin-bottom:36px; }
+.login-gate h3{ font-size:1.05rem; margin-bottom:14px; }
+.login-gate .field{ margin-bottom:12px; }
+.gate-note{ font-size:.82rem; opacity:.7; margin-top:10px; }
+.locked{ display:none; }
+.locked.unlocked{ display:grid; }
+
+/* sections */
+section{ padding:74px 24px; border-bottom:1px solid var(--line); }
+section:last-of-type{ border-bottom:none; }
+.section-head{ margin-bottom:34px; }
+.section-head .kicker{ color:var(--brass); font-family:'Fraunces',serif; font-style:italic; font-size:1rem; display:block; margin-bottom:6px; }
+.section-head h2{ font-size:clamp(1.7rem,3vw,2.3rem); max-width:22ch; }
+.two-col{ display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:start; }
+@media (max-width:780px){ .two-col{ grid-template-columns:1fr; gap:32px; } }
+
+/* instruments row */
+.tags{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+.tags span{ border:1px solid var(--line); padding:6px 14px; border-radius:20px; font-size:.85rem; }
+
+/* cards */
+.grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+@media (max-width:820px){ .grid3{ grid-template-columns:1fr; } }
+.card{ background:var(--card-bg); border:1px solid var(--line); padding:26px; }
+.card h3{ font-size:1.2rem; margin-bottom:10px; }
+.card .level{ font-size:.78rem; letter-spacing:.06em; color:var(--brass); display:block; margin-bottom:10px; }
+
+/* events list */
+.events{ display:flex; flex-direction:column; }
+.event-row{ display:flex; gap:24px; padding:20px 0; border-top:1px solid var(--line); align-items:baseline; }
+.event-row:last-child{ border-bottom:1px solid var(--line); }
+.event-date{ font-family:'Fraunces',serif; color:var(--brass); font-size:1.05rem; width:130px; flex:none; }
+.event-body h3{ font-size:1.05rem; margin-bottom:4px; }
+.event-body p{ margin:0; font-size:.92rem; opacity:.85; }
+
+/* gallery */
+.gallery{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+@media (max-width:700px){ .gallery{ grid-template-columns:repeat(2,1fr); } }
+.gallery .tile{ aspect-ratio:1; background:linear-gradient(135deg, var(--teal-mid), var(--teal-deep)); position:relative; overflow:hidden; }
+.gallery .tile::after{ content:attr(data-label); position:absolute; bottom:10px; left:10px; color:var(--parchment); font-size:.72rem; opacity:.8; }
+.gallery .tile svg{ position:absolute; inset:0; width:100%; height:100%; opacity:.5; }
+
+/* actus */
+.actus{ display:grid; grid-template-columns:repeat(2,1fr); gap:30px; }
+@media (max-width:700px){ .actus{ grid-template-columns:1fr; } }
+.actu{ border-top:1px solid var(--line); padding-top:16px; }
+.actu .date{ font-size:.78rem; letter-spacing:.06em; color:var(--brass); }
+.actu h3{ font-size:1.08rem; margin:6px 0 8px; }
+
+/* adhesion */
+.adhesion-box{ background:var(--teal-deep); color:var(--parchment); padding:44px; display:flex; justify-content:space-between; gap:30px; flex-wrap:wrap; align-items:center; }
+.adhesion-box h2{ color:var(--parchment); font-size:1.6rem; max-width:20ch; }
+.adhesion-box p{ opacity:.88; max-width:44ch; }
+
+/* contact */
+form.contact{ display:grid; gap:16px; max-width:520px; }
+.field{ display:flex; flex-direction:column; gap:6px; }
+.field label{ font-size:.85rem; opacity:.8; }
+.field input, .field textarea{
+  font-family:'Work Sans',sans-serif; font-size:1rem; padding:12px 14px;
+  border:1px solid var(--line); background:var(--card-bg); color:var(--text); border-radius:2px;
+}
+.field textarea{ min-height:110px; resize:vertical; }
+.contact-info{ margin-top:6px; font-size:.92rem; opacity:.85; }
+
+.tracks{ display:grid; grid-template-columns:1fr 1fr; gap:44px; margin-bottom:46px; }
+@media (max-width:780px){ .tracks{ grid-template-columns:1fr; gap:30px; } }
+.track h3{ font-size:1.15rem; margin-bottom:14px; }
+.levels{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+.levels li{ display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-top:1px solid var(--line); font-size:.94rem; }
+.levels li:last-child{ border-bottom:1px solid var(--line); }
+.levels li .num{ color:var(--brass); font-family:'Fraunces',serif; flex:none; width:26px; }
+.levels li.extra{ font-style:italic; opacity:.85; }
+.linkswrap{ margin-top:34px; padding-top:26px; border-top:1px solid var(--line); }
+.linkswrap .kicker-sm{ display:block; font-family:'Fraunces',serif; font-style:italic; color:var(--brass); font-size:.92rem; margin-bottom:12px; }
+.links-list{ display:flex; flex-direction:column; gap:10px; }
+.linkcard{ display:flex; gap:14px; align-items:center; background:var(--card-bg); border:1px solid var(--line); padding:14px; text-decoration:none; color:var(--text); }
+.linkcard:hover{ border-color:var(--brass); }
+.linkcard .thumb{ width:56px; height:56px; flex:none; background:var(--parchment-2); display:flex; align-items:center; justify-content:center; font-size:1.3rem; overflow:hidden; }
+.linkcard .thumb img{ width:100%; height:100%; object-fit:cover; }
+.linkcard .meta{ flex:1; min-width:0; }
+.linkcard .meta b{ display:block; font-family:'Fraunces',serif; font-size:1rem; }
+.linkcard .meta small{ opacity:.6; display:block; margin:2px 0; }
+.linkcard .meta p{ margin:4px 0 0; font-size:.85rem; opacity:.85; }
+.spaces{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+@media (max-width:900px){ .spaces{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px){ .spaces{ grid-template-columns:1fr; } }
+.space-card{ background:var(--card-bg); border:1px solid var(--line); padding:18px; display:flex; flex-direction:column; gap:10px; }
+.space-card h4{ font-family:'Fraunces',serif; font-size:1rem; margin:0; }
+.space-card .empty{ font-size:.82rem; opacity:.6; border:1px dashed var(--line); padding:10px; text-align:center; }
+.space-card .add{ font-size:.82rem; border:1px solid var(--line); background:none; color:var(--text); padding:8px; cursor:pointer; }
+.space-card .add:hover{ border-color:var(--brass); color:var(--brass); }
+.member-note{ font-size:.86rem; opacity:.75; margin-top:36px; border-top:1px solid var(--line); padding-top:18px; }
+
+.field select, .toolbar select, .toolbar input{ font-family:'Work Sans',sans-serif; font-size:.95rem; padding:11px 13px; border:1px solid var(--line); background:var(--card-bg); color:var(--text); border-radius:2px; }
+.toolbar{ display:flex; gap:10px; flex-wrap:wrap; margin:12px 0; align-items:center; }
+.toolbar input{ flex:1; min-width:200px; }
+.btn-line{ font-family:'Work Sans',sans-serif; font-size:.88rem; border:1px solid var(--line); background:none; color:var(--text); padding:9px 14px; cursor:pointer; border-radius:2px; }
+.btn-line:hover{ border-color:var(--brass); color:var(--brass); }
+.kpis{ display:flex; gap:14px; flex-wrap:wrap; margin:6px 0 10px; }
+.kpi{ background:var(--card-bg); border:1px solid var(--line); padding:12px 18px; min-width:150px; font-size:.85rem; }
+.kpi b{ display:block; font-family:'Fraunces',serif; font-size:1.3rem; }
+.pos{ color:#2f7d4f; } .neg{ color:#b04a3a; }
+.sub{ font-size:1.1rem; margin:30px 0 8px; }
+.admin-table select{ max-width:190px; }
+.tag{ display:inline-block; font-size:.74rem; letter-spacing:.05em; color:var(--brass); border:1px solid var(--brass); padding:2px 10px; }
+.tplcard{ background:var(--card-bg); border:1px solid var(--line); padding:22px; margin-bottom:18px; }
+.tplhead{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center; }
+.tplhead h3{ font-size:1.15rem; }
+.tplmeta{ font-size:.82rem; opacity:.7; margin:6px 0 10px; }
+.tplpre{ white-space:pre-wrap; font-family:'Work Sans',sans-serif; font-size:.92rem; background:var(--bg); border:1px solid var(--line); padding:14px; margin:8px 0 12px; }
+.tplold{ margin-top:12px; font-size:.86rem; }
+.paper{ background:#fff; color:#182b30; border:1px solid var(--line); padding:32px; max-width:640px; white-space:pre-wrap; line-height:1.7; font-family:'Fraunces',serif; }
+@media print{ body *{ visibility:hidden; } #receiptPaper, #receiptPaper *{ visibility:visible; } #receiptPaper{ position:absolute; left:0; top:0; width:100%; border:none; } }
+.perm-off{ display:none !important; }
+.expiry{ color:#c0392b; font-size:clamp(1.5rem,4vw,2.1rem); font-weight:700; line-height:1.25; border:3px solid #c0392b; background:rgba(192,57,43,.08); padding:22px; margin:26px 0; }
+.expiry small{ display:block; font-size:1rem; font-weight:500; margin-top:10px; color:var(--text); }
+.avatar{ width:96px; height:96px; border-radius:50%; object-fit:cover; background:var(--parchment-2); border:1px solid var(--line); flex:none; }
+.st{ display:inline-block; padding:2px 10px; font-size:.78rem; border:1px solid var(--line); }
+.st-class{ color:#2f7d4f; border-color:#2f7d4f; } .st-closed{ color:#b04a3a; border-color:#b04a3a; } .st-open{ color:var(--brass); border-color:var(--brass); }
+footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
+
+.reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navbar">
+    <a class="brand" href="#accueil">El-Mawsili<span>Musique arabo-andalouse d'Alger</span></a>
+    <button class="navtoggle" id="navtoggle" aria-label="Menu">☰</button>
+    <nav class="links" id="navlinks">
+      <a href="#accueil">Accueil</a>
+      <a href="#apropos">À propos</a>
+      <a href="#evenements">Événements</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#adhesion">Adhésion</a>
+      <a href="#adherents">Espace adhérents</a>
+      <a href="#communication" data-roles="communication">Communication</a>
+      <a href="#compta" data-roles="administrateur">Comptabilité</a>
+      <a href="#templates" data-roles="administrateur">Templates</a>
+      <a href="#calendrier" data-roles="administrateur">Calendrier</a>
+      <a href="#admin" data-roles="administrateur">Administration</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="accueil">
+  <div class="hero-bg" aria-hidden="true">
+    <svg viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="500" fill="#0f2830"/>
+      <circle cx="980" cy="120" r="70" fill="#f4efe1" opacity=".18"/>
+      <g fill="#f4efe1" opacity=".55">
+        <rect x="0" y="330" width="120" height="120"/><rect x="40" y="290" width="90" height="60"/>
+        <rect x="120" y="360" width="100" height="90"/><rect x="150" y="320" width="70" height="55"/>
+        <rect x="215" y="300" width="110" height="150"/><circle cx="270" cy="290" r="28"/>
+        <rect x="320" y="350" width="95" height="100"/><rect x="345" y="310" width="55" height="50"/>
+        <rect x="410" y="315" width="100" height="135"/>
+        <rect x="500" y="365" width="120" height="85"/><rect x="530" y="330" width="65" height="45"/>
+        <rect x="610" y="290" width="100" height="160"/><circle cx="660" cy="280" r="26"/>
+        <rect x="700" y="350" width="90" height="100"/>
+        <rect x="780" y="310" width="110" height="140"/><rect x="805" y="270" width="65" height="50"/>
+        <rect x="880" y="360" width="95" height="90"/>
+        <rect x="965" y="300" width="115" height="150"/><circle cx="1020" cy="290" r="30"/>
+        <rect x="1070" y="350" width="130" height="100"/><rect x="1100" y="315" width="70" height="45"/>
+      </g>
+      <g fill="#0f2830" opacity=".55">
+        <rect x="30" y="345" width="16" height="24"/><rect x="150" y="380" width="16" height="24"/>
+        <rect x="240" y="330" width="18" height="26"/><rect x="345" y="375" width="16" height="24"/>
+        <rect x="445" y="340" width="16" height="26"/><rect x="540" y="385" width="16" height="24"/>
+        <rect x="645" y="330" width="18" height="26"/><rect x="730" y="375" width="16" height="24"/>
+        <rect x="815" y="335" width="16" height="26"/><rect x="905" y="380" width="16" height="24"/>
+        <rect x="1000" y="330" width="18" height="26"/><rect x="1105" y="375" width="16" height="24"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="eyebrow-motif">
+      <svg viewBox="0 0 40 40" fill="none"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" stroke="currentColor" stroke-width="1.2"/></svg>
+      Association de musique arabo-andalouse — France
+    </div>
+    <h1>Transmettre la Çenâa, l'âme musicale d'Alger</h1>
+    <p class="lede">Nous enseignons et faisons vivre la nouba, répertoire classique arabo-andalou de l'école d'Alger, à travers des cours, des ateliers et des concerts ouverts à tous les âges.</p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="#apropos">Découvrir l'association</a>
+      <a class="btn btn-ghost" href="#adhesion">Devenir membre</a>
+    </div>
+  </div>
+</section>
+
+<section id="a-la-une" style="padding:0;">
+  <div class="wrap" style="padding-top:0;">
+    <div class="featured-event">
+      <div class="fe-tag">Événement à la une</div>
+      <div class="fe-body">
+        <span class="fe-date">14 novembre 2026 · 19h00</span>
+        <h2>Soirée nouba — mode Raml Maya</h2>
+        <p>L'orchestre de l'association interprète une nouba complète, salle municipale. Entrée libre dans la limite des places disponibles — venez nombreux, et partagez l'événement autour de vous.</p>
+        <div class="fe-actions">
+          <a class="btn btn-primary" href="#evenements">Voir les détails</a>
+          <button class="btn btn-ghost" type="button" onclick="navigator.share ? navigator.share({title:'Soirée nouba — El-Mawsili', text:'Soirée nouba — mode Raml Maya, 14 novembre 2026', url:location.href}) : (navigator.clipboard.writeText(location.href), this.textContent='Lien copié')">Partager</button>
+        </div>
+      </div>
+    </div>
+    <div class="linkswrap">
+      <span class="kicker-sm">Pour aller plus loin</span>
+      <div id="links-accueil"></div>
+    </div>
+  </div>
+</section>
+
+<section id="apropos">
+  <div class="wrap two-col">
+    <div>
+      <div class="section-head">
+        <span class="kicker">Notre association</span>
+        <h2>Préserver et transmettre un patrimoine vivant</h2>
+      </div>
+      <p>Notre association réunit des passionnés de musique arabo-andalouse autour d'un même objectif : faire vivre la Çenâa, patrimoine musical d'Alger, et la transmettre aux nouvelles générations, en France.</p>
+      <p>Nous organisons des cours réguliers, des stages, des rencontres avec des maîtres du genre et des concerts publics, dans un esprit convivial et exigeant à la fois.</p>
+    </div>
+    <div>
+      <div class="section-head">
+        <span class="kicker">Nos missions</span>
+        <h2>Ce que nous faisons</h2>
+      </div>
+      <p>Enseignement du chant et des instruments traditionnels, sauvegarde du répertoire des noubas, organisation d'événements culturels et soutien aux jeunes musiciens.</p>
+      <p>L'association fonctionne grâce à ses membres bénévoles, ses adhérents et le soutien de partenaires culturels.</p>
+    </div>
+    <div class="linkswrap" style="grid-column:1/-1;">
+      <span class="kicker-sm">Pour aller plus loin</span>
+      <div id="links-apropos"></div>
+    </div>
+  </div>
+</section>
+
+<section id="evenements">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Agenda</span>
+      <h2>Prochains événements</h2>
+    </div>
+    <div class="events">
+      <div class="event-row">
+        <div class="event-date">14 nov. 2026</div>
+        <div class="event-body"><h3>Soirée nouba — mode Raml Maya</h3><p>Concert de l'orchestre de l'association, salle municipale.</p></div>
+      </div>
+      <div class="event-row">
+        <div class="event-date">05 déc. 2026</div>
+        <div class="event-body"><h3>Stage d'initiation au oud</h3><p>Atelier ouvert aux débutants, sur inscription.</p></div>
+      </div>
+      <div class="event-row">
+        <div class="event-date">20 jan. 2027</div>
+        <div class="event-body"><h3>Rencontre avec un maître de la Çenâa</h3><p>Conférence et démonstration, entrée libre.</p></div>
+      </div>
+    </div>
+    <div class="linkswrap">
+      <span class="kicker-sm">Pour aller plus loin</span>
+      <div id="links-evenements"></div>
+    </div>
+  </div>
+</section>
+
+<section id="galerie">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">En images</span>
+      <h2>Galerie</h2>
+    </div>
+    <div class="gallery">
+      <div class="tile" data-label="Concert 2025"></div>
+      <div class="tile" data-label="Atelier oud"></div>
+      <div class="tile" data-label="Orchestre"></div>
+      <div class="tile" data-label="Répétition"></div>
+    </div>
+    <div class="linkswrap">
+      <span class="kicker-sm">Pour aller plus loin</span>
+      <div id="links-galerie"></div>
+    </div>
+  </div>
+</section>
+
+<section id="adhesion">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Devenir adhérent</span>
+      <h2>Adhésion</h2>
+    </div>
+    <p>Cotisation annuelle donnant accès aux cours, aux répétitions d'orchestre et aux événements réservés aux membres. L'adhésion peut se faire en famille. Elle est annuelle (de septembre à juin ou juillet) et se renouvelle chaque année : chaque adhérent reçoit un ID unique, qu'il conserve d'une année à l'autre.</p>
+    <ul style="max-width:66ch; padding-left:20px; margin:0 0 1em;">
+      <li><b>180 €</b> par personne pour les deux premières personnes d'une même famille et d'un même foyer, <b>gratuit</b> à partir de la troisième</li>
+      <li><b>90 €</b> pour un étudiant ou un demandeur d'emploi</li>
+      <li><b>180 €</b> pour les autres adhérents</li>
+    </ul>
+    <p>Le formulaire ci-dessous crée votre profil adhérent ; une fois votre adhésion validée par l'équipe, vous recevez vos identifiants pour accéder à l'espace adhérents.</p>
+    <form class="contact" onsubmit="event.preventDefault(); addPending(this);" style="margin-top:24px;">
+      <div class="field"><label for="i-prenom">Prénom</label><input id="i-prenom" required></div>
+      <div class="field"><label for="i-nom">Nom</label><input id="i-nom" required></div>
+      <div class="field"><label for="i-mail">Email</label><input id="i-mail" type="email" required></div>
+      <div class="field"><label for="i-tel">Téléphone</label><input id="i-tel" type="tel" required></div>
+      <div class="field"><label for="i-adresse">Adresse</label><input id="i-adresse"></div>
+      <div class="field"><label for="i-statut">Statut</label>
+        <select id="i-statut"><option>Autre</option><option>Étudiant</option><option>Demandeur d'emploi</option></select>
+      </div>
+      <div class="field" style="flex-direction:row; align-items:center; gap:20px; flex-wrap:wrap;">
+        <span style="font-size:.9rem; opacity:.8;">Parcours :</span>
+        <label style="display:flex; gap:6px; align-items:center; margin:0;"><input type="radio" name="i-parc" id="i-adulte" checked onchange="toggleEnfant()"> Adulte</label>
+        <label style="display:flex; gap:6px; align-items:center; margin:0;"><input type="radio" name="i-parc" id="i-enfant" onchange="toggleEnfant()"> Enfant</label>
+      </div>
+      <div id="parentBox" style="display:none; border:1px solid var(--line); padding:14px; background:var(--card-bg);">
+        <p style="font-size:.85rem; opacity:.8; margin:0 0 10px;">Contact(s) à appeler en cas d'urgence. Si un parent est déjà adhérent, reliez simplement son profil plutôt que de ressaisir ses coordonnées.</p>
+        <p style="font-weight:600; font-size:.9rem; margin:0 0 6px;">Contact d'urgence 1 (obligatoire)</p>
+        <label style="display:flex; gap:8px; align-items:center; margin-bottom:8px;"><input id="c1-linked" type="checkbox" style="width:auto;" onchange="toggleC1()"> Ce contact est un parent déjà adhérent</label>
+        <div id="c1idbox" style="display:none;"><input id="c1-id" placeholder="ID adhérent du parent" style="width:100%;margin-bottom:8px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit"></div>
+        <div id="c1fields">
+          <input id="c1-nom" placeholder="Nom du contact" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+          <input id="c1-tel" type="tel" placeholder="Téléphone" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+        </div>
+        <input id="c1-lien" placeholder="Lien avec l'enfant (ex. Mère, Père, Tuteur légal)" style="width:100%;margin-bottom:10px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+        <label style="display:flex; gap:8px; align-items:center; margin:10px 0 8px; border-top:1px solid var(--line); padding-top:10px;"><input id="c2-enable" type="checkbox" style="width:auto;" onchange="toggleC2enable()"> Ajouter un second contact d'urgence</label>
+        <div id="c2box" style="display:none;">
+          <label style="display:flex; gap:8px; align-items:center; margin-bottom:8px;"><input id="c2-linked" type="checkbox" style="width:auto;" onchange="toggleC2()"> Ce contact est un parent déjà adhérent</label>
+          <div id="c2idbox" style="display:none;"><input id="c2-id" placeholder="ID adhérent du parent" style="width:100%;margin-bottom:8px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit"></div>
+          <div id="c2fields">
+            <input id="c2-nom" placeholder="Nom du contact" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+            <input id="c2-tel" type="tel" placeholder="Téléphone" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+          </div>
+          <input id="c2-lien" placeholder="Lien avec l'enfant (ex. Mère, Père, Tuteur légal)" style="width:100%;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+        </div>
+      </div>
+      <div class="field"><label for="i-niveau">Niveau souhaité</label><select id="i-niveau"></select></div>
+      <div class="field"><label for="i-niveau2">2e classe souhaitée (facultatif — un adhérent peut suivre deux classes)</label><select id="i-niveau2"></select></div>
+      <div class="field"><label for="i-atelier">Atelier transversal souhaité (facultatif)</label><select id="i-atelier"></select></div>
+      <p style="font-size:.85rem; opacity:.75; margin:0;">Le niveau et l'atelier souhaités sont validés (ou ajustés) par l'administrateur.</p>
+      <div class="field" style="flex-direction:row; align-items:center; gap:8px;">
+        <input id="i-famcheck" type="checkbox" style="width:auto;" onchange="toggleFamille()">
+        <label for="i-famcheck" style="margin:0;">Inscription en famille (un proche est déjà adhérent)</label>
+      </div>
+      <div id="famBox" style="display:none;">
+        <div class="field"><label for="i-famille">ID des autres membres de votre famille</label><input id="i-famille" placeholder="ex. 2, 8"></div>
+      </div>
+      <p style="font-size:.85rem; opacity:.75; margin:0;">Déjà adhérent et souhaitez renouveler ? Connectez-vous à votre espace adhérent : votre ID est déjà lié à votre profil, inutile de le ressaisir.</p>
+      <div><button class="btn btn-primary" type="submit">Créer mon profil adhérent</button></div>
+      <p class="confirm" hidden style="color:var(--brass);">Votre demande a été enregistrée. Vous serez contacté·e pour la validation de votre adhésion.</p>
+    </form>
+  </div>
+</section>
+
+<section id="adherents">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Organisation pédagogique</span>
+      <h2>Espace adhérents</h2>
+    </div>
+    <div class="tracks">
+      <div class="track">
+        <h3>Parcours adultes</h3>
+        <ul class="levels">
+          <li><span><span class="num">1</span>Niveau 1</span></li>
+          <li><span><span class="num">2</span>Niveau 2</span></li>
+          <li><span><span class="num">3</span>Niveau 3</span></li>
+          <li><span><span class="num">4a</span>Niveau 4 — Semi-supérieur, classe A</span></li>
+          <li><span><span class="num">4b</span>Niveau 4 — Semi-supérieur, classe B</span></li>
+          <li><span><span class="num">5</span>Classe supérieure — Orchestre officiel</span></li>
+          <li class="extra"><span><span class="num">+</span>Atelier percussion — transversal, ouvert à tous les adultes en plus de leur classe</span></li>
+        </ul>
+      </div>
+      <div class="track">
+        <h3>Parcours enfants</h3>
+        <ul class="levels">
+          <li><span><span class="num">1</span>Niveau 1</span></li>
+          <li><span><span class="num">2</span>Niveau 2</span></li>
+          <li><span><span class="num">3</span>Niveau 3</span></li>
+          <li><span><span class="num">4</span>Niveau 4</span></li>
+          <li><span><span class="num">5</span>Niveau 5</span></li>
+          <li class="extra"><span><span class="num">+</span>Atelier d'apprentissage de l'arabe — transversal, ouvert à tous les enfants en plus de leur classe</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="expiryBanner" class="expiry" hidden></div>
+
+    <div class="section-head" data-perm="partage">
+      <span class="kicker">7 espaces communs</span>
+      <h2>Ressources partagées par classe</h2>
+    </div>
+    <p data-perm="partage">Chaque professeur peut y déposer des liens, fichiers et instructions destinés aux adhérents de sa classe. L'accès est réservé aux profils validés.</p>
+
+    <div class="login-gate" id="loginGate">
+      <h3>Connexion adhérent</h3>
+      <form onsubmit="event.preventDefault(); login();">
+        <div class="field"><label for="l-mail">Email</label><input id="l-mail" type="email" required></div>
+        <div class="field"><label for="l-pass">Mot de passe</label><input id="l-pass" type="password" required></div>
+        <div class="field"><label for="l-role">Rôle (démo)</label>
+          <select id="l-role" onchange="toggleAdminSel()">
+            <option value="adherent">Adhérent</option>
+            <option value="instituteur">Instituteur</option>
+            <option value="communication">Adhérent chargé de la communication</option>
+            <option value="administrateur">Administrateur</option>
+            <option value="admin_comm">Administrateur chargé de la communication</option>
+            <option value="super">Super administrateur</option>
+          </select>
+        </div>
+        <div class="field" id="adminSelBox" style="display:none;"><label for="l-admin">Vous êtes (démo — pour l'annulation à deux validations)</label>
+          <select id="l-admin"><option value="7">Farid Ouali</option><option value="10">Sonia Zerrouki</option><option value="11">Hakim Boudjelal</option></select>
+        </div>
+        <button class="btn btn-primary" type="submit">Se connecter</button>
+        <p id="loginMsg" style="color:#b04a3a; font-size:.88rem; margin:8px 0 0;"></p>
+      </form>
+      <p class="gate-note">Pas encore de profil ? <a href="#adhesion">Faites une demande d'adhésion</a>.</p>
+      <p class="gate-note" style="font-size:.8rem; opacity:.7;">Démo : pour tester un compte désactivé, connectez-vous d'abord en Super administrateur, désactivez l'ID 1 (Samir Benali) depuis Administration, puis reconnectez-vous en Adhérent — la connexion reste possible, mais tout est masqué avec le message « Compte désactivé ».</p>
+    </div>
+
+    <div class="spaces locked" id="resources" data-perm="partage">
+      <div class="space-card"><h4>Niveau 1</h4><div class="empty">Aucun document pour le moment</div><button class="add" type="button">+ Partager un lien / fichier</button></div>
+      <div class="space-card"><h4>Niveau 2</h4><div class="empty">Aucun document pour le moment</div><button class="add" type="button">+ Partager un lien / fichier</button></div>
+      <div class="space-card"><h4>Niveau 3</h4><div class="empty">Aucun document pour le moment</div><button class="add" type="button">+ Partager un lien / fichier</button></div>
+      <div class="space-card"><h4>Niveau 4 — Semi-sup. A</h4><div class="empty">Aucun document pour le moment</div><button class="add" type="button">+ Partager un lien / fichier</button></div>
+      <div class="space-card"><h4>Niveau 4 — Semi-sup. B</h4><div class="empty">Aucun document pour le moment</div><button class="add" type="button">+ Partager un lien / fichier</button></div>
+      <div class="space-card"><h4>Classe supérieure</h4><div class="empty">Aucun document pour le moment</div><button class="add" type="button">+ Partager un lien / fichier</button></div>
+      <div class="space-card"><h4>Atelier percussion</h4><div class="empty">Aucun document pour le moment</div><button class="add" type="button">+ Partager un lien / fichier</button></div>
+    </div>
+
+    <div class="role-panel" data-roles="adherent" data-perm="profil">
+      <span class="role-badge">Mon profil</span>
+      <h3>Mon profil — ID <span id="pfId"></span></h3>
+      <p style="font-size:.9rem; opacity:.85; margin-bottom:14px;"><span id="pfName"></span><br>Adhésion : <b id="pfState"></b></p>
+      <form class="contact" onsubmit="event.preventDefault(); saveProfile();">
+        <div class="field"><label>Photo</label>
+          <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+            <img id="pfPhoto" class="avatar" alt="Ma photo" style="display:none;">
+            <div id="pfNoPhoto" class="avatar" style="display:flex; align-items:center; justify-content:center; font-size:.78rem; opacity:.6;">Pas de photo</div>
+            <label class="btn-line" style="cursor:pointer;">Télécharger une photo<input type="file" accept="image/*" hidden onchange="photoChosen(this)"></label>
+          </div>
+        </div>
+        <div class="field"><label for="pf-inst">Instrument que je souhaite pratiquer</label><select id="pf-inst"></select></div>
+        <div class="field"><label for="pf-niv">Mon niveau (de 1, le plus faible, à 10, expert)</label><select id="pf-niv"></select></div>
+        <div class="field"><label for="pf-autre">Autre instrument que je maîtrise</label><select id="pf-autre"></select></div>
+        <label style="display:flex; gap:10px; align-items:flex-start; font-size:.9rem;"><input type="checkbox" id="pf-img" style="margin-top:4px;"><span>J'autorise l'association El-Mawsili à utiliser mon image (photos et vidéos de répétitions, concerts et événements). Pour un enfant, cette autorisation est donnée par son représentant légal.</span></label>
+        <div><button class="btn btn-primary" type="submit">Enregistrer mon profil</button></div>
+        <p id="pfMsg" style="color:var(--brass); font-size:.88rem; margin:0;"></p>
+      </form>
+      <h3 class="sub">Renouveler mon adhésion</h3>
+      <p style="font-size:.9rem; opacity:.8;">Indiquez le niveau (et, si besoin, l'atelier transversal) que vous souhaitez pour la saison prochaine. Un administrateur validera votre demande.</p>
+      <div class="field"><label for="rn-niveau">Niveau souhaité</label><select id="rn-niveau"></select></div>
+      <div class="field"><label for="rn-niveau2">2e classe souhaitée (facultatif)</label><select id="rn-niveau2"></select></div>
+      <div class="field"><label for="rn-atelier">Atelier transversal souhaité</label><select id="rn-atelier"></select></div>
+      <button class="btn btn-primary" id="renewBtn" type="button" onclick="requestOwnRenewal()">Demander le renouvellement</button>
+      <p id="renewMsg" style="color:var(--brass); font-size:.88rem; margin:8px 0 0;"></p>
+    </div>
+
+    <div class="role-panel" data-roles="adherent" data-perm="membres">
+      <span class="role-badge">Vue adhérent</span>
+      <h3>Adhérents de ma classe</h3>
+      <p style="font-size:.9rem; opacity:.8;">Vous voyez uniquement les adhérents de votre classe et, si vous en faites partie, ceux de la classe transversale : nom et prénom seulement. (Exemple : adhérent du Niveau 2 inscrit à l'atelier percussion.)</p>
+      <div id="adhView"></div>
+    </div>
+
+    <div class="role-panel" data-roles="adherent" data-perm="partage">
+      <span class="role-badge">Vue adhérent</span>
+      <h3>Espace de ma classe</h3>
+      <p style="font-size:.9rem; opacity:.8;">Partagez un lien, un fichier (adresse) ou une information avec les adhérents de votre classe. Vous pouvez supprimer vos propres publications ; un adhérent leader de votre classe peut demander la suppression d'une publication qui ne lui semble pas à sa place, mais seuls l'instituteur ou un administrateur valident réellement la suppression.</p>
+      <form onsubmit="event.preventDefault(); addPost('my');" style="margin-bottom:16px;">
+        <div class="field"><label for="my-classe">Publier dans</label><select id="my-classe"></select></div>
+        <div class="field"><label for="my-title">Titre</label><input id="my-title"></div>
+        <div class="field"><label for="my-type">Type</label><select id="my-type"><option value="lien">Lien</option><option value="fichier">Fichier (adresse)</option><option value="texte">Information / question</option></select></div>
+        <div class="field"><label for="my-content">Contenu (texte ou URL)</label><input id="my-content"></div>
+        <button class="btn btn-primary" type="submit">Publier</button>
+        <p id="my-msg" style="color:var(--brass); font-size:.88rem; margin:6px 0 0;"></p>
+      </form>
+      <div id="myClassPosts"></div>
+    </div>
+
+    <div class="role-panel" data-roles="adherent" data-perm="profil">
+      <span class="role-badge">Vue adhérent</span>
+      <h3>Mes messages</h3>
+      <p style="font-size:.9rem; opacity:.8;">Vos messages reçus de vos instituteurs. S'ils concernent un enfant dont vous êtes le parent lié, ils apparaissent regroupés dans un fil dédié à cet enfant.</p>
+      <div id="myMsgBox"></div>
+    </div>
+
+    <div class="role-panel" data-roles="instituteur">
+      <span class="role-badge">Vue instituteur</span>
+      <h3>Ma classe — Adultes · Niveau 2</h3>
+      <p style="font-size:.9rem; opacity:.8;">Coordonnées de base uniquement : nom, prénom et téléphone. La colonne « Leader » permet de désigner un ou plusieurs adhérents leaders de cette classe.</p>
+      <div style="overflow-x:auto;"><table class="admin-table" id="instTable"></table></div>
+      <h3 class="sub">Message groupé à ma classe</h3>
+      <p style="font-size:.9rem; opacity:.8;">Remplace les envois sur WhatsApp : le message est reçu par tous les adhérents de la classe et conservé dans l'historique.</p>
+      <form class="contact" style="margin-top:12px;" onsubmit="event.preventDefault(); sendGroup();">
+        <div class="field"><label for="g-sujet">Sujet</label><input id="g-sujet" placeholder="ex. Cours déplacé cette semaine"></div>
+        <div class="field"><label for="g-msg">Message</label><textarea id="g-msg"></textarea></div>
+        <div><button class="btn btn-primary" type="submit">Envoyer à la classe</button></div>
+        <p class="confirm" id="groupMsg" hidden style="color:var(--brass);"></p>
+      </form>
+      <h3 class="sub">Message privé à un adhérent</h3>
+      <p style="font-size:.9rem; opacity:.8;">Pour un enfant, le message est automatiquement dupliqué sur l'espace du ou des parents adhérents liés à son profil ; la lecture par l'un marque le message comme lu pour tous.</p>
+      <form class="contact" style="margin-top:12px;" onsubmit="event.preventDefault(); sendInstMessage();">
+        <div class="field"><label for="msg-to">Destinataire</label><select id="msg-to"></select></div>
+        <div class="field"><label for="msg-text">Message</label><textarea id="msg-text"></textarea></div>
+        <div><button class="btn btn-primary" type="submit">Envoyer</button></div>
+        <p id="msg-send-msg" style="color:var(--brass); font-size:.88rem; margin:0;"></p>
+      </form>
+      <h4 style="font-size:.95rem; margin:18px 0 6px;">Suivi de mes messages</h4>
+      <div id="instMsgBox"></div>
+
+      <h3 class="sub">Espace de ma classe</h3>
+      <p style="font-size:.9rem; opacity:.8;">Vous pouvez publier et supprimer tout contenu de votre classe.</p>
+      <div id="instTasksBox"></div>
+      <form onsubmit="event.preventDefault(); addPost('inst', TEACHER_CLASS);" style="margin-bottom:16px;">
+        <div class="field"><label for="inst-title">Titre</label><input id="inst-title"></div>
+        <div class="field"><label for="inst-type">Type</label><select id="inst-type"><option value="lien">Lien</option><option value="fichier">Fichier (adresse)</option><option value="instruction">Consigne</option><option value="texte">Information</option></select></div>
+        <div class="field"><label for="inst-content">Contenu (texte ou URL)</label><input id="inst-content"></div>
+        <button class="btn btn-primary" type="submit">Publier</button>
+        <p id="inst-msg" style="color:var(--brass); font-size:.88rem; margin:6px 0 0;"></p>
+      </form>
+      <div id="instClassPosts"></div>
+    </div>
+
+    <div class="role-panel" data-roles="administrateur">
+      <span class="role-badge">Vue administrateur</span>
+      <h3>Espaces de classe (toutes classes)</h3>
+      <p style="font-size:.9rem; opacity:.8;">Un administrateur peut publier et supprimer du contenu dans l'espace de n'importe quelle classe.</p>
+      <div id="adminClassTasksBox"></div>
+      <div class="field"><label for="admPostClasse">Classe</label><select id="admPostClasse" onchange="renderPostsAll()"></select></div>
+      <form onsubmit="event.preventDefault(); addPost('adm');" style="margin-bottom:16px;">
+        <div class="field"><label for="adm-title">Titre</label><input id="adm-title"></div>
+        <div class="field"><label for="adm-type">Type</label><select id="adm-type"><option value="lien">Lien</option><option value="fichier">Fichier (adresse)</option><option value="instruction">Consigne</option><option value="texte">Information</option></select></div>
+        <div class="field"><label for="adm-content">Contenu (texte ou URL)</label><input id="adm-content"></div>
+        <button class="btn btn-primary" type="submit">Publier</button>
+        <p id="adm-msg" style="color:var(--brass); font-size:.88rem; margin:6px 0 0;"></p>
+      </form>
+      <div id="admClassPosts"></div>
+    </div>
+
+    <div class="role-panel" data-roles="super">
+      <span class="role-badge">Vue super administrateur</span>
+      <h3>Archivage annuel des espaces de classe</h3>
+      <p style="font-size:.9rem; opacity:.8;">Déplace le contenu actuel de chaque classe vers une archive nommée « Adulte/Enfant_niveau_2026-2027 », puis vide les espaces pour la nouvelle année.</p>
+      <button class="btn-line" type="button" onclick="archiveSeason()">Archiver la saison 2026-2027 et repartir à zéro</button>
+      <p id="archiveMsg" style="color:var(--brass); font-size:.88rem; margin:8px 0 0;"></p>
+    </div>
+
+    <div class="role-panel" data-roles="adherent,instituteur,administrateur">
+      <span class="role-badge">Archives</span>
+      <h3>Archives des classes</h3>
+      <p style="font-size:.9rem; opacity:.8;">Consultables par tous les adhérents, en lecture seule.</p>
+      <div id="archivesBox"></div>
+    </div>
+
+    <div class="role-panel" data-roles="adherent,instituteur,administrateur">
+      <div class="toolbar" style="margin:0;">
+        <button class="btn-line" type="button" onclick="logout()">Changer de rôle (démo)</button>
+        <label style="font-size:.85rem;">Date du jour (démo) <input type="date" id="demoDate" onchange="refreshAll()"></label>
+      </div>
+    </div>
+
+    <p class="member-note">Ce formulaire de connexion (avec choix du rôle) et ces données sont un aperçu visuel pour montrer les différentes vues. Une vraie authentification, l'envoi réel de messages et surtout la limitation des informations affichées selon le rôle (adresse, situation familiale, tarifs) doivent être appliqués côté serveur — à construire à l'étape suivante.</p>
+  </div>
+</section>
+
+<section id="communication" data-roles="communication">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Rôle communication</span>
+      <h2>Communication</h2>
+    </div>
+    <h3 class="sub" style="margin-top:0;">Espace de travail</h3>
+    <form class="contact" style="max-width:640px;" onsubmit="event.preventDefault(); sendComm();">
+      <div class="field"><label for="c-dest">Destinataires</label><select id="c-dest"></select></div>
+      <div class="field"><label for="c-canal">Canal</label><select id="c-canal"><option>E-mail</option><option>Message sur le site</option></select></div>
+      <div class="field"><label for="c-sujet">Sujet</label><input id="c-sujet"></div>
+      <div class="field"><label for="c-msg">Message</label><textarea id="c-msg"></textarea></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;"><button class="btn btn-primary" type="submit">Envoyer</button><button class="btn-line" type="button" onclick="saveDraft()">Enregistrer en brouillon</button></div>
+      <p id="commMsg" style="color:var(--brass); font-size:.88rem; margin:0;"></p>
+    </form>
+    <div id="draftsBox"></div>
+    <h3 class="sub">Historique des communications</h3>
+    <div class="toolbar"><input id="c-search" placeholder="Rechercher (sujet, destinataires, auteur…)" oninput="renderComms()"></div>
+    <div style="overflow-x:auto;"><table class="admin-table" id="commTable"></table></div>
+  </div>
+</section>
+
+<section id="compta" data-roles="administrateur">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Réservé aux administrateurs</span>
+      <h2>Comptabilité</h2>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <h3 class="sub">Saisir une recette ou une dépense</h3>
+    <div id="chqAlert"></div>
+    <div class="toolbar">
+      <select id="l-type" onchange="fillCats();payFields()"><option value="R">Recette</option><option value="D">Dépense</option></select>
+      <select id="l-cat"></select>
+      <input id="l-label" placeholder="Libellé (ex. Concert du 14 novembre)">
+      <input id="l-tiers" placeholder="Payeur / fournisseur" style="flex:0 1 200px; min-width:150px;">
+      <input id="l-amt" type="number" step="0.01" min="0" placeholder="Montant (€)" style="flex:0 0 140px; min-width:120px;">
+      <input id="l-date" type="date" style="flex:0 0 160px; min-width:140px;">
+    </div>
+    <div class="toolbar" id="payBox">
+      <label style="font-size:.85rem;">Moyen de paiement <select id="l-pay" onchange="espFields()"><option>Espèce</option><option>Chèque</option></select></label>
+      <span id="espBox"><input id="l-ref" placeholder="Référence (facultatif)" style="min-width:160px;"></span>
+      <span id="chqBox" style="display:none;">
+        <label style="font-size:.85rem;">Date de réception <input type="date" id="l-chqrecu"></label>
+        <label style="font-size:.85rem;">Date prévisionnelle d'encaissement <input type="date" id="l-chqdue"></label>
+      </span>
+    </div>
+    <div class="toolbar">
+      <label class="btn-line" style="cursor:pointer;">Télécharger le justificatif<input id="l-doc" type="file" hidden onchange="docChosen()"></label>
+      <span id="l-docname" style="font-size:.88rem; opacity:.8;"></span>
+      <span style="font-size:.82rem; opacity:.65;">Justificatif obligatoire pour chaque recette et chaque dépense</span>
+      <button class="btn btn-primary" type="button" onclick="addLedger()">Ajouter</button>
+    </div>
+    <p id="ledgerMsg" style="color:var(--brass); font-size:.88rem; margin:0;"></p>
+    <h3 class="sub">Recettes et dépenses</h3>
+    <div class="toolbar">
+      <input id="l-search" placeholder="Rechercher par nom, montant, ID ou référence…" oninput="renderLedger()">
+      <select id="l-filter" onchange="renderLedger()"><option value="">Tout</option><option value="R">Recettes</option><option value="D">Dépenses</option></select>
+      <label style="font-size:.85rem;">Du <input type="date" id="l-from" onchange="renderLedger()"></label>
+      <label style="font-size:.85rem;">au <input type="date" id="l-to" onchange="renderLedger()"></label>
+      <label style="font-size:.85rem;"><input type="checkbox" id="l-exclude" onchange="renderLedger()"> Exclure les chèques non encaissés</label>
+    </div>
+    <div class="toolbar">
+      <button class="btn-line" type="button" onclick="exportLedger()">Extraire les opérations (CSV)</button>
+      <button class="btn-line" type="button" onclick="exportCheques()">Extraire les chèques en attente / incidents (CSV)</button>
+    </div>
+    <p id="exportMsg" style="color:var(--brass); font-size:.88rem; margin:0;"></p>
+    <textarea id="exportBox" readonly hidden style="width:100%; min-height:120px; margin-top:8px;"></textarea>
+    <div style="overflow-x:auto;"><table class="admin-table" id="ledgerTable"></table></div>
+    <div id="receiptBox" hidden style="margin-top:22px;">
+      <h3 class="sub">Reçu généré</h3>
+      <p id="receiptMeta" style="font-size:.86rem; opacity:.75; margin:0 0 8px;"></p>
+      <div class="paper" id="receiptPaper"></div>
+      <div style="display:flex; gap:10px; margin-top:10px;"><button class="btn btn-primary" type="button" onclick="window.print()">Imprimer</button><button class="btn-line" type="button" onclick="closeReceipt()">Fermer</button></div>
+    </div>
+    <p style="font-size:.82rem; opacity:.7; margin-top:10px;">Montants d'exemple. Dans cette maquette, les justificatifs ne sont conservés que le temps de la session.</p>
+  </div>
+</section>
+
+<section id="templates" data-roles="administrateur">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Réservé aux administrateurs</span>
+      <h2>Templates de reçus</h2>
+    </div>
+    <p>Chaque modification crée une nouvelle version : seule la dernière est active, les précédentes sont conservées. Les reçus sont générés automatiquement à partir de la version active. Variables disponibles : {{numero}} (ID de la recette), {{date}}, {{tiers}}, {{montant}}, {{libelle}}, {{categorie}}, {{association}}.</p>
+    <div id="tplBox"></div>
+    <h3 class="sub">Nouveau template</h3>
+    <form class="contact" style="max-width:640px;" onsubmit="event.preventDefault(); createTpl();">
+      <div class="field"><label for="nt-nom">Nom du template</label><input id="nt-nom"></div>
+      <div class="field"><label for="nt-txt">Contenu</label><textarea id="nt-txt" style="min-height:140px;"></textarea></div>
+      <div><button class="btn btn-primary" type="submit">Créer (version 1)</button></div>
+      <p id="ntMsg" style="color:var(--brass); font-size:.88rem; margin:0;"></p>
+    </form>
+  </div>
+</section>
+
+<section id="calendrier" data-roles="administrateur">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Réservé aux administrateurs</span>
+      <h2>Calendrier des cours</h2>
+    </div>
+    <p>Un cours par semaine, le samedi, chaque semaine où il y a école — y compris le samedi qui suit le dernier jour d'école avant les vacances ; reprise le samedi suivant la rentrée. Le calendrier est généré automatiquement (vacances scolaires, jours fériés français, fêtes musulmanes), puis validé par un administrateur.</p>
+    <div class="toolbar">
+      <label style="font-size:.85rem;">Zone <select id="cal-zone" onchange="saveConf()"><option>A</option><option>B</option><option>C</option></select></label>
+      <label style="font-size:.85rem;">Début de saison <input type="date" id="cal-start" onchange="saveConf()"></label>
+      <label style="font-size:.85rem;">Fin de saison <input type="date" id="cal-end" onchange="saveConf()"></label>
+      <label style="font-size:.85rem;">Début de la saison suivante <input type="date" id="cal-next" onchange="saveConf()"></label>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;"><span id="calStatus"></span><button class="btn btn-primary" type="button" onclick="validateCalendar()">Valider le calendrier</button></div>
+    <div class="kpis" id="calKpis"></div>
+    <h3 class="sub">Fermetures et ouvertures exceptionnelles</h3>
+    <div class="toolbar">
+      <input type="date" id="cl-date" style="flex:0 0 160px; min-width:140px;"><input id="cl-motif" placeholder="Motif (grève, vote, autre…)">
+      <label style="font-size:.85rem;"><input type="checkbox" id="cl-sc-adultes" checked onchange="toggleCalScope('c')"> Adultes</label>
+      <label style="font-size:.85rem;"><input type="checkbox" id="cl-sc-enfants" checked onchange="toggleCalScope('c')"> Enfants</label>
+      <button class="btn-line" type="button" onclick="addManual('c')">Ajouter une fermeture</button>
+    </div>
+    <div id="cl-sc-detail" style="display:none; margin:0 0 12px; padding:10px; border:1px solid var(--line); background:var(--card-bg);"></div>
+    <div class="toolbar">
+      <input type="date" id="op-date" style="flex:0 0 160px; min-width:140px;"><input id="op-motif" placeholder="Motif (samedi ou dimanche exceptionnel…)">
+      <label style="font-size:.85rem;"><input type="checkbox" id="op-sc-adultes" checked onchange="toggleCalScope('o')"> Adultes</label>
+      <label style="font-size:.85rem;"><input type="checkbox" id="op-sc-enfants" checked onchange="toggleCalScope('o')"> Enfants</label>
+      <button class="btn-line" type="button" onclick="addManual('o')">Ajouter une ouverture exceptionnelle</button>
+    </div>
+    <div id="op-sc-detail" style="display:none; margin:0 0 12px; padding:10px; border:1px solid var(--line); background:var(--card-bg);"></div>
+    <p style="font-size:.82rem; opacity:.65; margin:0 0 10px;">Adultes et Enfants cochés = tout le monde concerné. Décochez l'un des deux pour cibler précisément une ou plusieurs classes.</p>
+    <p id="calMsg" style="color:var(--brass); font-size:.88rem; margin:0;"></p>
+    <div class="two-col" id="calManual"></div>
+    <h3 class="sub">Calendrier généré</h3>
+    <div style="overflow:auto; max-height:420px;"><table class="admin-table" id="calTable"></table></div>
+    <h3 class="sub">Vacances scolaires prises en compte</h3>
+    <div style="overflow-x:auto;"><table class="admin-table" id="calHol"></table></div>
+    <p style="font-size:.82rem; opacity:.7; margin-top:10px;">Dates officielles 2026-2027 du ministère de l'Éducation nationale. Les fêtes musulmanes sont calculées automatiquement (calendrier Umm al-Qura) : leur date est à confirmer selon l'observation de la lune.</p>
+  </div>
+</section>
+
+<section id="admin" data-roles="administrateur">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Réservé aux administrateurs</span>
+      <h2>Administration</h2>
+    </div>
+    <div id="tasksBox"></div>
+    <p>Toute nouvelle inscription obtient par défaut le rôle « Adhérent ». Un administrateur choisit le niveau et le tarif, et associe chaque adhérent à sa classe. Seul le <b>super administrateur</b> peut créer ou retirer un administrateur, et attribuer les permissions (comme Communication) ; il n'est lui-même ni révocable ni rétrogradable. Un administrateur peut désactiver un adhérent, mais cette action reste en attente jusqu'à la validation du super administrateur, affichée ci-dessus.</p>
+    <h3 class="sub">Nouveaux profils à valider</h3>
+    <div id="pendingBox"></div>
+    <p id="pendingMsg" style="color:var(--brass); font-size:.88rem; margin:6px 0 0;"></p>
+    <h3 class="sub">Adhérents</h3>
+    <div class="toolbar"><input id="m-search" placeholder="Rechercher par nom, prénom, classe, téléphone…" oninput="renderMembers()"></div>
+    <div style="overflow-x:auto;"><table class="admin-table" id="memberTable"></table></div>
+    <div id="memberDetail"></div>
+    <h3 class="sub">Journal des modifications</h3>
+    <div class="toolbar"><input id="j-search" placeholder="Rechercher dans le journal…" oninput="renderJournal()"></div>
+    <div style="overflow-x:auto;"><table class="admin-table" id="journalTable"></table></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap two-col">
+    <div>
+      <div class="section-head">
+        <span class="kicker">Nous écrire</span>
+        <h2>Contact</h2>
+      </div>
+      <form class="contact" onsubmit="event.preventDefault(); this.querySelector('.confirm').hidden=false;">
+        <div class="field"><label for="nom">Nom</label><input id="nom" required></div>
+        <div class="field"><label for="mail">Email</label><input id="mail" type="email" required></div>
+        <div class="field"><label for="msg">Message</label><textarea id="msg" required></textarea></div>
+        <div><button class="btn btn-primary" type="submit">Envoyer</button></div>
+        <p class="confirm" hidden style="color:var(--brass);">Merci, votre message a été noté.</p>
+      </form>
+    </div>
+    <div class="contact-info">
+      <p><strong>Adresse</strong><br>France</p>
+      <p><strong>Email</strong><br>contact@el-mawsili.fr</p>
+      <p><strong>Suivez-nous</strong><br>Facebook · Instagram</p>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 El-Mawsili — Association de musique arabo-andalouse</footer>
+
+<script>
+
+
+
+
+
+
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const eur=n=>n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
+const frd=d=>d.split('-').reverse().join('/');
+const ADULT=['Niveau 1','Niveau 2','Niveau 3','Niveau 4 — Semi-sup. A','Niveau 4 — Semi-sup. B','Classe supérieure','Atelier percussion'];
+const KIDS=['Niveau 1','Niveau 2','Niveau 3','Niveau 4','Niveau 5','Atelier arabe'];
+const CLASSES=ADULT.map(c=>'Adultes · '+c).concat(KIDS.map(c=>'Enfants · '+c));
+const TARIFS={'Plein tarif':180,"Étudiant / demandeur d'emploi":90,'Famille (3e personne et +)':0};
+const tarifLabel=k=>k+' — '+(TARIFS[k]===0?'gratuit':eur(TARIFS[k]));
+const ROLES=[['adherent','Adhérent'],['instituteur','Instituteur'],['administrateur','Administrateur']];
+const ROLESETS={adherent:['adherent'],instituteur:['instituteur'],communication:['adherent','communication'],administrateur:['administrateur'],admin_comm:['administrateur','communication'],super:['super']};
+const ROLELABEL={adherent:'Adhérent',instituteur:'Instituteur',communication:'Adhérent (communication)',administrateur:'Administrateur',admin_comm:'Administrateur (communication)',super:'Super administrateur'};
+const CATS={R:['Adhésion / inscription','Concert / billetterie','Don','Subvention','Autre recette'],D:['Réception','Achat','Déplacement','Location de matériel','Autre dépense']};
+const TEACHER_CLASS='Adultes · Niveau 2', TRANSV='Adultes · Atelier percussion';
+const TRANSVERSALES=['',TRANSV,'Enfants · Atelier arabe'];
+const defaultTpl=cat=>cat==='Adhésion / inscription'?1:cat==='Don'?2:3;
+let ME={role:''}, nextId=12, nextTpl=4, nextReceipt=1, nextTaskId=1, tplEditing=null, pendingDoc=null;
+let tasks=[],posts=[],archives=[],nextPostId=1,messages=[],nextMsgId=1;
+const now=()=>new Date().toLocaleString('fr-FR');
+const who=()=>ME.role?ROLELABEL[ME.role]:'Visiteur';
+const opts=(list,sel)=>list.map(v=>`<option${v===sel?' selected':''}>${esc(v)}</option>`).join('');
+const optsKV=(list,sel)=>list.map(([v,l])=>`<option value="${v}"${v===sel?' selected':''}>${l}</option>`).join('');
+
+let members=[
+ {id:0,locked:true,nom:'Super administrateur'},
+ {id:1,prenom:'Samir',nom:'Benali',tel:'06 00 00 00 01',adresse:'12 rue des Lilas, 69000 Lyon',sit:'Marié·e',statut:'Autre',foyer:'Benali',classe:'Adultes · Niveau 2',extra:TRANSV,tarif:'Plein tarif',role:'adherent',comm:false},
+ {id:2,prenom:'Lina',nom:'Haddad',tel:'06 00 00 00 02',adresse:'4 avenue Foch, 69003 Lyon',sit:'Célibataire',statut:'Étudiant',foyer:'Haddad',classe:'Adultes · Niveau 2',extra:'',tarif:"Étudiant / demandeur d'emploi",role:'adherent',comm:false},
+ {id:3,prenom:'Amel',nom:'Messaoudi',tel:'06 00 00 00 03',adresse:'8 place Bellecour, 69002 Lyon',sit:'En couple',statut:'Autre',foyer:'',classe:'Adultes · Niveau 2',extra:TRANSV,tarif:'Plein tarif',role:'adherent',comm:false},
+ {id:4,prenom:'Karim',nom:'Talbi',tel:'06 00 00 00 04',adresse:'21 rue Garibaldi, 69006 Lyon',sit:'Marié·e',statut:"Demandeur d'emploi",foyer:'',classe:'Adultes · Niveau 4 — Semi-sup. A',extra:'',tarif:"Étudiant / demandeur d'emploi",role:'adherent',comm:false},
+ {id:5,prenom:'Yasmine',nom:'Belkacem',tel:'06 00 00 00 05',adresse:'3 rue Vendôme, 69003 Lyon',sit:'Célibataire',statut:'Autre',foyer:'',classe:'Adultes · Niveau 2',extra:'',tarif:'',role:'instituteur',comm:false},
+ {id:6,prenom:'Nadir',nom:'Cherif',tel:'06 00 00 00 06',adresse:'15 cours Lafayette, 69003 Lyon',sit:'En couple',statut:'Autre',foyer:'',classe:'Adultes · Classe supérieure',extra:'',tarif:'Plein tarif',role:'adherent',comm:true},
+ {id:7,prenom:'Farid',nom:'Ouali',tel:'06 00 00 00 07',adresse:'9 rue Duguesclin, 69003 Lyon',sit:'Marié·e',statut:'Autre',foyer:'',classe:'',extra:'',tarif:'',role:'administrateur',comm:false},
+ {id:8,prenom:'Inès',nom:'Haddad',tel:'06 00 00 00 02',adresse:'4 avenue Foch, 69003 Lyon',sit:'—',statut:'Autre',foyer:'Haddad',classe:'Enfants · Niveau 1',extra:'Enfants · Atelier arabe',tarif:'Plein tarif',role:'adherent',comm:false},
+ {id:9,prenom:'Malik',nom:'Haddad',tel:'06 00 00 00 02',adresse:'4 avenue Foch, 69003 Lyon',sit:'—',statut:'Autre',foyer:'Haddad',classe:'Enfants · Niveau 2',extra:'',tarif:'Famille (3e personne et +)',role:'adherent',comm:false},
+ {id:10,prenom:'Sonia',nom:'Zerrouki',tel:'06 00 00 00 10',adresse:'2 rue de la République, 69002 Lyon',sit:'Célibataire',statut:'Autre',foyer:'',classe:'',extra:'',tarif:'',role:'administrateur',comm:false},
+ {id:11,prenom:'Hakim',nom:'Boudjelal',tel:'06 00 00 00 11',adresse:'6 rue Confort, 69002 Lyon',sit:'Marié·e',statut:'Autre',foyer:'',classe:'',extra:'',tarif:'',role:'administrateur',comm:false}
+];
+posts=[
+ {id:1,classe:TEACHER_CLASS,authorKey:'member:1',type:'lien',title:'Partition Raml Maya',content:'https://exemple.org/partitions/raml-maya.pdf',d:'26/09/2026 10:12:00'},
+ {id:2,classe:TEACHER_CLASS,authorKey:'member:3',type:'texte',title:'Question sur le rythme',content:'Quelqu\'un peut-il réexpliquer le passage du 2e mouvement ?',d:'27/09/2026 18:40:00'},
+ {id:3,classe:TEACHER_CLASS,authorKey:'member:5',type:'instruction',title:'Consigne pour samedi',content:'Apportez vos partitions imprimées, pas de version téléphone.',d:'28/09/2026 09:00:00'}
+];
+nextPostId=4;
+members.find(x=>x.id===3).leaderOf=[TEACHER_CLASS];
+
+let pending=[
+ {prenom:'Nadia',nom:'Kaci',tel:'06 00 00 00 10',adresse:'5 rue Paul Bert, 69003 Lyon',sit:'En couple',statut:'Étudiant',famille:[],parcours:'Adulte'},
+ {prenom:'Rayan',nom:'Haddad',tel:'06 00 00 00 02',adresse:'4 avenue Foch, 69003 Lyon',sit:'—',statut:'Autre',famille:[2],parcours:'Enfant'}
+];
+let ledger=[
+ {d:'2026-09-05',type:'R',cat:'Adhésion / inscription',label:'Cotisation Benali Samir',tiers:'Samir Benali',amt:180,pay:'Espèce',ref:'ESP-0001'},
+ {d:'2026-09-06',type:'R',cat:'Adhésion / inscription',label:'Cotisation Haddad Lina',tiers:'Lina Haddad',amt:90,pay:'Chèque',chqRecu:'2026-09-06',chqDue:'2026-09-20',chqCashed:'2026-09-19',chqStatut:'Encaissé'},
+ {d:'2026-09-10',type:'D',cat:'Location de matériel',label:'Location sono — répétition générale',tiers:'Loueur de sonorisation',amt:180},
+ {d:'2026-09-14',type:'D',cat:'Achat',label:'Partitions et cordes de oud',tiers:'Magasin de musique',amt:64.5},
+ {d:'2026-09-20',type:'R',cat:'Concert / billetterie',label:'Concert de rentrée — billetterie',tiers:'Public',amt:350,pay:'Espèce',ref:'ESP-0002'},
+ {d:'2026-09-21',type:'D',cat:'Réception',label:'Buffet après concert',tiers:'Traiteur',amt:95},
+ {d:'2026-09-22',type:'D',cat:'Déplacement',label:'Déplacement des musiciens',tiers:'',amt:60},
+ {d:'2026-09-23',type:'R',cat:'Adhésion / inscription',label:'Cotisation Talbi Karim',tiers:'Karim Talbi',amt:90,pay:'Chèque',chqRecu:'2026-09-23',chqDue:'2026-09-20',chqCashed:'',chqStatut:'En attente'}
+];
+let comms=[
+ {d:'24/09/2026 19:10:04',dest:'Tous les adhérents',canal:'E-mail',sujet:'Reprise des cours',msg:'Les cours reprennent la semaine prochaine, selon le planning habituel.',auteur:'Adhérent (communication)'},
+ {d:'26/09/2026 08:31:47',dest:'Adultes · Niveau 2',canal:'Message sur le site',sujet:'Répétition supplémentaire',msg:'Une répétition supplémentaire est prévue samedi.',auteur:'Instituteur'}
+];
+let drafts=[];
+let templates=[
+ {id:1,nom:"Reçu d'adhésion",versions:[
+  {v:1,date:'01/09/2026',auteur:'Administrateur',contenu:"REÇU N° {{numero}}\n\n{{association}}\n\nNous avons reçu de {{tiers}} la somme de {{montant}} au titre de : {{libelle}}.\n\nFait le {{date}}."},
+  {v:2,date:'15/09/2026',auteur:'Administrateur',contenu:"REÇU DE COTISATION N° {{numero}}\n\n{{association}} — association de musique arabo-andalouse\n\nNous avons reçu de {{tiers}} la somme de {{montant}} au titre de : {{libelle}}.\n\nFait le {{date}}.\nMerci pour votre adhésion."}]},
+ {id:2,nom:'Reçu de don',versions:[
+  {v:1,date:'01/09/2026',auteur:'Administrateur',contenu:"REÇU DE DON N° {{numero}}\n\n{{association}}\n\nNous remercions {{tiers}} pour son don de {{montant}}.\n\nFait le {{date}}."}]},
+ {id:3,nom:'Reçu de recette (générique)',versions:[
+  {v:1,date:'01/09/2026',auteur:'Administrateur',contenu:"REÇU N° {{numero}}\n\n{{association}}\n\nRecette de {{montant}} reçue de {{tiers}} — {{categorie}} : {{libelle}}.\n\nFait le {{date}}."}]}
+];
+let journal=[
+ {t:'25/09/2026 18:42:10',w:'Administrateur',a:'Rôle modifié',d:'Yasmine Belkacem — rôle : Adhérent → Instituteur'},
+ {t:'26/09/2026 09:05:33',w:'Administrateur',a:'Profil validé',d:'Lina Haddad — Adultes · Niveau 2 — Étudiant / demandeur d\'emploi — 90,00 €'},
+ {t:'27/09/2026 11:20:18',w:'Administrateur',a:'Écriture ajoutée',d:'Recette · Concert / billetterie · Concert de rentrée — billetterie · 350,00 €'}
+];
+
+function addLog(a,d,w){journal.unshift({t:now(),w:w||who(),a,d});renderJournal();}
+function login(){
+  const role=$('l-role').value;
+  ME.role=role;
+  const isAdmin=ME.role==='administrateur'||ME.role==='admin_comm';
+  ME.adminId=ME.role==='super'?0:isAdmin?parseInt($('l-admin').value,10):null;
+  $('loginMsg').textContent='';
+  $('loginGate').style.display='none';$('resources').classList.add('unlocked');applyRole();refreshAll();
+}
+function toggleAdminSel(){const r=$('l-role').value;$('adminSelBox').style.display=(r==='administrateur'||r==='admin_comm')?'block':'none';}
+function logout(){ME.role='';ME.adminId=null;$('loginGate').style.display='';$('resources').classList.remove('unlocked');applyRole();refreshAll();}
+
+const tbl=(head,rows)=>`<div style="overflow-x:auto"><table class="admin-table"><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+function renderViews(){
+  const mineInst=members.filter(m=>!m.locked&&m.role!=='instituteur'&&inClass(m,TEACHER_CLASS));
+  const kids=TEACHER_CLASS.startsWith('Enfants');
+  $('instTable').innerHTML=`<tr><th>Nom</th><th>Prénom</th><th>Téléphone</th>${kids?'<th>Contact(s) urgence</th>':''}<th>Leader</th></tr>${mineInst.map(m=>`<tr><td>${esc(m.nom)}</td><td>${esc(m.prenom)}</td><td>${esc(m.tel)}</td>${kids?`<td>${(m.contacts||[]).map(contactLabel).join('<br>')||'—'}</td>`:''}<td style="text-align:center"><input type="checkbox" ${(m.leaderOf||[]).includes(TEACHER_CLASS)?'checked':''} onchange="setLeader(${m.id},'${TEACHER_CLASS}',this.checked)"></td></tr>`).join('')}`;
+  const msgSel=$('msg-to');
+  if(msgSel){const cur=msgSel.value;msgSel.innerHTML='<option value="">Choisir un adhérent de ma classe…</option>'+mineInst.map(m=>`<option value="${m.id}"${String(m.id)===cur?' selected':''}>${esc(m.prenom)} ${esc(m.nom)}${m.parcours==='Enfant'?' (enfant)':''}</option>`).join('');}
+
+  const me=memById(PERSONA),myClasses=me?memberClasses(me):[];
+  let html=myClasses.map(c=>{
+    const list=members.filter(x=>!x.locked&&x.role!=='instituteur'&&inClass(x,c));
+    return `<p style="font-weight:600;margin:14px 0 6px">${esc(c)}</p>${tbl(['Nom','Prénom'],list.map(x=>[x.nom,x.prenom]))}`;
+  }).join('');
+  if(me&&me.extra){
+    const trList=members.filter(x=>!x.locked&&(inClass(x,me.extra)||x.extra===me.extra));
+    html+=`<p style="font-weight:600;margin:18px 0 6px">${esc(me.extra)} (classe transversale)</p>${tbl(['Nom','Prénom'],trList.map(x=>[x.nom,x.prenom]))}`;
+  }
+  $('adhView').innerHTML=html;
+  renderPostsAll();renderClassTasks();renderInstMessages();renderMyMessages();
+}
+function setM(id,f,v){
+  const m=members.find(x=>x.id===id),old=m[f];
+  if(old===v)return;
+  if(!isSuper()){
+    if(f==='comm')return;
+    if(f==='role'&&(old==='administrateur'||v==='administrateur'))return;
+  }
+  m[f]=v;
+  const lab={role:'rôle',comm:'rôle communication',classe:'classe',extra:'atelier transversal'}[f];
+  const show=x=>f==='role'?(ROLELABEL[x]||x):f==='comm'?(x?'oui':'non'):(x||'—');
+  addLog('Modification adhérent',`${m.prenom} ${m.nom} — ${lab} : ${show(old)} → ${show(v)}`);
+  renderMembers();renderViews();
+}
+function fillCats(){$('l-cat').innerHTML=opts(CATS[$('l-type').value]);}
+const activeV=t=>t.versions[t.versions.length-1];
+function docChosen(){pendingDoc=$('l-doc').files[0]||null;$('l-docname').textContent=pendingDoc?pendingDoc.name:'';}
+function attachDoc(i,inp){
+  const f=inp.files&&inp.files[0];if(!f)return;
+  const e=ledger[i],had=!!e.doc;
+  e.doc={name:f.name,url:URL.createObjectURL(f)};
+  addLog(had?'Justificatif remplacé':'Justificatif ajouté',`${e.label} — ${f.name}`);
+  renderLedger();
+}
+const ADMIN_IDS=()=>members.filter(m=>!m.locked&&(m.role==='administrateur')).map(m=>m.id).concat([0]);
+function memberClasses(m){return [m&&m.classe,m&&m.classe2].filter(Boolean);}
+function inClass(m,classe){return memberClasses(m).includes(classe);}
+
+const INST_ID=5; // instituteur de démonstration (Yasmine Belkacem), classe TEACHER_CLASS
+function currentActorKey(){
+  if(ME.role==='instituteur')return 'member:'+INST_ID;
+  if(ME.role==='administrateur'||ME.role==='admin_comm')return 'member:'+ME.adminId;
+  if(ME.role==='super')return 'member:0';
+  return 'member:'+PERSONA;
+}
+function actorName(key){
+  const id=parseInt(String(key).split(':')[1],10);
+  return id===0?'Super administrateur':(memById(id)?memById(id).prenom+' '+memById(id).nom:'?');
+}
+function canManageClasse(classe){
+  return isSuper()||ME.role==='administrateur'||ME.role==='admin_comm'||(ME.role==='instituteur'&&classe===TEACHER_CLASS);
+}
+function archiveName(classe){
+  const [g,niv]=classe.split(' · ');
+  return (g==='Adultes'?'Adulte':'Enfant')+'_'+niv+'_'+SEASON_NOW;
+}
+
+const ADMIN_NAME=id=>id===0?'Super administrateur':(memById(id)?memById(id).prenom+' '+memById(id).nom:'?');
+function requestCancel(i){
+  const e=ledger[i];
+  if(e.cancel||e.cancelled)return;
+  e.cancel={by:who(),byId:ME.adminId||0,validators:[]};
+  addLog('Annulation demandée',`${e.id} · ${e.label} · ${eur(e.amt)} — demandée par ${e.cancel.by}`);
+  renderLedger();
+}
+function validateCancel(i,approverId){
+  const e=ledger[i],c=e.cancel;if(!c)return;
+  approverId=parseInt(approverId,10);
+  if(approverId===c.byId||c.validators.includes(approverId)){$('ledgerMsg').textContent='Ce validateur a déjà agi sur cette annulation.';return;}
+  c.validators.push(approverId);
+  addLog('Annulation validée',`${e.id} · ${e.label} — validation ${c.validators.length}/2 par ${ADMIN_NAME(approverId)}`);
+  if(c.validators.length>=2){e.cancelled=true;addLog('Écriture annulée',`${e.id} · ${e.type==='R'?'Recette':'Dépense'} · ${e.cat} · ${e.label} · ${eur(e.amt)}`);}
+  renderLedger();
+}
+function markCashed(i){
+  const e=ledger[i];e.chqCashed=ymd(new Date());e.chqStatut='Encaissé';
+  addLog('Chèque encaissé',`${e.id} · ${e.label} · ${eur(e.amt)}`);
+  renderLedger();
+}
+function reportIncident(i){
+  const e=ledger[i],st=$('ci'+i).value,note=($('cn'+i)&&$('cn'+i).value||'').trim();
+  if(!st){return;}
+  e.chqStatut=st;e.chqNote=note;
+  addLog('Incident chèque',`${e.id} · ${e.label} — ${st}${note?' — '+note:''}`);
+  renderLedger();
+}
+const fillTemplate=(text,vars)=>esc(text).replace(/\{\{(\w+)\}\}/g,(m,k)=>k in vars?esc(vars[k]):m);
+function showReceipt(i){
+  const r=ledger[i].receipt;
+  $('receiptPaper').innerHTML=r.html;
+  $('receiptMeta').textContent=`${r.num} — modèle « ${r.tpl} », version ${r.version}`;
+  $('receiptBox').hidden=false;$('receiptBox').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function closeReceipt(){$('receiptBox').hidden=true;}
+
+function renderTemplates(){
+  $('tplBox').innerHTML=templates.map(t=>{
+    const cur=activeV(t),old=t.versions.slice(0,-1).reverse();
+    const body=tplEditing===t.id
+      ?`<textarea id="te${t.id}" style="width:100%;min-height:180px;font-family:inherit;font-size:.95rem;padding:12px;border:1px solid var(--line);background:var(--card-bg);color:var(--text);">${esc(cur.contenu)}</textarea><div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap"><button class="btn btn-primary" type="button" onclick="saveTpl(${t.id})">Enregistrer comme nouvelle version</button><button class="btn-line" type="button" onclick="cancelTpl()">Annuler</button></div><p id="tm${t.id}" style="color:var(--brass);font-size:.86rem;margin:6px 0 0"></p>`
+      :`<pre class="tplpre">${esc(cur.contenu)}</pre><button class="btn-line" type="button" onclick="editTpl(${t.id})">Modifier</button>`;
+    return `<div class="tplcard"><div class="tplhead"><h3>${esc(t.nom)}</h3><span class="tag">Version ${cur.v} — active (validée)</span></div><p class="tplmeta">Enregistrée le ${esc(cur.date)} par ${esc(cur.auteur)}</p>${body}${old.length?`<details style="margin-top:14px"><summary>Versions précédentes (${old.length})</summary>${old.map(o=>`<div class="tplold"><b>Version ${o.v}</b> — ${esc(o.date)} — ${esc(o.auteur)}<pre class="tplpre">${esc(o.contenu)}</pre></div>`).join('')}</details>`:''}</div>`;
+  }).join('');
+}
+function editTpl(id){tplEditing=id;renderTemplates();}
+function cancelTpl(){tplEditing=null;renderTemplates();}
+function saveTpl(id){
+  const t=templates.find(x=>x.id===id),txt=$('te'+id).value.trim(),cur=activeV(t);
+  if(!txt){$('tm'+id).textContent='Le contenu ne peut pas être vide.';return;}
+  if(txt===cur.contenu.trim()){$('tm'+id).textContent='Aucune modification : rien à enregistrer.';return;}
+  t.versions.push({v:cur.v+1,date:now(),auteur:who(),contenu:txt});
+  addLog('Template modifié',`${t.nom} — version ${cur.v} → ${cur.v+1} (nouvelle version active)`);
+  tplEditing=null;renderTemplates();renderLedger();
+}
+function createTpl(){
+  const nom=$('nt-nom').value.trim(),txt=$('nt-txt').value.trim();
+  if(!nom||!txt){$('ntMsg').textContent='Renseignez le nom et le contenu.';return;}
+  templates.push({id:nextTpl++,nom,versions:[{v:1,date:now(),auteur:who(),contenu:txt}]});
+  addLog('Template créé',`${nom} — version 1`);
+  $('nt-nom').value='';$('nt-txt').value='';$('ntMsg').textContent='';renderTemplates();renderLedger();
+}
+
+function renderComms(){
+  const q=$('c-search').value.toLowerCase().trim();
+  const rows=comms.filter(c=>!q||[c.d,c.dest,c.canal,c.sujet,c.msg,c.auteur].join(' ').toLowerCase().includes(q));
+  $('commTable').innerHTML=`<tr><th>Date</th><th>Destinataires</th><th>Canal</th><th>Sujet</th><th>Auteur</th></tr>`+(rows.length?rows.map(c=>`<tr><td>${esc(c.d)}</td><td>${esc(c.dest)}</td><td>${esc(c.canal)}</td><td><details><summary>${esc(c.sujet)}</summary><p style="margin:6px 0 0">${esc(c.msg)}</p></details></td><td>${esc(c.auteur)}</td></tr>`).join(''):`<tr><td colspan="5" style="opacity:.6">Aucun résultat.</td></tr>`);
+}
+function renderDrafts(){
+  $('draftsBox').innerHTML=drafts.length?`<p style="font-weight:600;margin:14px 0 4px">Brouillons</p>`+drafts.map((d,i)=>`<div style="display:flex;gap:12px;align-items:center;padding:6px 0;border-top:1px solid var(--line)"><span style="flex:1">${esc(d.sujet||'(sans sujet)')} → ${esc(d.dest)}</span><button class="btn-line" type="button" onclick="resumeDraft(${i})">Reprendre</button></div>`).join(''):'';
+}
+function saveDraft(){
+  drafts.push({dest:$('c-dest').value,canal:$('c-canal').value,sujet:$('c-sujet').value,msg:$('c-msg').value});
+  $('c-sujet').value='';$('c-msg').value='';$('commMsg').textContent='Brouillon enregistré.';renderDrafts();
+}
+function resumeDraft(i){
+  const d=drafts.splice(i,1)[0];
+  $('c-dest').value=d.dest;$('c-canal').value=d.canal;$('c-sujet').value=d.sujet;$('c-msg').value=d.msg;renderDrafts();
+}
+function sendComm(){
+  const sujet=$('c-sujet').value.trim(),msg=$('c-msg').value.trim();
+  if(!sujet||!msg){$('commMsg').textContent='Renseignez le sujet et le message.';return;}
+  comms.unshift({d:now(),dest:$('c-dest').value,canal:$('c-canal').value,sujet,msg,auteur:who()});
+  addLog('Communication envoyée',`${sujet} → ${$('c-dest').value}`);
+  $('c-sujet').value='';$('c-msg').value='';$('commMsg').textContent="Ajouté à l'historique (démo : aucun envoi réel).";renderComms();
+}
+function sendGroup(){
+  const sujet=$('g-sujet').value.trim()||'(sans sujet)',msg=$('g-msg').value.trim(),el=$('groupMsg');
+  if(!msg){el.textContent='Écrivez un message.';el.hidden=false;return;}
+  comms.unshift({d:now(),dest:TEACHER_CLASS,canal:'Message sur le site',sujet,msg,auteur:'Instituteur'});
+  addLog('Message groupé envoyé',`${sujet} → ${TEACHER_CLASS}`);
+  $('g-sujet').value='';$('g-msg').value='';el.textContent="Message ajouté à l'historique de la classe (démo : aucun envoi réel).";el.hidden=false;renderComms();
+}
+function postPerm(post,classe){
+  const own=post.authorKey===currentActorKey();
+  const manage=canManageClasse(classe);
+  const me=memById(PERSONA);
+  const leaderHere=ME.role==='adherent'&&me&&(me.leaderOf||[]).includes(classe)&&!own;
+  const pendingReq=tasks.some(t=>t.type==='suppression_publication'&&t.postId===post.id&&t.status==='pending');
+  return{own,manage,leaderHere,pendingReq};
+}
+function postCard(p,classe,archived){
+  const perm=archived?{manage:false,own:false,pendingReq:false,leaderHere:false}:postPerm(p,classe);
+  let actions='';
+  if(perm.manage||perm.own)actions=`<button class="btn-line" type="button" onclick="deletePost(${p.id})">Supprimer</button>`;
+  else if(perm.pendingReq)actions=`<span style="color:var(--brass);font-size:.85rem">Suppression demandée — en attente de validation</span>`;
+  else if(perm.leaderHere)actions=`<button class="btn-line" type="button" onclick="requestDeletePost(${p.id})">Demander la suppression</button>`;
+  const body=p.type==='lien'?`<a href="${esc(p.content)}" target="_blank" rel="noopener">${esc(p.content)}</a>`:esc(p.content);
+  return `<div class="space-card"><h4>${esc(p.title)} <span class="tag" style="margin-left:6px">${esc(p.type)}</span></h4>
+    <div style="font-size:.88rem">${body}</div>
+    <div style="font-size:.78rem;opacity:.7">${esc(actorName(p.authorKey))} · ${esc(p.d)}</div>
+    ${actions}</div>`;
+}
+function renderPostsIn(containerId,classe){
+  const el=$(containerId);if(!el)return;
+  const list=posts.filter(p=>p.classe===classe).sort((a,b)=>b.id-a.id);
+  el.innerHTML=`<div class="spaces">${list.map(p=>postCard(p,classe)).join('')||'<p style="opacity:.6;font-size:.88rem">Aucune publication pour le moment.</p>'}</div>`;
+}
+function renderPostsAll(){
+  const me=memById(PERSONA),mine=me?memberClasses(me):[];
+  const mySel=$('my-classe');
+  if(mySel){
+    const cur=mySel.value;
+    mySel.innerHTML=opts(mine,mine.includes(cur)?cur:mine[0]);
+  }
+  const box=$('myClassPosts');
+  if(box)box.innerHTML=mine.map(c=>`<p style="font-weight:600;margin:14px 0 6px">${esc(c)}</p>`+(()=>{
+    const list=posts.filter(p=>p.classe===c).sort((a,b)=>b.id-a.id);
+    return `<div class="spaces">${list.map(p=>postCard(p,c)).join('')||'<p style="opacity:.6;font-size:.88rem">Aucune publication pour le moment.</p>'}</div>`;
+  })()).join('')||'<p style="opacity:.6;font-size:.88rem">Vous n\'êtes inscrit·e à aucune classe pour le moment.</p>';
+  renderPostsIn('instClassPosts',TEACHER_CLASS);
+  const sel=$('admPostClasse');
+  if(sel&&sel.value)renderPostsIn('admClassPosts',sel.value);
+}
+function addPost(prefix,fixedClasse){
+  const classe=fixedClasse||($(prefix+'-classe')&&$(prefix+'-classe').value);
+  const title=$(prefix+'-title').value.trim(),type=$(prefix+'-type').value,content=$(prefix+'-content').value.trim(),msg=$(prefix+'-msg');
+  if(!classe){msg.textContent='Choisissez une classe.';return;}
+  if(!title||!content){msg.textContent='Renseignez un titre et un contenu.';return;}
+  posts.push({id:nextPostId++,classe,authorKey:currentActorKey(),type,title,content,d:now()});
+  addLog('Publication ajoutée',`« ${title} » — ${classe} — par ${actorName(currentActorKey())}`);
+  $(prefix+'-title').value='';$(prefix+'-content').value='';msg.textContent='';
+  renderPostsAll();
+}
+function deletePost(id){
+  const p=posts.find(x=>x.id===id);if(!p)return;
+  const perm=postPerm(p,p.classe);
+  if(!(perm.manage||perm.own))return;
+  posts=posts.filter(x=>x.id!==id);
+  addLog('Publication supprimée',`« ${p.title} » — ${p.classe} — supprimée par ${who()}`);
+  renderPostsAll();
+}
+function canEditSiteLinks(){return isSuper()||ME.role==='administrateur'||ME.role==='admin_comm';}
+function domainOf(u){try{return new URL(u).hostname.replace(/^www\./,'');}catch(e){return u;}}
+function linkCard(l){
+  const thumb=l.img?`<img src="${esc(l.img)}" alt="">`:'🔗';
+  const del=canEditSiteLinks()?`<button class="btn-line" type="button" onclick="deleteSiteLink(${l.id})" style="margin-top:8px">Supprimer</button>`:'';
+  return `<div><a class="linkcard" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">
+    <div class="thumb">${thumb}</div>
+    <div class="meta"><b>${esc(l.title)}</b><small>${esc(domainOf(l.url))}</small>${l.desc?`<p>${esc(l.desc)}</p>`:''}</div>
+  </a>${del}</div>`;
+}
+function renderSiteLinks(section){
+  const box=$('links-'+section);if(!box)return;
+  const list=siteLinks.filter(l=>l.section===section);
+  const canEdit=canEditSiteLinks();
+  let html=`<div class="links-list">${list.map(linkCard).join('')}</div>`;
+  if(canEdit){
+    html+=`<form onsubmit="event.preventDefault(); addSiteLink('${section}');" style="margin-top:14px; max-width:480px;">
+      <div class="field"><label for="sl-${section}-url">Lien du site externe</label><input id="sl-${section}-url" placeholder="https://…"></div>
+      <div class="field"><label for="sl-${section}-title">Titre de l'aperçu</label><input id="sl-${section}-title"></div>
+      <div class="field"><label for="sl-${section}-desc">Description (facultatif)</label><input id="sl-${section}-desc"></div>
+      <div class="field"><label for="sl-${section}-img">Image de l'aperçu — URL (facultatif)</label><input id="sl-${section}-img" placeholder="https://…"></div>
+      <button class="btn-line" type="submit">Ajouter un lien</button>
+      <p id="sl-${section}-msg" style="color:var(--brass); font-size:.85rem; margin:6px 0 0;"></p>
+    </form>`;
+  }
+  box.innerHTML=html;
+}
+function renderSiteLinksAll(){['accueil','apropos','galerie','evenements'].forEach(renderSiteLinks);}
+function addSiteLink(section){
+  if(!canEditSiteLinks())return;
+  const url=$('sl-'+section+'-url').value.trim(),title=$('sl-'+section+'-title').value.trim(),
+    desc=$('sl-'+section+'-desc').value.trim(),img=$('sl-'+section+'-img').value.trim(),msg=$('sl-'+section+'-msg');
+  if(!/^https?:\/\/.+/.test(url)){msg.textContent='Indiquez une adresse valide, commençant par http:// ou https://.';return;}
+  if(!title){msg.textContent="Indiquez un titre pour l'aperçu.";return;}
+  siteLinks.push({id:nextLinkId++,section,url,title,desc,img,addedBy:who(),d:frd(ymd(todayD()))});
+  addLog('Lien externe ajouté',`${section} — ${title} — ${url}`);
+  $('sl-'+section+'-url').value='';$('sl-'+section+'-title').value='';$('sl-'+section+'-desc').value='';$('sl-'+section+'-img').value='';msg.textContent='';
+  renderSiteLinks(section);
+}
+function deleteSiteLink(id){
+  if(!canEditSiteLinks())return;
+  const l=siteLinks.find(x=>x.id===id);if(!l)return;
+  siteLinks=siteLinks.filter(x=>x.id!==id);
+  addLog('Lien externe supprimé',`${l.section} — ${l.title} — ${l.url}`);
+  renderSiteLinks(l.section);
+}
+function childRecipients(childId){
+  const c=memById(childId);
+  if(!c||c.parcours!=='Enfant')return[childId];
+  const parentIds=(c.contacts||[]).filter(x=>x.linked).map(x=>x.memberId);
+  return [childId,...parentIds];
+}
+function sendInstMessage(){
+  const recId=parseInt($('msg-to').value,10),text=$('msg-text').value.trim(),msgEl=$('msg-send-msg');
+  if(!recId){msgEl.textContent='Choisissez un destinataire.';return;}
+  if(!text){msgEl.textContent='Écrivez un message.';return;}
+  const rec=memById(recId);
+  const isChild=rec.parcours==='Enfant';
+  const recipients=isChild?childRecipients(recId):[recId];
+  messages.push({id:nextMsgId++,classe:TEACHER_CLASS,from:currentActorKey(),fromName:actorName(currentActorKey()),childId:isChild?recId:null,toName:rec.prenom+' '+rec.nom,recipients,text,d:now(),read:false,readAt:null});
+  addLog('Message privé envoyé',`À ${rec.prenom} ${rec.nom}${isChild?' (dupliqué au(x) parent(s) lié(s))':''} — « ${text.slice(0,50)}${text.length>50?'…':''} »`);
+  $('msg-text').value='';msgEl.textContent='';
+  renderInstMessages();renderMyMessages();
+}
+function markMsgRead(id){
+  const m=messages.find(x=>x.id===id);
+  if(!m||m.read)return;
+  m.read=true;m.readAt=now();
+  addLog('Message lu',`Message « ${m.text.slice(0,40)}${m.text.length>40?'…':''} » (à ${m.toName}) marqué comme lu`);
+  renderInstMessages();renderMyMessages();
+}
+function msgCard(m,readBtn){
+  return `<div class="space-card"><div style="font-size:.88rem">${esc(m.text)}</div>
+    <div style="font-size:.78rem;opacity:.7">De ${esc(m.fromName)} · ${esc(m.d)} ${m.read?' · lu le '+esc(m.readAt):''}</div>
+    ${readBtn&&!m.read?`<button class="btn-line" type="button" onclick="markMsgRead(${m.id})">Marquer comme lu</button>`:''}</div>`;
+}
+function renderInstMessages(){
+  const box=$('instMsgBox');if(!box)return;
+  const mine=messages.filter(m=>m.from===currentActorKey()).sort((a,b)=>b.id-a.id);
+  const unread=mine.filter(m=>!m.read),read=mine.filter(m=>m.read);
+  box.innerHTML=`<p style="font-weight:600;margin:10px 0 6px">Non lus (${unread.length})</p><div class="spaces">${unread.map(m=>msgCard(m,false)).join('')||'<p style="opacity:.6;font-size:.88rem">Aucun message non lu.</p>'}</div>
+    <p style="font-weight:600;margin:16px 0 6px">Lus (${read.length})</p><div class="spaces">${read.map(m=>msgCard(m,false)).join('')||'<p style="opacity:.6;font-size:.88rem">Aucun message lu pour le moment.</p>'}</div>`;
+}
+function renderMyMessages(){
+  const box=$('myMsgBox');if(!box)return;
+  const me=PERSONA;
+  const direct=messages.filter(m=>!m.childId&&m.recipients.includes(me)).sort((a,b)=>b.id-a.id);
+  const childIds=[...new Set(messages.filter(m=>m.childId&&m.recipients.includes(me)).map(m=>m.childId))];
+  let html=`<p style="font-weight:600;margin:10px 0 6px">Mes messages</p><div class="spaces">${direct.map(m=>msgCard(m,true)).join('')||'<p style="opacity:.6;font-size:.88rem">Aucun message.</p>'}</div>`;
+  childIds.forEach(cid=>{
+    const child=memById(cid),list=messages.filter(m=>m.childId===cid&&m.recipients.includes(me)).sort((a,b)=>b.id-a.id);
+    html+=`<p style="font-weight:600;margin:16px 0 6px">Fil — ${esc(child?child.prenom+' '+child.nom:'Enfant')}</p><div class="spaces">${list.map(m=>msgCard(m,true)).join('')}</div>`;
+  });
+  box.innerHTML=html;
+}
+
+function requestDeletePost(id){
+  const p=posts.find(x=>x.id===id);if(!p)return;
+  const perm=postPerm(p,p.classe);
+  if(!perm.leaderHere||perm.pendingReq)return;
+  tasks.unshift({id:nextTaskId++,type:'suppression_publication',postId:id,classe:p.classe,requestedBy:who(),requestedAt:now(),status:'pending'});
+  addLog('Suppression demandée (leader)',`« ${p.title} » — ${p.classe} — demandée par ${who()}`);
+  renderPostsAll();renderClassTasks();
+}
+function setLeader(id,classe,val){
+  const m=memById(id);
+  if(!classe)return;
+  const allowed=isSuper()||ME.role==='administrateur'||ME.role==='admin_comm'||(ME.role==='instituteur'&&classe===TEACHER_CLASS);
+  if(!allowed)return;
+  m.leaderOf=m.leaderOf||[];
+  if(val&&!m.leaderOf.includes(classe))m.leaderOf.push(classe);
+  if(!val)m.leaderOf=m.leaderOf.filter(c=>c!==classe);
+  addLog('Statut leader modifié',`ID ${m.id} ${m.prenom} ${m.nom} — leader de ${classe} : ${val?'oui':'non'}`);
+  renderMembers();renderViews();
+}
+function archiveSeason(){
+  if(!isSuper())return;
+  const grouped={};
+  posts.forEach(p=>{(grouped[p.classe]=grouped[p.classe]||[]).push(p);});
+  const classes=Object.keys(grouped);
+  if(!classes.length){$('archiveMsg').textContent='Aucune publication à archiver pour le moment.';return;}
+  classes.forEach(classe=>archives.push({name:archiveName(classe),classe,saison:SEASON_NOW,posts:grouped[classe]}));
+  posts=[];
+  addLog('Archivage annuel',`Saison ${SEASON_NOW} archivée pour ${classes.length} classe(s) ; espaces de classe réinitialisés pour la nouvelle année.`);
+  $('archiveMsg').textContent=`${classes.length} classe(s) archivée(s).`;
+  renderPostsAll();renderArchives();
+}
+function renderArchives(){
+  const el=$('archivesBox');if(!el)return;
+  el.innerHTML=archives.length?archives.map((a,i)=>`<details style="margin-bottom:10px"><summary style="cursor:pointer;font-weight:600">${esc(a.name)} (${a.posts.length} publication(s))</summary><div class="spaces" style="margin-top:10px">${a.posts.map(p=>postCard(p,a.classe,true)).join('')}</div></details>`).join(''):'<p style="opacity:.6;font-size:.88rem">Aucune archive pour le moment.</p>';
+}
+function renderJournal(){
+  const panel=$('journalPanel');
+  if(panel)panel.style.display=isSuper()?'':'none';
+  if(!isSuper()){$('journalTable').innerHTML='';return;}
+  const q=$('j-search').value.toLowerCase().trim();
+  const rows=journal.filter(j=>!q||[j.t,j.w,j.a,j.d].join(' ').toLowerCase().includes(q));
+  $('journalTable').innerHTML=`<tr><th>Date</th><th>Auteur</th><th>Action</th><th>Détail</th></tr>`+rows.map(j=>`<tr><td>${esc(j.t)}</td><td>${esc(j.w)}</td><td>${esc(j.a)}</td><td>${esc(j.d)}</td></tr>`).join('');
+}
+
+/* ===== Saison, ID, autorisations, calendrier, profil ===== */
+const SEASON_NOW='2026-2027', SEASON_NEXT='2027-2028', PERSONA=1;
+const conf={start:'2026-09-01',end:'2027-06-26',nextStart:'2027-09-01',zone:'C'};
+const INSTRUMENTS=['Guitare','Luth','Mandoline','Mandole','Alto','Violon','Violoncelle','Derbouka','Tar','Tbilette (deux petites derboukas collées)','Canon','Kouitra','Guitare électrique','Piano','Basse'];
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const dt=s=>new Date(s+'T12:00:00');
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x;};
+let pendingPhoto='', ficheId=null;
+let cal={validated:false,by:'',at:''}, closures=[], openings=[];
+
+members.forEach(m=>{if(m.locked)return;delete m.foyer;Object.assign(m,{hh:m.id,saison:SEASON_NOW,perm:{complete:true,membres:true,partage:true},instrument:'',niveauInst:'',autreInst:'',photo:'',imageOk:false,imageDate:'',renewReq:false,parcours:(m.classe||'').startsWith('Enfants')?'Enfant':'Adulte',contacts:[],status:'actif',leaderOf:[],classe2:m.classe2||''});});
+[8,9].forEach(id=>{const c=members.find(x=>x.id===id);c.contacts=[{linked:true,memberId:2,lien:'Mère'}];});
+members.find(x=>x.id===9).contacts.push({linked:false,nom:'Samir Haddad',tel:'06 12 34 56 78',lien:'Père'});
+members.find(x=>x.id===4).classe2='Adultes · Niveau 2'; // exemple d'adhérent sur deux classes
+members.find(x=>x.id===8).classe2=TEACHER_CLASS; // exemple : enfant aussi rattaché à la classe de l'instituteur de démo, pour illustrer la messagerie dupliquée au parent
+messages=[
+ {id:1,classe:TEACHER_CLASS,from:'member:5',fromName:'Yasmine Belkacem',childId:8,toName:'Inès Haddad',recipients:[8,2],text:"Inès a bien progressé sur le 2e mouvement, continuez à vous entraîner sur ce passage pour samedi.",d:'29/09/2026 17:20:00',read:false,readAt:null}
+];
+nextMsgId=2;
+let siteLinks=[
+ {id:1,section:'accueil',url:'https://example.org/radio-andalouse',title:'Écouter de la musique andalouse en ligne',desc:"Une sélection de noubas et de pièces classiques, pour prolonger l'écoute entre deux cours.",img:'',addedBy:'Administrateur',d:'20/09/2026'},
+ {id:2,section:'apropos',url:'https://example.org/federation-musiques-traditionnelles',desc:'La fédération qui regroupe les associations de musique arabo-andalouse en France.',title:'Fédération des musiques traditionnelles',img:'',addedBy:'Administrateur',d:'18/09/2026'},
+ {id:3,section:'galerie',url:'https://example.org/playlist-concerts',title:'Playlist vidéo de nos concerts',desc:"Extraits filmés des concerts précédents de l'association.",img:'',addedBy:'Administrateur',d:'22/09/2026'},
+ {id:4,section:'evenements',url:'https://example.org/billetterie',title:'Billetterie en ligne',desc:'Réservez votre place pour les concerts et soirées de la saison.',img:'',addedBy:'Administrateur',d:'25/09/2026'}
+];
+let nextLinkId=5;
+[8,9].forEach(id=>{members.find(x=>x.id===id).hh=2;});
+Object.assign(members.find(x=>x.id===1),{instrument:'Luth',niveauInst:'4',autreInst:'Guitare',imageOk:true,imageDate:'12/09/2026 10:15:00'});
+
+const opCnt={};
+function nextOpId(type,yy){const p=type+yy;opCnt[p]=(opCnt[p]||0)+1;return p+'-'+String(opCnt[p]).padStart(4,'0');}
+ledger.slice().sort((a,b)=>a.d.localeCompare(b.d)).forEach(e=>{e.id=nextOpId(e.type,e.d.slice(2,4));});
+
+
+const ATELIER_OF={Adulte:'Adultes · Atelier percussion',Enfant:'Enfants · Atelier arabe'};
+function levelOpts(parcours){return CLASSES.filter(c=>c.startsWith(parcours==='Enfant'?'Enfants':'Adultes')&&!c.includes('Atelier'));}
+
+/* ---- Famille, tarifs, état d'adhésion ---- */
+const memById=id=>members.find(m=>m.id===id&&!m.locked);
+const parseIds=t=>(t||'').split(/[^0-9]+/).filter(Boolean).map(Number);
+function familyCount(ids){const m=ids.map(memById).find(Boolean);return m?members.filter(x=>x.hh===m.hh).length:0;}
+function suggestTarif(statut,ids){
+  if(familyCount(ids)>=2)return 'Famille (3e personne et +)';
+  return (statut==='Étudiant'||statut==="Demandeur d'emploi")?"Étudiant / demandeur d'emploi":'Plein tarif';
+}
+function todayD(){const v=$('demoDate').value;return v?dt(v):new Date();}
+function stateOf(m){
+  if(m.status==='inactif')return 'desactive';
+  if(m.saison===SEASON_NEXT)return 'ok';
+  const t=todayD(),S=dt(conf.nextStart),warn=addDays(S,-7),block=new Date(S);block.setMonth(block.getMonth()+1);
+  return t>=block?'bloque':t>=warn?'restreint':'ok';
+}
+function stateLabel(m){
+  if(m.status==='inactif')return 'Compte désactivé';
+  if(m.saison===SEASON_NEXT)return 'Renouvelée '+SEASON_NEXT;
+  const st=stateOf(m);
+  const base=st==='ok'?`À jour (${SEASON_NOW})`:st==='restreint'?(todayD()<dt(conf.nextStart)?`Expire le ${frd(conf.nextStart)} — accès restreint`:'Expirée — accès restreint'):'Expirée — accès bloqué';
+  return base+(m.renewReq?' · renouvellement demandé':'');
+}
+function effPerms(m,st){
+  if(st==='desactive'||st==='bloque')return {membres:false,partage:false,profil:false};
+  const c=m.perm.complete;
+  return {membres:st==='restreint'?false:(c||m.perm.membres),partage:c||m.perm.partage,profil:true};
+}
+function applyPerms(){
+  const m=memById(PERSONA),staff=!(ME.role==='adherent'||ME.role==='communication');
+  const st=staff?'ok':stateOf(m),ep=staff?{membres:true,partage:true,profil:true}:effPerms(m,st);
+  document.querySelectorAll('[data-perm]').forEach(el=>el.classList.toggle('perm-off',!ep[el.dataset.perm]));
+  const b=$('expiryBanner');
+  if(!staff&&st==='desactive'){
+    b.innerHTML=`Compte désactivé.<small>Aucune action n'est possible depuis ce compte. Contactez un administrateur pour le réactiver.</small>`;
+    b.hidden=false;
+  }else if(!staff&&st!=='ok'){
+    const S=conf.nextStart,future=todayD()<dt(S);
+    b.innerHTML=`${future?`Votre adhésion expire le ${frd(S)}`:`Votre adhésion a expiré le ${frd(S)}`}.<small>${st==='restreint'?"Votre accès est restreint : la liste des adhérents de votre niveau n'est plus visible. Contactez un administrateur pour renouveler votre adhésion.":"Votre compte est limité à ce message. Contactez un administrateur pour renouveler votre adhésion."}</small>`;
+    b.hidden=false;
+  }else b.hidden=true;
+}
+function applyRole(){
+  const set=ROLESETS[ME.role]||[];
+  document.querySelectorAll('[data-roles]').forEach(el=>{
+    const need=el.dataset.roles.split(',');
+    el.classList.toggle('visible',set.includes('super')||need.some(r=>set.includes(r)));
+  });
+  applyPerms();
+}
+function refreshAll(){applyPerms();renderMembers();renderFiche();renderProfile();renderPending();renderCalendar();renderJournal();renderPostsAll();renderClassTasks();renderArchives();renderInstMessages();renderMyMessages();renderSiteLinksAll();}
+
+/* ---- Adhérents (vue administrateur) ---- */
+function isSuper(){return ME.role==='super';}
+function renderMembers(){
+  const q=$('m-search').value.toLowerCase().trim(),sup=isSuper();
+  const fam=m=>members.filter(x=>x.hh===m.hh&&x.id!==m.id).map(x=>x.id).join(', ')||'—';
+  const rows=members.filter(m=>m.locked?(!q||'super administrateur'.includes(q)):(!q||[m.id,m.prenom,m.nom,m.tel,m.adresse,m.statut,m.classe,m.extra,m.tarif,m.role,m.instrument,m.autreInst,stateLabel(m)].join(' ').toLowerCase().includes(q)));
+  $('memberTable').innerHTML=`<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Téléphone</th><th>Famille (ID)</th><th>Tarif / prix payé</th><th>Adhésion</th><th>Statut</th><th>Rôle</th><th>Communication</th><th>Leader classe</th><th>Classe</th><th>Classe 2</th><th>Atelier transversal</th><th></th></tr>`+rows.map(m=>{
+    if(m.locked)return `<tr style="opacity:.65"><td>—</td><td>${m.nom}</td><td colspan="7">—</td><td>Super administrateur<br><small>non révocable</small></td><td>—</td><td>—</td><td>—</td><td>—</td><td></td></tr>`;
+    const isAdm=m.role==='administrateur',locked=isAdm&&!sup;
+    const roleSel=locked
+      ?`<span title="Seul le super administrateur peut modifier ou retirer un administrateur">Administrateur 🔒</span>`
+      :`<select onchange="setM(${m.id},'role',this.value)">${optsKV(sup?ROLES:ROLES.filter(r=>r[0]!=='administrateur'),m.role)}</select>${sup&&isAdm?`<br><button class="btn-line" style="margin-top:6px" type="button" onclick="setM(${m.id},'role','adherent')">Retirer les droits admin</button>`:''}`;
+    const commCell=sup?`<input type="checkbox" ${m.comm?'checked':''} onchange="setM(${m.id},'comm',this.checked)">`:`<input type="checkbox" ${m.comm?'checked':''} disabled title="Seul le super administrateur attribue les permissions">`;
+    let statutCell;
+    if(m.status==='desactivation_demandee')statutCell=`<span style="color:var(--brass)">Désactivation en attente</span>`;
+    else if(m.status==='inactif')statutCell=`<span class="neg">Inactif</span>`;
+    else statutCell=isAdm?'Actif':`Actif<br><button class="btn-line" style="margin-top:6px" type="button" onclick="requestDeactivate(${m.id})">Désactiver</button>`;
+    return `<tr><td><b>${m.id}</b></td><td>${esc(m.nom)}</td><td>${esc(m.prenom)}</td><td>${esc(m.tel)}</td><td>${fam(m)}</td><td>${m.tarif?esc(tarifLabel(m.tarif)):'—'}</td><td class="${stateOf(m)==='ok'?'':'neg'}">${esc(stateLabel(m))}</td>
+    <td>${statutCell}</td>
+    <td>${roleSel}</td>
+    <td style="text-align:center">${commCell}</td>
+    <td style="text-align:center">${m.classe?`<input type="checkbox" ${(m.leaderOf||[]).includes(m.classe)?'checked':''} onchange="setLeader(${m.id},'${m.classe}',this.checked)">`:'—'}</td>
+    <td><select onchange="setM(${m.id},'classe',this.value)"><option value="">—</option>${opts(CLASSES,m.classe)}</select></td>
+    <td><select onchange="setM(${m.id},'classe2',this.value)"><option value="">—</option>${opts(CLASSES,m.classe2)}</select>${m.classe2?`<br><label style="font-size:.78rem"><input type="checkbox" ${(m.leaderOf||[]).includes(m.classe2)?'checked':''} onchange="setLeader(${m.id},'${m.classe2}',this.checked)"> Leader</label>`:''}</td>
+    <td><select onchange="setM(${m.id},'extra',this.value)">${TRANSVERSALES.map(v=>`<option value="${esc(v)}"${v===m.extra?' selected':''}>${v||'—'}</option>`).join('')}</select></td>
+    <td><button class="btn-line" type="button" onclick="showFiche(${m.id})">Fiche</button></td></tr>`;
+  }).join('');
+  renderTasks();
+}
+function requestDeactivate(id){
+  const m=memById(id);
+  if(m.role==='administrateur'){return;}
+  m.status='desactivation_demandee';
+  const t={id:nextTaskId++,type:'desactivation_adherent',memberId:id,requestedBy:who(),requestedAt:now(),status:'pending'};
+  tasks.unshift(t);
+  addLog('Désactivation demandée',`ID ${m.id} ${m.prenom} ${m.nom} — en attente de validation par le super administrateur`);
+  renderMembers();
+}
+function validateTask(taskId,approve){
+  const t=tasks.find(x=>x.id===taskId);if(!t||t.status!=='pending')return;
+  if(t.type==='desactivation_adherent'){
+    const m=memById(t.memberId);
+    if(approve){m.status='inactif';t.status='validee';addLog('Désactivation validée',`ID ${m.id} ${m.prenom} ${m.nom} — compte désactivé par le super administrateur`);}
+    else{m.status='actif';t.status='rejetee';addLog('Désactivation refusée',`ID ${m.id} ${m.prenom} ${m.nom} — compte réactivé par le super administrateur`);}
+    renderMembers();
+  }else if(t.type==='suppression_publication'){
+    const p=posts.find(x=>x.id===t.postId);
+    if(approve&&p){posts=posts.filter(x=>x.id!==t.postId);t.status='validee';addLog('Suppression de publication validée',`« ${p.title} » (${t.classe}) — demandée par ${t.requestedBy}, validée par ${who()}`);}
+    else{t.status='rejetee';addLog('Suppression de publication refusée',`« ${(p&&p.title)||'(déjà supprimée)'} » (${t.classe}) — refusée par ${who()}`);}
+    renderPostsAll();
+  }
+  renderTasks();renderClassTasks();
+}
+function pendingTasksFor(scopeClasse){
+  // scopeClasse: null => toutes classes (administrateur/super) ; sinon limité à cette classe (instituteur)
+  return tasks.filter(t=>t.status==='pending'&&t.type==='suppression_publication'&&(scopeClasse===null||t.classe===scopeClasse));
+}
+function taskRow(t){
+  if(t.type==='desactivation_adherent'){
+    const m=memById(t.memberId);
+    return `<small style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:8px">Désactivation de ${esc(m.prenom)} ${esc(m.nom)} (ID ${m.id}) — demandée par ${esc(t.requestedBy)} le ${esc(t.requestedAt)}
+      <button class="btn-line" type="button" onclick="validateTask(${t.id},true)">Valider la désactivation</button>
+      <button class="btn-line" type="button" onclick="validateTask(${t.id},false)">Refuser (réactiver)</button></small>`;
+  }
+  const p=posts.find(x=>x.id===t.postId);
+  return `<small style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:8px">Suppression de « ${esc(p?p.title:'(publication introuvable)')} » — ${esc(t.classe)} — demandée par ${esc(t.requestedBy)} le ${esc(t.requestedAt)}
+    <button class="btn-line" type="button" onclick="validateTask(${t.id},true)">Valider la suppression</button>
+    <button class="btn-line" type="button" onclick="validateTask(${t.id},false)">Refuser</button></small>`;
+}
+function renderTasks(){
+  const box=$('tasksBox');if(!box)return;
+  if(!isSuper()){box.innerHTML='';return;}
+  const pend=tasks.filter(t=>t.status==='pending'&&t.type==='desactivation_adherent');
+  box.innerHTML=pend.length?`<div class="expiry" style="font-size:1.05rem;padding:18px 20px;">⚠ ${pend.length} tâche(s) en attente de votre validation
+    ${pend.map(taskRow).join('')}
+  </div>`:'';
+}
+function renderClassTasks(){
+  const inst=$('instTasksBox'),adm=$('adminClassTasksBox');
+  if(inst){
+    const p1=pendingTasksFor(TEACHER_CLASS);
+    inst.innerHTML=p1.length?`<div class="expiry" style="font-size:1rem;padding:16px 18px;">⚠ ${p1.length} demande(s) de suppression en attente dans votre classe${p1.map(taskRow).join('')}</div>`:'';
+  }
+  if(adm){
+    const p2=pendingTasksFor(null);
+    adm.innerHTML=p2.length?`<div class="expiry" style="font-size:1rem;padding:16px 18px;">⚠ ${p2.length} demande(s) de suppression en attente, toutes classes${p2.map(taskRow).join('')}</div>`:'';
+  }
+}
+function showFiche(id){ficheId=id;renderFiche();$('memberDetail').scrollIntoView({behavior:'smooth',block:'nearest'});}
+function closeFiche(){ficheId=null;renderFiche();}
+function renderFiche(){
+  const box=$('memberDetail'),m=ficheId===null?null:memById(ficheId);
+  if(!m){box.innerHTML='';return;}
+  const fam=members.filter(x=>x.hh===m.hh&&x.id!==m.id).map(x=>x.id).join(', ')||'—',p=m.perm,c=p.complete,dim=c?0.5:1;
+  box.innerHTML=`<div class="tplcard" style="margin-top:18px"><div class="tplhead"><h3>Fiche adhérent — ID ${m.id}</h3><button class="btn-line" type="button" onclick="closeFiche()">Fermer</button></div>
+  <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:12px">${m.photo?`<img class="avatar" src="${m.photo}" alt="">`:`<div class="avatar" style="display:flex;align-items:center;justify-content:center;opacity:.6;font-size:.78rem">Pas de photo</div>`}
+  <div style="flex:1;min-width:240px;font-size:.92rem;line-height:1.7"><b>${esc(m.prenom)} ${esc(m.nom)}</b> · ${esc(m.tel)}<br>${esc(m.adresse)}<br>Statut : ${esc(m.statut)}<br>Parcours : ${esc(m.parcours)} · Classe(s) : ${memberClasses(m).map(esc).join(', ')||'—'}${m.extra?' + '+esc(m.extra):''} · Famille (ID) : ${fam}<br>Tarif : ${m.tarif?esc(tarifLabel(m.tarif)):'—'}<br>Instrument : ${esc(m.instrument||'—')}${m.niveauInst?' (niveau '+m.niveauInst+'/10)':''} · Autre instrument : ${esc(m.autreInst||'—')}<br>Droit à l'image : ${m.imageOk?'autorisé'+(m.imageDate?' le '+esc(m.imageDate):''):'non autorisé'}
+  ${m.parcours==='Enfant'?`<br><b>Contact(s) d'urgence</b><br>${(m.contacts||[]).map((c,ci)=>(ci+1)+'. '+contactLabel(c)).join('<br>')||'—'}`:''}</div></div>
+  <h3 class="sub">Renouvellement</h3>
+  <p style="margin:0 0 8px">${esc(stateLabel(m))}</p>
+  ${m.renewReq?`<p style="font-size:.86rem;color:var(--brass)">Demande de renouvellement en attente — à valider dans « Nouveaux profils à valider », avec le niveau et l'atelier souhaités.</p>`:`<button class="btn-line" type="button" onclick="renewMember(${m.id})"${m.saison===SEASON_NEXT?' disabled':''}>Renouveler à l'identique (${SEASON_NEXT})</button>`}
+  <h3 class="sub">Autorisations</h3>
+  <label style="display:block;margin-bottom:6px"><input type="checkbox" ${c?'checked':''} onchange="setPerm(${m.id},'complete',this.checked)"> Vision complète pour sa classe</label>
+  <label style="display:block;margin-bottom:6px;opacity:${dim}"><input type="checkbox" ${(c||p.membres)?'checked':''} ${c?'disabled':''} onchange="setPerm(${m.id},'membres',this.checked)"> Vision sur les adhérents</label>
+  <label style="display:block;opacity:${dim}"><input type="checkbox" ${(c||p.partage)?'checked':''} ${c?'disabled':''} onchange="setPerm(${m.id},'partage',this.checked)"> Vision sur ce qui a été partagé pour la classe</label></div>`;
+}
+function setPerm(id,k,v){
+  const m=memById(id);m.perm[k]=v;
+  const lab={complete:'vision complète',membres:'vision sur les adhérents',partage:'vision sur les partages de la classe'}[k];
+  addLog('Autorisations modifiées',`ID ${m.id} ${m.prenom} ${m.nom} — ${lab} : ${v?'oui':'non'}`);
+  renderFiche();applyPerms();
+}
+function renewMember(id){
+  const m=memById(id);m.saison=SEASON_NEXT;m.renewReq=false;
+  addLog('Renouvellement validé',`ID ${m.id} ${m.prenom} ${m.nom} — saison ${SEASON_NEXT} (ID conservé)`);
+  refreshAll();
+}
+
+/* ---- Nouveaux profils ---- */
+function contactLabel(c){
+  if(!c)return '—';
+  if(c.linked){const m=memById(c.memberId);return m?`${m.prenom} ${m.nom} (${esc(c.lien||'—')}) · ${esc(m.tel)} — adhérent ID ${m.id}`:'ID inconnu';}
+  return `${esc(c.nom||'—')} (${esc(c.lien||'—')}) · ${esc(c.tel||'—')}`;
+}
+function parentBlock(p,idprefix){
+  if(p.parcours!=='Enfant')return'';
+  return (p.contacts||[]).map((c,ci)=>`<div style="margin-top:6px">${(ci+1)}. ${contactLabel(c)}</div>`).join('')||'—';
+}
+function renderPending(){
+  $('pendingBox').innerHTML=pending.length?`<div style="overflow-x:auto"><table class="admin-table"><tr><th>Adhérent</th><th>Parcours</th><th>Statut</th><th>Famille (ID)</th><th>Contact urgence (enfant)</th><th>Niveau souhaité → validé</th><th>2e classe (facultatif)</th><th>Atelier transversal</th><th>Tarif</th><th></th></tr>`+pending.map((p,i)=>{
+    const list=levelOpts(p.parcours),lbl=p.isRenewal?`${esc(p.nom+' '+p.prenom)} <span class="tag">Renouvellement — ID ${p.memberId}</span>`:esc(p.nom+' '+p.prenom);
+    const famCell=p.isRenewal?'—':`<input id="pf${i}" value="${esc((p.famille||[]).join(', '))}" oninput="suggest(${i})" placeholder="ex. 2, 8" style="width:90px;padding:6px 8px;border:1px solid var(--line);background:var(--card-bg);color:var(--text);font-family:inherit">`;
+    return `<tr><td>${lbl}</td><td>${p.parcours}</td><td>${esc(p.statut||'—')}</td><td>${famCell}</td><td>${parentBlock(p,'pp'+i)}</td><td><select id="pc${i}"><option value="">Choisir un niveau…</option>${opts(list,p.niveauSouhaite)}</select></td><td><select id="pc2${i}"><option value="">—</option>${opts(list,p.niveauSouhaite2)}</select></td><td><select id="pa${i}"><option value="">Aucun</option><option value="${esc(ATELIER_OF[p.parcours])}"${p.atelierSouhaite?' selected':''}>${esc(ATELIER_OF[p.parcours])}</option></select></td><td><select id="pt${i}">${optsKV(Object.keys(TARIFS).map(k=>[k,tarifLabel(k)]),suggestTarif(p.statut,p.famille||[]))}</select></td><td><button class="btn-line" type="button" onclick="validateProfile(${i})">Valider</button></td></tr>`;
+  }).join('')+`</table></div><p style="font-size:.84rem;opacity:.75;margin:8px 0 0">Le niveau et l'atelier proposés viennent du choix de l'adhérent ; l'administrateur les valide ou les modifie. Un nouvel ID est attribué uniquement pour une première adhésion.</p>`:`<p style="font-size:.9rem;opacity:.7">Aucun profil en attente.</p>`;
+}
+function suggest(i){if($('pf'+i))$('pt'+i).value=suggestTarif(pending[i].statut,parseIds($('pf'+i).value));}
+function validateProfile(i){
+  const c=$('pc'+i).value,c2=($('pc2'+i)&&$('pc2'+i).value)||'',at=$('pa'+i).value,t=$('pt'+i).value,p=pending[i];
+  if(!c){$('pendingMsg').textContent='Choisissez un niveau avant de valider.';return;}
+  if(c2&&c2===c){$('pendingMsg').textContent='La 2e classe doit être différente de la première.';return;}
+  if(p.isRenewal){
+    const m=memById(p.memberId);
+    m.classe=c;m.classe2=c2;m.extra=at;m.saison=SEASON_NEXT;m.renewReq=false;
+    if(t)m.tarif=t;
+    pending.splice(i,1);$('pendingMsg').textContent='';
+    addLog('Renouvellement validé',`ID ${m.id} ${m.prenom} ${m.nom} — ${c}${c2?' + '+c2:''}${at?' + '+at:''} — saison ${SEASON_NEXT}`);
+    renderPending();renderMembers();renderViews();refreshAll();return;
+  }
+  if(!t){$('pendingMsg').textContent='Choisissez un tarif avant de valider.';return;}
+  const ids=parseIds(($('pf'+i)&&$('pf'+i).value)||''),bad=ids.filter(x=>!memById(x));
+  if(bad.length){$('pendingMsg').textContent='ID de famille introuvable : '+bad.join(', ');return;}
+  pending.splice(i,1);
+  const ref=ids.map(memById).find(Boolean),id=nextId++;
+  members.push({id,prenom:p.prenom,nom:p.nom,tel:p.tel,adresse:p.adresse,statut:p.statut,hh:ref?ref.hh:id,classe:c,classe2:c2,extra:at,tarif:t,role:'adherent',comm:false,saison:SEASON_NOW,perm:{complete:true,membres:true,partage:true},instrument:'',niveauInst:'',autreInst:'',photo:'',imageOk:false,imageDate:'',renewReq:false,leaderOf:[],parcours:p.parcours,contacts:p.contacts||[]});
+  $('pendingMsg').textContent='';
+  addLog('Profil validé',`ID ${id} ${p.prenom} ${p.nom} — ${c}${c2?' + '+c2:''}${at?' + '+at:''} — ${tarifLabel(t)}${ids.length?' — famille : '+ids.join(', '):''}`);
+  renderPending();renderMembers();renderViews();
+}
+function toggleFamille(){$('famBox').style.display=$('i-famcheck').checked?'block':'none';}
+function toggleEnfant(){const en=$('i-enfant').checked;$('parentBox').style.display=en?'block':'none';fillNiveauInscr();}
+function fillNiveauInscr(){
+  const en=$('i-enfant').checked,lv=levelOpts(en?'Enfant':'Adulte');
+  $('i-niveau').innerHTML='<option value="">Choisir un niveau…</option>'+opts(lv);
+  if($('i-niveau2'))$('i-niveau2').innerHTML='<option value="">— Aucune 2e classe —</option>'+opts(lv);
+  $('i-atelier').innerHTML=`<option value="">Aucun</option><option>${esc(ATELIER_OF[en?'Enfant':'Adulte'])}</option>`;
+}
+function toggleC1(){$('c1fields').style.display=$('c1-linked').checked?'none':'block';$('c1idbox').style.display=$('c1-linked').checked?'block':'none';}
+function toggleC2enable(){$('c2box').style.display=$('c2-enable').checked?'block':'none';}
+function toggleC2(){$('c2fields').style.display=$('c2-linked').checked?'none':'block';$('c2idbox').style.display=$('c2-linked').checked?'block':'none';}
+function buildContact(pfx,familyIds){
+  const linked=$(pfx+'-linked').checked,lien=$(pfx+'-lien').value.trim();
+  if(linked){
+    const id=parseInt($(pfx+'-id').value,10),adulte=memById(id);
+    if(!id||!adulte)return{error:'ID adhérent introuvable pour le contact.'};
+    if(!familyIds.length)return{error:"Cochez « Inscription en famille » et indiquez l'ID du parent pour pouvoir le lier."};
+    if(!familyIds.includes(id))return{error:"Ce contact doit faire partie du même foyer : ajoutez son ID dans « ID des autres membres de votre famille »."};
+    if(adulte.parcours!=='Adulte')return{error:'Le contact lié doit être un adulte.'};
+    return{ok:true,contact:{linked:true,memberId:id,lien}};
+  }
+  const nom=$(pfx+'-nom').value.trim(),tel=$(pfx+'-tel').value.trim();
+  if(!nom||!tel)return{error:'Renseignez le nom et le téléphone du contact.'};
+  return{ok:true,contact:{linked:false,nom,tel,lien}};
+}
+function addPending(f){
+  const v=id=>$(id).value.trim(),c=f.querySelector('.confirm');
+  const say=(t,ok)=>{c.textContent=t;c.style.color=ok?'var(--brass)':'#b04a3a';c.hidden=false;};
+  const parcours=$('i-enfant').checked?'Enfant':'Adulte';
+  const famille=$('i-famcheck').checked?parseIds(v('i-famille')):[];
+  const badFam=famille.filter(x=>!memById(x));
+  if(badFam.length){say('ID de famille introuvable : '+badFam.join(', '),false);return;}
+  const contacts=[];
+  if(parcours==='Enfant'){
+    const r1=buildContact('c1',famille);
+    if(r1.error){say(r1.error,false);return;}
+    contacts.push(r1.contact);
+    if($('c2-enable').checked){
+      const r2=buildContact('c2',famille);
+      if(r2.error){say(r2.error,false);return;}
+      contacts.push(r2.contact);
+    }
+  }
+  const n2=$('i-niveau2')?$('i-niveau2').value:'';
+  if(n2&&n2===$('i-niveau').value){say('La 2e classe doit être différente de la première.',false);return;}
+  const p={prenom:v('i-prenom'),nom:v('i-nom'),tel:v('i-tel'),adresse:v('i-adresse'),statut:$('i-statut').value,famille,parcours,niveauSouhaite:$('i-niveau').value,niveauSouhaite2:n2,atelierSouhaite:!!$('i-atelier').value,contacts};
+  pending.push(p);
+  addLog('Nouveau profil créé',`${p.prenom} ${p.nom} (en attente de validation)`,'Visiteur');
+  renderPending();say('Votre demande a été enregistrée. Un ID vous sera attribué à la validation de votre adhésion.',true);f.reset();
+  $('famBox').style.display='none';$('parentBox').style.display='none';$('c2box').style.display='none';
+}
+function requestOwnRenewal(){
+  const m=memById(PERSONA),c=$('rn-niveau').value,c2=($('rn-niveau2')&&$('rn-niveau2').value)||'',at=$('rn-atelier').value,msg=$('renewMsg');
+  if(!c){msg.textContent='Choisissez le niveau souhaité.';return;}
+  if(c2&&c2===c){msg.textContent='La 2e classe doit être différente de la première.';return;}
+  pending.push({isRenewal:true,memberId:m.id,prenom:m.prenom,nom:m.nom,parcours:m.parcours,niveauSouhaite:c,niveauSouhaite2:c2,atelierSouhaite:!!at});
+  m.renewReq=true;
+  addLog('Demande de renouvellement',`ID ${m.id} ${m.prenom} ${m.nom} — souhaite ${c}${c2?' + '+c2:''}${at?' + '+at:''}`,`Adhérent (ID ${m.id})`);
+  msg.textContent='Demande envoyée : vous conservez votre ID '+m.id+'. Un administrateur la validera.';
+  renderPending();renderMembers();renderFiche();
+}
+
+/* ---- Profil adhérent ---- */
+function renderProfile(){
+  const m=memById(PERSONA);
+  $('pfId').textContent=m.id;
+  $('pfName').textContent=`${m.prenom} ${m.nom} — ${m.classe}`;
+  $('pfState').textContent=stateLabel(m);
+  $('pfPhoto').style.display=m.photo?'block':'none';if(m.photo)$('pfPhoto').src=m.photo;
+  $('pfNoPhoto').style.display=m.photo?'none':'flex';
+  $('pf-inst').innerHTML='<option value="">— Choisir un instrument —</option>'+opts(INSTRUMENTS,m.instrument);
+  $('pf-niv').innerHTML='<option value="">—</option>'+[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}"${String(n)===m.niveauInst?' selected':''}>${n}${n===1?' (le plus faible)':n===10?' (expert)':''}</option>`).join('');
+  $('pf-autre').innerHTML='<option value="">Aucun</option>'+opts(INSTRUMENTS,m.autreInst);
+  $('pf-img').checked=m.imageOk;
+  $('rn-niveau').innerHTML='<option value="">Choisir un niveau…</option>'+opts(levelOpts(m.parcours),m.classe);
+  if($('rn-niveau2'))$('rn-niveau2').innerHTML='<option value="">— Aucune 2e classe —</option>'+opts(levelOpts(m.parcours),m.classe2);
+  $('rn-atelier').innerHTML=`<option value="">Aucun</option><option${m.extra?' selected':''}>${esc(ATELIER_OF[m.parcours])}</option>`;
+  $('renewBtn').disabled=!!m.renewReq;
+  $('renewMsg').textContent=m.renewReq?'Demande envoyée, en attente de validation par un administrateur.':'';
+}
+function photoChosen(inp){
+  const f=inp.files&&inp.files[0];if(!f)return;
+  if(!f.type.startsWith('image/')){$('pfMsg').textContent='Choisissez un fichier image.';return;}
+  const r=new FileReader();
+  r.onload=()=>{pendingPhoto=r.result;$('pfPhoto').src=pendingPhoto;$('pfPhoto').style.display='block';$('pfNoPhoto').style.display='none';};
+  r.readAsDataURL(f);
+}
+function saveProfile(){
+  const m=memById(PERSONA),io=$('pf-img').checked;
+  m.instrument=$('pf-inst').value;m.niveauInst=$('pf-niv').value;m.autreInst=$('pf-autre').value;
+  if(io!==m.imageOk){m.imageOk=io;m.imageDate=now();}
+  if(pendingPhoto){m.photo=pendingPhoto;pendingPhoto='';}
+  addLog('Profil modifié',`ID ${m.id} — instrument : ${m.instrument||'—'} (niveau ${m.niveauInst||'—'}/10) — autre instrument : ${m.autreInst||'—'} — droit à l'image : ${m.imageOk?'autorisé':'non autorisé'}`,`Adhérent (ID ${m.id})`);
+  $('pfMsg').textContent='Profil enregistré.';renderProfile();renderFiche();
+}
+
+/* ---- Comptabilité ---- */
+function getLedgerRows(){
+  const q=$('l-search').value.toLowerCase().trim().replace(',','.'),f=$('l-filter').value,from=$('l-from').value,to=$('l-to').value,exU=$('l-exclude').checked;
+  return ledger.map((e,i)=>({e,i})).filter(({e})=>(!f||e.type===f)&&(!from||e.d>=from)&&(!to||e.d<=to)&&(!exU||!(e.pay==='Chèque'&&e.chqStatut!=='Encaissé'))&&(!q||e.id.toLowerCase().includes(q)||e.label.toLowerCase().includes(q)||e.cat.toLowerCase().includes(q)||(e.tiers||'').toLowerCase().includes(q)||(e.ref||'').toLowerCase().includes(q)||String(e.amt).includes(q))).sort((a,b)=>b.e.d.localeCompare(a.e.d));
+}
+function chequeAlerts(){
+  const t=ymd(todayD());
+  return ledger.map((e,i)=>({e,i})).filter(({e})=>e.pay==='Chèque'&&e.chqStatut==='En attente'&&e.chqDue&&e.chqDue<t&&!e.cancelled);
+}
+function renderLedger(){
+  const rows=getLedgerRows(),active=rows.filter(({e})=>!e.cancelled);
+  const rec=active.filter(({e})=>e.type==='R').reduce((a,{e})=>a+e.amt,0),dep=active.filter(({e})=>e.type==='D').reduce((a,{e})=>a+e.amt,0),miss=active.filter(({e})=>!e.doc).length;
+  $('kpis').innerHTML=`<div class="kpi">Recettes<b class="pos">${eur(rec)}</b></div><div class="kpi">Dépenses<b class="neg">${eur(dep)}</b></div><div class="kpi">Solde<b>${eur(rec-dep)}</b></div><div class="kpi">Justificatifs manquants<b class="${miss?'neg':'pos'}">${miss}</b></div>`;
+  const alerts=chequeAlerts();
+  $('chqAlert').innerHTML=alerts.length?`<div class="expiry" style="font-size:1.05rem;padding:16px 20px;">⚠ ${alerts.length} chèque(s) non encaissé(s) au-delà de la date prévisionnelle<small>${alerts.map(({e})=>`${e.id} — ${esc(e.tiers||e.label)} — prévu le ${frd(e.chqDue)}`).join('<br>')}</small></div>`:'';
+  $('ledgerTable').innerHTML=`<tr><th>ID</th><th>Date</th><th>Type</th><th>Catégorie</th><th>Libellé</th><th>Montant</th><th>Paiement</th><th>Justificatif</th><th>Reçu</th><th>État</th></tr>`+(rows.length?rows.map(({e,i})=>{
+    const doc=e.doc?`<a href="${e.doc.url}" target="_blank" rel="noopener">Voir le justificatif</a><br><small>${esc(e.doc.name)}</small>`:`<span class="neg">Aucun justificatif</span>`;
+    const up=`<br><label class="btn-line" style="display:inline-block;margin-top:6px;cursor:pointer">Télécharger le justificatif<input type="file" hidden onchange="attachDoc(${i},this)"></label>`;
+    let rc='—';
+    if(e.type==='R')rc=e.receipt?`<a href="#receiptBox" onclick="showReceipt(${i});return false">Voir le reçu ${e.receipt.num}</a><br><small>modèle v${e.receipt.version}</small>`:`<select id="rt${i}">${optsKV(templates.map(t=>[String(t.id),esc(t.nom)+' (v'+activeV(t).v+')']),String(defaultTpl(e.cat)))}</select><br><button class="btn-line" style="margin-top:6px" type="button" onclick="genReceipt(${i})">Générer le reçu</button>`;
+    let pay='—';
+    if(e.type==='R'&&e.pay==='Espèce')pay=`Espèce<br><small>réf. ${esc(e.ref||'—')}</small>`;
+    else if(e.type==='R'&&e.pay==='Chèque'){
+      const st=e.chqStatut,cls=st==='Encaissé'?'pos':(st==='En attente'?'':'neg');
+      pay=`Chèque — <span class="${cls}">${esc(st)}</span><br><small>reçu ${frd(e.chqRecu)} · prévu ${frd(e.chqDue)}${e.chqCashed?' · encaissé '+frd(e.chqCashed):''}</small>${e.chqNote?`<br><small>${esc(e.chqNote)}</small>`:''}`;
+      if(st==='En attente')pay+=`<br><button class="btn-line" style="margin-top:6px" type="button" onclick="markCashed(${i})">Marquer encaissé</button>`;
+      pay+=`<br><details style="margin-top:6px"><summary style="cursor:pointer;font-size:.82rem">Signaler un incident</summary><select id="ci${i}"><option value="">—</option><option>Bloqué</option><option>Opposition</option><option>Perdu</option><option>Incident</option></select><input id="cn${i}" placeholder="Note" style="width:100%;margin:4px 0;padding:6px 8px;border:1px solid var(--line);background:var(--card-bg);color:var(--text);font-family:inherit"><button class="btn-line" type="button" onclick="reportIncident(${i})">Enregistrer</button></details>`;
+    }
+    let state;
+    if(e.cancelled)state=`<span class="neg">Annulée</span>`;
+    else if(e.cancel)state=`<span style="color:var(--brass)">En attente d'annulation (${e.cancel.validators.length}/2)</span><br><select id="ap${i}"><option value="">Choisir un administrateur…</option>${ADMIN_IDS().filter(id=>id!==e.cancel.byId&&!e.cancel.validators.includes(id)).map(id=>`<option value="${id}">${esc(ADMIN_NAME(id))}</option>`).join('')}</select><br><button class="btn-line" style="margin-top:6px" type="button" onclick="const s=$('ap${i}');if(s.value)validateCancel(${i},s.value)">Valider l'annulation</button>`;
+    else state=`<button class="btn-line" type="button" onclick="requestCancel(${i})">Demander l'annulation</button>`;
+    const row=`<td><b>${e.id}</b></td><td>${frd(e.d)}</td><td>${e.type==='R'?'Recette':'Dépense'}</td><td>${esc(e.cat)}</td><td>${esc(e.label)}${e.tiers?`<br><small>${esc(e.tiers)}</small>`:''}</td><td class="${e.type==='R'?'pos':'neg'}">${e.type==='R'?'+':'−'} ${eur(e.amt)}</td><td>${pay}</td><td>${doc}${up}</td><td>${rc}</td><td>${state}</td>`;
+    return `<tr${e.cancelled?' style="opacity:.55;text-decoration:line-through"':''}>${row}</tr>`;
+  }).join(''):`<tr><td colspan="10" style="opacity:.6">Aucun résultat.</td></tr>`);
+}
+function payFields(){
+  const r=$('l-type').value==='R';
+  $('payBox').style.display=r?'flex':'none';
+  espFields();
+}
+function espFields(){
+  const esp=$('l-pay').value==='Espèce';
+  $('espBox').style.display=esp?'block':'none';
+  $('chqBox').style.display=esp?'none':'block';
+}
+function addLedger(){
+  const type=$('l-type').value,cat=$('l-cat').value,label=$('l-label').value.trim(),tiers=$('l-tiers').value.trim(),amt=parseFloat($('l-amt').value),d=$('l-date').value;
+  if(!label||!(amt>0)||!d){$('ledgerMsg').textContent="Renseignez le libellé, un montant positif et la date de l'opération.";return;}
+  if(!pendingDoc){$('ledgerMsg').textContent="Le justificatif est obligatoire : téléchargez-le avant d'ajouter l'écriture.";return;}
+  const extra={};
+  if(type==='R'){
+    const pay=$('l-pay').value;extra.pay=pay;
+    if(pay==='Espèce')extra.ref=$('l-ref').value.trim();
+    else{
+      if(!$('l-chqrecu').value||!$('l-chqdue').value){$('ledgerMsg').textContent="Pour un chèque, indiquez la date de réception et la date prévisionnelle d'encaissement.";return;}
+      extra.chqRecu=$('l-chqrecu').value;extra.chqDue=$('l-chqdue').value;extra.chqCashed='';extra.chqStatut='En attente';
+    }
+  }
+  const id=nextOpId(type,String(new Date().getFullYear()).slice(-2));
+  ledger.push(Object.assign({id,d,type,cat,label,tiers,amt,doc:{name:pendingDoc.name,url:URL.createObjectURL(pendingDoc)}},extra));
+  addLog('Écriture ajoutée',`${id} · ${type==='R'?'Recette':'Dépense'} · ${cat} · ${label} · ${eur(amt)} · justificatif : ${pendingDoc.name}`);
+  pendingDoc=null;$('l-doc').value='';$('l-docname').textContent='';
+  $('l-label').value='';$('l-tiers').value='';$('l-amt').value='';$('l-ref').value='';$('l-chqrecu').value='';$('l-chqdue').value='';$('ledgerMsg').textContent='';renderLedger();
+}
+function genReceipt(i){
+  const e=ledger[i],t=templates.find(x=>String(x.id)===$('rt'+i).value),v=activeV(t);
+  const vars={numero:e.id,date:frd(e.d),tiers:e.tiers||'—',montant:eur(e.amt),libelle:e.label,categorie:e.cat,association:'El-Mawsili'};
+  e.receipt={num:e.id,tpl:t.nom,version:v.v,html:fillTemplate(v.contenu,vars)};
+  addLog('Reçu généré',`${e.id} — ${e.label} — ${t.nom} (version ${v.v})`);
+  renderLedger();showReceipt(i);
+}
+async function saveCsv(filename,csv){
+  let dl=null;
+  try{dl=window.claude?await window.claude.use('downloads'):null;}catch(e){dl=null;}
+  if(!dl)return{ok:false,csv};
+  try{await dl.save({filename,data:csv});return{ok:true};}
+  catch(e){return{ok:false,declined:e&&e.code==='declined'};}
+}
+async function exportLedger(){
+  const rows=getLedgerRows().filter(({e})=>!e.cancelled),msg=$('exportMsg'),box=$('exportBox');
+  box.hidden=true;
+  if(!rows.length){msg.textContent='Aucune opération à exporter.';return;}
+  const head=['ID','Date','Type','Catégorie','Libellé','Payeur / fournisseur','Montant (€)','Paiement','Justificatif','Reçu'];
+  const data=rows.map(({e})=>[e.id,frd(e.d),e.type==='R'?'Recette':'Dépense',e.cat,e.label,e.tiers||'',(e.type==='R'?'':'-')+e.amt.toFixed(2).replace('.',','),e.type==='R'?(e.pay||''):'',e.doc?e.doc.name:'',e.receipt?e.receipt.num:'']);
+  const csv='\ufeff'+[head].concat(data).map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(';')).join('\r\n');
+  const r=await saveCsv('operations-el-mawsili-'+ymd(new Date())+'.csv',csv);
+  if(r.ok)msg.textContent=`Extraction de ${rows.length} opération(s) enregistrée.`;
+  else if(r.csv!==undefined){box.value=r.csv;box.hidden=false;msg.textContent='Téléchargement indisponible ici : copiez le contenu ci-dessous dans un fichier .csv.';}
+  else msg.textContent=r.declined?'Extraction annulée.':"L'extraction n'a pas pu être enregistrée.";
+}
+async function exportCheques(){
+  const rows=ledger.filter(e=>e.pay==='Chèque'&&e.chqStatut!=='Encaissé'),msg=$('exportMsg'),box=$('exportBox');
+  box.hidden=true;
+  if(!rows.length){msg.textContent="Aucun chèque en attente ou en incident à extraire.";return;}
+  const head=['ID','Date','Payeur','Montant (€)','Statut','Date de réception','Date prévisionnelle','Note'];
+  const data=rows.map(e=>[e.id,frd(e.d),e.tiers||'',e.amt.toFixed(2).replace('.',','),e.chqStatut,frd(e.chqRecu),frd(e.chqDue),e.chqNote||'']);
+  const csv='\ufeff'+[head].concat(data).map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(';')).join('\r\n');
+  const r=await saveCsv('cheques-en-attente-el-mawsili-'+ymd(new Date())+'.csv',csv);
+  if(r.ok)msg.textContent=`Extraction de ${rows.length} chèque(s) enregistrée.`;
+  else if(r.csv!==undefined){box.value=r.csv;box.hidden=false;msg.textContent='Téléchargement indisponible ici : copiez le contenu ci-dessous.';}
+  else msg.textContent=r.declined?'Extraction annulée.':"L'extraction n'a pas pu être enregistrée.";
+}
+
+/* ---- Calendrier ---- */
+const HOL_COMMON=[['Vacances de la Toussaint','2026-10-17','2026-11-02'],['Vacances de Noël','2026-12-19','2027-01-04']];
+const HOL_ZONE={A:[["Vacances d'hiver",'2027-02-13','2027-03-01'],['Vacances de printemps','2027-04-10','2027-04-26']],B:[["Vacances d'hiver",'2027-02-20','2027-03-08'],['Vacances de printemps','2027-04-17','2027-05-03']],C:[["Vacances d'hiver",'2027-02-06','2027-02-22'],['Vacances de printemps','2027-04-03','2027-04-19']]};
+const holidays=()=>HOL_COMMON.concat(HOL_ZONE[conf.zone],[["Vacances d'été",'2027-07-03',conf.nextStart]]).map(([nom,debut,reprise])=>({nom,debut,reprise}));
+const NAT=[[1,1,"Jour de l'An"],[5,1,'Fête du Travail'],[5,8,'Victoire de 1945'],[7,14,'Fête nationale'],[8,15,'Assomption'],[11,1,'Toussaint'],[11,11,'Armistice de 1918'],[12,25,'Noël']];
+const FEASTS=[[1,1,'Nouvel an hégirien'],[3,12,'Mawlid'],[10,1,'Aïd el-Fitr'],[12,10,'Aïd el-Adha']];
+function hijri(d){
+  try{const p=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{day:'numeric',month:'numeric',year:'numeric'}).formatToParts(d);const g=t=>parseInt(p.find(x=>x.type===t).value,10);return {d:g('day'),m:g('month')};}
+  catch(e){return null;}
+}
+function scopeLabel(scope){return(!scope||!scope.length)?'Tous les adhérents':scope.join(', ');}
+function buildCalendar(){
+  const hol=holidays(),isHol=d=>hol.some(h=>d>=dt(h.debut)&&d<dt(h.reprise)),dates=new Set();
+  for(let d=dt(conf.start);d<=dt(conf.end);d=addDays(d,1))if(d.getDay()===6)dates.add(ymd(d));
+  closures.concat(openings).forEach(x=>dates.add(x.d));
+  return [...dates].sort().map(k=>{
+    const d=dt(k);
+    const op=openings.find(x=>x.d===k&&(!x.scope||!x.scope.length));
+    const cl=closures.find(x=>x.d===k&&(!x.scope||!x.scope.length));
+    const exceptions=closures.concat(openings).filter(x=>x.d===k&&x.scope&&x.scope.length)
+      .map(x=>({type:openings.includes(x)?'open':'closed',classes:x.scope,motif:x.motif}));
+    let base;
+    if(op)base={st:'open',why:op.motif,src:'manuel'};
+    else if(cl)base={st:'closed',why:cl.motif,src:'manuel'};
+    else{
+      const nat=NAT.find(n=>n[0]===d.getMonth()+1&&n[1]===d.getDate()),h=hijri(d),fe=h&&FEASTS.find(f=>f[0]===h.m&&f[1]===h.d);
+      let weekOff=true;for(let i=1;i<=5;i++)if(!isHol(addDays(d,-i))){weekOff=false;break;}
+      if(nat)base={st:'closed',why:'Jour férié : '+nat[2],src:'auto'};
+      else if(fe)base={st:'closed',why:fe[2]+' (date à confirmer)',src:'auto'};
+      else if(weekOff)base={st:'closed',why:'Vacances scolaires',src:'auto'};
+      else base={st:'class',why:'',src:'auto'};
+    }
+    return {k,...base,exceptions};
+  });
+}
+function renderCalendar(){
+  const rows=buildCalendar(),cnt=s=>rows.filter(r=>r.st===s).length,LBL={class:'Cours',closed:'Fermé',open:'Ouverture exceptionnelle'};
+  $('calStatus').innerHTML=cal.validated?`<span class="tag">Validé le ${esc(cal.at)} par ${esc(cal.by)}</span>`:`<span class="tag" style="color:#b04a3a;border-color:#b04a3a">Proposé automatiquement — à valider</span>`;
+  $('calKpis').innerHTML=`<div class="kpi">Cours<b class="pos">${cnt('class')}</b></div><div class="kpi">Fermetures<b class="neg">${cnt('closed')}</b></div><div class="kpi">Ouvertures exceptionnelles<b>${cnt('open')}</b></div>`;
+  $('calTable').innerHTML=`<tr><th>Date</th><th>Statut</th><th>Motif</th><th>Source</th></tr>`+rows.map(r=>`<tr><td>${dt(r.k).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</td><td><span class="st st-${r.st}">${LBL[r.st]}</span>${r.exceptions.length?r.exceptions.map(e=>`<br><small style="opacity:.75">Exception — ${e.type==='open'?'cours maintenu':'pas de cours'} : ${esc(e.classes.join(', '))} (${esc(e.motif)})</small>`).join(''):''}</td><td>${esc(r.why)}</td><td>${r.src}</td></tr>`).join('');
+  const long=k=>dt(k).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  $('calHol').innerHTML=`<tr><th>Période</th><th>Fin des cours</th><th>Reprise</th></tr>`+holidays().map(h=>`<tr><td>${esc(h.nom)}</td><td>${long(h.debut)}</td><td>${long(h.reprise)}</td></tr>`).join('');
+  const li=(arr,kind)=>arr.length?arr.map((x,i)=>`<div style="display:flex;gap:12px;align-items:center;padding:6px 0;border-top:1px solid var(--line)"><span style="flex:1">${frd(x.d)} — ${esc(x.motif)} <small style="opacity:.7">(${esc(scopeLabel(x.scope))})</small></span><button class="btn-line" type="button" onclick="delManual('${kind}',${i})">Supprimer</button></div>`).join(''):`<p style="font-size:.88rem;opacity:.65;margin:4px 0">Aucune.</p>`;
+  $('calManual').innerHTML=`<div><b>Fermetures ajoutées</b>${li(closures,'c')}</div><div><b>Ouvertures exceptionnelles</b>${li(openings,'o')}</div>`;
+}
+function toggleCalScope(kind){
+  const pfx=kind==='c'?'cl':'op';
+  const adultes=$(pfx+'-sc-adultes').checked,enfants=$(pfx+'-sc-enfants').checked;
+  const box=$(pfx+'-sc-detail');
+  if(adultes&&enfants){box.style.display='none';return;}
+  box.style.display='block';
+  const pre=c=>(adultes&&c.startsWith('Adultes'))||(enfants&&c.startsWith('Enfants'));
+  box.innerHTML=CLASSES.map(c=>`<label style="display:block;font-size:.85rem;margin:2px 0"><input type="checkbox" value="${esc(c)}" ${pre(c)?'checked':''}>${esc(c)}</label>`).join('');
+}
+function readScope(kind){
+  const pfx=kind==='c'?'cl':'op';
+  const adultes=$(pfx+'-sc-adultes').checked,enfants=$(pfx+'-sc-enfants').checked;
+  if(adultes&&enfants)return null;
+  const box=$(pfx+'-sc-detail');
+  return [...box.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value);
+}
+function notifyCalendar(kind,d,motif,scope){
+  comms.unshift({d:now(),dest:scopeLabel(scope),canal:'Message sur le site',sujet:(kind==='c'?'Fermeture exceptionnelle':'Ouverture exceptionnelle')+' — '+frd(d),msg:motif,auteur:who()});
+  renderComms();
+}
+function addManual(kind){
+  const d=$(kind==='c'?'cl-date':'op-date').value,motif=$(kind==='c'?'cl-motif':'op-motif').value.trim();
+  if(!d||!motif){$('calMsg').textContent='Renseignez la date et le motif.';return;}
+  const scope=readScope(kind);
+  if(scope&&!scope.length){$('calMsg').textContent='Cochez au moins une classe, ou laissez Adultes et Enfants cochés pour viser tout le monde.';return;}
+  (kind==='c'?closures:openings).push({d,motif,scope});cal.validated=false;$('calMsg').textContent='';
+  addLog(kind==='c'?'Fermeture ajoutée':'Ouverture exceptionnelle ajoutée',`${frd(d)} — ${motif} — ${scopeLabel(scope)}`);
+  notifyCalendar(kind,d,motif,scope);
+  $(kind==='c'?'cl-date':'op-date').value='';$(kind==='c'?'cl-motif':'op-motif').value='';
+  const pfx=kind==='c'?'cl':'op';
+  $(pfx+'-sc-adultes').checked=true;$(pfx+'-sc-enfants').checked=true;$(pfx+'-sc-detail').style.display='none';
+  renderCalendar();
+}
+function delManual(kind,i){
+  const x=(kind==='c'?closures:openings).splice(i,1)[0];cal.validated=false;
+  addLog(kind==='c'?'Fermeture supprimée':'Ouverture exceptionnelle supprimée',`${frd(x.d)} — ${x.motif}`);renderCalendar();
+}
+function saveConf(){
+  conf.zone=$('cal-zone').value;conf.start=$('cal-start').value||conf.start;conf.end=$('cal-end').value||conf.end;conf.nextStart=$('cal-next').value||conf.nextStart;cal.validated=false;
+  addLog('Calendrier — paramètres modifiés',`zone ${conf.zone}, saison du ${frd(conf.start)} au ${frd(conf.end)}, saison suivante dès le ${frd(conf.nextStart)}`);
+  refreshAll();
+}
+function validateCalendar(){
+  cal={validated:true,by:who(),at:now()};
+  addLog('Calendrier validé',`saison du ${frd(conf.start)} au ${frd(conf.end)}, zone ${conf.zone}`);renderCalendar();
+}
+
+/* ---- Initialisation ---- */
+$('c-dest').innerHTML=opts(['Tous les adhérents','Tous les adultes','Tous les enfants'].concat(CLASSES));
+fillCats();payFields();fillNiveauInscr();
+$('l-date').value=new Date().toISOString().slice(0,10);
+$('demoDate').value=new Date().toISOString().slice(0,10);
+$('cal-zone').value=conf.zone;$('cal-start').value=conf.start;$('cal-end').value=conf.end;$('cal-next').value=conf.nextStart;
+if($('admPostClasse'))$('admPostClasse').innerHTML='<option value="">Choisir une classe…</option>'+opts(CLASSES);
+renderViews();renderMembers();renderPending();renderLedger();renderTemplates();renderComms();renderDrafts();renderJournal();renderProfile();renderCalendar();renderArchives();renderSiteLinksAll();applyPerms();
+document.getElementById('navtoggle').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
+document.querySelectorAll('nav.links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
+</script>
+</body>
+</html>
