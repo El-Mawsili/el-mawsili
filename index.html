@@ -513,24 +513,11 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
       <form onsubmit="event.preventDefault(); login();">
         <div class="field"><label for="l-mail">Email</label><input id="l-mail" type="email" required></div>
         <div class="field"><label for="l-pass">Mot de passe</label><input id="l-pass" type="password" required></div>
-        <div class="field"><label for="l-role">Rôle (démo)</label>
-          <select id="l-role" onchange="toggleAdminSel()">
-            <option value="adherent">Adhérent</option>
-            <option value="instituteur">Instituteur</option>
-            <option value="communication">Adhérent chargé de la communication</option>
-            <option value="administrateur">Administrateur</option>
-            <option value="admin_comm">Administrateur chargé de la communication</option>
-            <option value="super">Super administrateur</option>
-          </select>
-        </div>
-        <div class="field" id="adminSelBox" style="display:none;"><label for="l-admin">Vous êtes (démo — pour l'annulation à deux validations)</label>
-          <select id="l-admin"><option value="7">Farid Ouali</option><option value="10">Sonia Zerrouki</option><option value="11">Hakim Boudjelal</option></select>
-        </div>
         <button class="btn btn-primary" type="submit">Se connecter</button>
         <p id="loginMsg" style="color:#b04a3a; font-size:.88rem; margin:8px 0 0;"></p>
       </form>
       <p class="gate-note">Pas encore de profil ? <a href="#adhesion">Faites une demande d'adhésion</a>.</p>
-      <p class="gate-note" style="font-size:.8rem; opacity:.7;">Démo : pour tester un compte désactivé, connectez-vous d'abord en Super administrateur, désactivez l'ID 1 (Samir Benali) depuis Administration, puis reconnectez-vous en Adhérent — la connexion reste possible, mais tout est masqué avec le message « Compte désactivé ».</p>
+      <p class="gate-note" style="font-size:.8rem; opacity:.7;">La connexion est maintenant réelle (compte Supabase). Les données affichées une fois connecté (adhérents, comptabilité, messages…) restent pour l'instant celles de démonstration — elles seront branchées sur la vraie base aux étapes suivantes.</p>
     </div>
 
     <div class="spaces locked" id="resources" data-perm="partage">
@@ -863,7 +850,9 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
 
 <footer>© 2026 El-Mawsili — Association de musique arabo-andalouse</footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+
 
 
 
@@ -951,16 +940,52 @@ let journal=[
 ];
 
 function addLog(a,d,w){journal.unshift({t:now(),w:w||who(),a,d});renderJournal();}
-function login(){
-  const role=$('l-role').value;
-  ME.role=role;
+
+/* ---- Connexion reelle Supabase ---- */
+const SUPABASE_URL='https://tnutrmehdisidobtomah.supabase.co';
+const SUPABASE_KEY='sb_publishable_ZVzCNxryoPc8s5r47vc8mQ_sBtl9ZYu';
+const DB_ROLE_MAP={adherent:'adherent',instituteur:'instituteur',administrateur:'administrateur',super_administrateur:'super'};
+let sbClient=null;
+try{ if(window.supabase) sbClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY); }catch(e){ sbClient=null; }
+
+function applyFetchedRole(prof,authUser){
+  ME.role=DB_ROLE_MAP[prof.role]||'adherent';
+  ME.realUser={id:authUser.id,email:authUser.email,prenom:prof.prenom,nom:prof.nom,status:prof.status};
   const isAdmin=ME.role==='administrateur'||ME.role==='admin_comm';
-  ME.adminId=ME.role==='super'?0:isAdmin?parseInt($('l-admin').value,10):null;
-  $('loginMsg').textContent='';
+  ME.adminId=ME.role==='super'?0:isAdmin?7:null; // identite de demo utilisee pour les fonctionnalites pas encore reliees a Supabase
+}
+
+async function login(){
+  const msg=$('loginMsg');
+  if(!sbClient){msg.textContent="Connexion a la base indisponible (bibliotheque Supabase non chargee).";return;}
+  const email=$('l-mail').value.trim(),pass=$('l-pass').value;
+  if(!email||!pass){msg.textContent='Renseignez votre email et votre mot de passe.';return;}
+  msg.textContent='Connexion…';
+  const {data,error}=await sbClient.auth.signInWithPassword({email,password:pass});
+  if(error){msg.textContent='Connexion refusee : '+(error.message||'identifiants invalides.');return;}
+  const {data:prof,error:perr}=await sbClient.from('profiles').select('role,status,prenom,nom').eq('id',data.user.id).single();
+  if(perr||!prof){msg.textContent='Compte authentifie, mais aucun profil associe dans la base.';await sbClient.auth.signOut();return;}
+  applyFetchedRole(prof,data.user);
+  msg.textContent='';
   $('loginGate').style.display='none';$('resources').classList.add('unlocked');applyRole();refreshAll();
 }
-function toggleAdminSel(){const r=$('l-role').value;$('adminSelBox').style.display=(r==='administrateur'||r==='admin_comm')?'block':'none';}
-function logout(){ME.role='';ME.adminId=null;$('loginGate').style.display='';$('resources').classList.remove('unlocked');applyRole();refreshAll();}
+async function logout(){
+  if(sbClient){try{await sbClient.auth.signOut();}catch(e){}}
+  ME.role='';ME.adminId=null;ME.realUser=null;
+  $('loginGate').style.display='';$('resources').classList.remove('unlocked');applyRole();refreshAll();
+}
+async function restoreSession(){
+  if(!sbClient)return;
+  try{
+    const {data}=await sbClient.auth.getSession();
+    if(!data||!data.session)return;
+    const uid=data.session.user.id;
+    const {data:prof,error:perr}=await sbClient.from('profiles').select('role,status,prenom,nom').eq('id',uid).single();
+    if(perr||!prof)return;
+    applyFetchedRole(prof,data.session.user);
+    $('loginGate').style.display='none';$('resources').classList.add('unlocked');applyRole();refreshAll();
+  }catch(e){}
+}
 
 const tbl=(head,rows)=>`<div style="overflow-x:auto"><table class="admin-table"><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div>`;
 function renderViews(){
@@ -1871,6 +1896,7 @@ if($('admPostClasse'))$('admPostClasse').innerHTML='<option value="">Choisir une
 renderViews();renderMembers();renderPending();renderLedger();renderTemplates();renderComms();renderDrafts();renderJournal();renderProfile();renderCalendar();renderArchives();renderSiteLinksAll();applyPerms();
 document.getElementById('navtoggle').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
 document.querySelectorAll('nav.links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
+restoreSession();
 </script>
 </body>
 </html>
