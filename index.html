@@ -415,9 +415,6 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
       <form onsubmit="event.preventDefault(); submitChildRegistration();" style="display:contents;">
         <div class="field"><label for="rc-prenom">Prénom de l'enfant</label><input id="rc-prenom" required></div>
         <div class="field"><label for="rc-nom">Nom de l'enfant</label><input id="rc-nom" required></div>
-        <div class="field"><label for="rc-statut">Statut</label>
-          <select id="rc-statut"><option>Autre</option><option>Étudiant</option><option>Demandeur d'emploi</option></select>
-        </div>
         <div class="field"><label for="rc-niveau">Niveau souhaité</label><select id="rc-niveau"></select></div>
         <div class="field"><label for="rc-niveau2">2e classe souhaitée (facultatif)</label><select id="rc-niveau2"></select></div>
         <div class="field"><label for="rc-atelier">Atelier transversal souhaité (facultatif)</label><select id="rc-atelier"></select></div>
@@ -427,8 +424,8 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
         </div>
 
         <p style="font-weight:600; font-size:.9rem; margin:10px 0 6px;">Contact d'urgence 1 (obligatoire)</p>
-        <label style="display:flex; gap:8px; align-items:center; margin-bottom:8px;"><input id="rc-c1-linked" type="checkbox" style="width:auto;" onchange="toggleRcC1()"> Ce contact a déjà un profil sur le site (ID à saisir)</label>
-        <div id="rc-c1idbox" style="display:none;"><input id="rc-c1-id" placeholder="Identifiant du profil (fourni par un administrateur)" style="width:100%;margin-bottom:8px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit"></div>
+        <label style="display:flex; gap:8px; align-items:center; margin-bottom:8px;"><input id="rc-c1-linked" type="checkbox" style="width:auto;" onchange="toggleRcC1()"> Ce contact est déjà adhérent (numéro à saisir)</label>
+        <div id="rc-c1idbox" style="display:none;"><input id="rc-c1-id" placeholder="Numéro d'adhérent (ex. 1, 2, 3…)" inputmode="numeric" style="width:100%;margin-bottom:8px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit"></div>
         <div id="rc-c1fields">
           <input id="rc-c1-nom" placeholder="Nom du contact" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
           <input id="rc-c1-tel" type="tel" placeholder="Téléphone" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
@@ -437,8 +434,8 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
 
         <label style="display:flex; gap:8px; align-items:center; margin:10px 0 8px; border-top:1px solid var(--line); padding-top:10px;"><input id="rc-c2-enable" type="checkbox" style="width:auto;" onchange="toggleRcC2enable()"> Ajouter un second contact d'urgence</label>
         <div id="rc-c2box" style="display:none;">
-          <label style="display:flex; gap:8px; align-items:center; margin-bottom:8px;"><input id="rc-c2-linked" type="checkbox" style="width:auto;" onchange="toggleRcC2()"> Ce contact a déjà un profil sur le site (ID à saisir)</label>
-          <div id="rc-c2idbox" style="display:none;"><input id="rc-c2-id" placeholder="Identifiant du profil" style="width:100%;margin-bottom:8px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit"></div>
+          <label style="display:flex; gap:8px; align-items:center; margin-bottom:8px;"><input id="rc-c2-linked" type="checkbox" style="width:auto;" onchange="toggleRcC2()"> Ce contact est déjà adhérent (numéro à saisir)</label>
+          <div id="rc-c2idbox" style="display:none;"><input id="rc-c2-id" placeholder="Numéro d'adhérent" inputmode="numeric" style="width:100%;margin-bottom:8px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit"></div>
           <div id="rc-c2fields">
             <input id="rc-c2-nom" placeholder="Nom du contact" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
             <input id="rc-c2-tel" type="tel" placeholder="Téléphone" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
@@ -1052,11 +1049,11 @@ function toggleRcC2(){$('rc-c2fields').style.display=$('rc-c2-linked').checked?'
 async function buildDbContact(pfx){
   const linked=$(pfx+'-linked').checked,lien=$(pfx+'-lien').value.trim();
   if(linked){
-    const idRaw=$(pfx+'-id').value.trim();
-    if(!idRaw)return{error:"Indiquez l'identifiant du profil a lier."};
-    const {data,error}=await sbClient.from('profiles').select('id,prenom,nom').eq('id',idRaw).maybeSingle();
-    if(error||!data)return{error:'Profil introuvable pour ce contact.'};
-    return{ok:true,contact:{linked:true,memberId:data.id,lien}};
+    const numRaw=$(pfx+'-id').value.trim(),num=parseInt(numRaw,10);
+    if(!numRaw||!num)return{error:"Indiquez le numero d'adherent du parent (ex. 1, 2, 3...)."};
+    const {data,error}=await sbClient.rpc('lookup_profile_by_number',{p_number:num});
+    if(error||!data||!data.length)return{error:"Aucun adherent actif avec ce numero."};
+    return{ok:true,contact:{linked:true,memberId:data[0].id,lien}};
   }
   const nom=$(pfx+'-nom').value.trim(),tel=$(pfx+'-tel').value.trim();
   if(!nom||!tel)return{error:'Renseignez le nom et le telephone du contact.'};
@@ -1068,7 +1065,6 @@ async function submitChildRegistration(){
   if(!sbClient){msg.textContent='Connexion a la base indisponible.';return;}
   const prenom=$('rc-prenom').value.trim(),nom=$('rc-nom').value.trim();
   const niveauId=$('rc-niveau').value,niveau2Id=$('rc-niveau2').value||null,atelierId=$('rc-atelier').value||null;
-  const statut=$('rc-statut').value;
   if(!prenom||!nom){msg.textContent='Renseignez le prenom et le nom de l\'enfant.';return;}
   if(!niveauId){msg.textContent='Choisissez le niveau souhaite.';return;}
 
@@ -1084,17 +1080,19 @@ async function submitChildRegistration(){
   const submittedBy=isAdminRole(ME.role)?'administrateur':($('rc-qui').value||'tiers');
   msg.textContent='Envoi…';
 
-  const {data:prof,error}=await sbClient.from('profiles').insert({
-    prenom,nom,parcours:'Enfant',statut,
+  const childId=crypto.randomUUID();
+  const {error}=await sbClient.from('profiles').insert({
+    id:childId,
+    prenom,nom,parcours:'Enfant',
     niveau_souhaite:niveauId,niveau_souhaite_2:niveau2Id,atelier_souhaite:atelierId,
     submitted_by:submittedBy,
     submitted_by_profile_id:(ME.realUser&&ME.realUser.profileId)||null
-  }).select('id').single();
+  });
   if(error){msg.textContent='Erreur : '+error.message;return;}
 
   for(const c of contacts){
     const {error:cerr}=await sbClient.from('emergency_contacts').insert({
-      child_id:prof.id,
+      child_id:childId,
       linked_member_id:c.linked?c.memberId:null,
       nom:c.linked?null:c.nom, tel:c.linked?null:c.tel, lien:c.lien
     });
