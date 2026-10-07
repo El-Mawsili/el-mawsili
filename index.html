@@ -408,6 +408,50 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
       <span class="kicker">Devenir adhérent</span>
       <h2>Adhésion</h2>
     </div>
+
+    <div style="border:2px solid var(--brass); padding:22px; margin-bottom:34px; background:var(--card-bg);">
+      <h3 style="margin-top:0;">Inscrire un enfant</h3>
+      <p style="font-size:.9rem; opacity:.85;">Ouvert à tous : un parent (adhérent ou non), un proche, ou un administrateur peut faire cette préinscription. Elle sera étudiée par un administrateur ; le paiement de la cotisation officialisera l'adhésion.</p>
+      <form onsubmit="event.preventDefault(); submitChildRegistration();" style="display:contents;">
+        <div class="field"><label for="rc-prenom">Prénom de l'enfant</label><input id="rc-prenom" required></div>
+        <div class="field"><label for="rc-nom">Nom de l'enfant</label><input id="rc-nom" required></div>
+        <div class="field"><label for="rc-statut">Statut</label>
+          <select id="rc-statut"><option>Autre</option><option>Étudiant</option><option>Demandeur d'emploi</option></select>
+        </div>
+        <div class="field"><label for="rc-niveau">Niveau souhaité</label><select id="rc-niveau"></select></div>
+        <div class="field"><label for="rc-niveau2">2e classe souhaitée (facultatif)</label><select id="rc-niveau2"></select></div>
+        <div class="field"><label for="rc-atelier">Atelier transversal souhaité (facultatif)</label><select id="rc-atelier"></select></div>
+
+        <div class="field" id="rc-qui-box"><label for="rc-qui">Vous êtes</label>
+          <select id="rc-qui"><option value="parent">Le parent / tuteur de cet enfant</option><option value="tiers">Une personne tierce à l'association</option></select>
+        </div>
+
+        <p style="font-weight:600; font-size:.9rem; margin:10px 0 6px;">Contact d'urgence 1 (obligatoire)</p>
+        <label style="display:flex; gap:8px; align-items:center; margin-bottom:8px;"><input id="rc-c1-linked" type="checkbox" style="width:auto;" onchange="toggleRcC1()"> Ce contact a déjà un profil sur le site (ID à saisir)</label>
+        <div id="rc-c1idbox" style="display:none;"><input id="rc-c1-id" placeholder="Identifiant du profil (fourni par un administrateur)" style="width:100%;margin-bottom:8px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit"></div>
+        <div id="rc-c1fields">
+          <input id="rc-c1-nom" placeholder="Nom du contact" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+          <input id="rc-c1-tel" type="tel" placeholder="Téléphone" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+        </div>
+        <input id="rc-c1-lien" placeholder="Lien avec l'enfant (ex. Mère, Père, Tuteur légal)" style="width:100%;margin-bottom:10px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+
+        <label style="display:flex; gap:8px; align-items:center; margin:10px 0 8px; border-top:1px solid var(--line); padding-top:10px;"><input id="rc-c2-enable" type="checkbox" style="width:auto;" onchange="toggleRcC2enable()"> Ajouter un second contact d'urgence</label>
+        <div id="rc-c2box" style="display:none;">
+          <label style="display:flex; gap:8px; align-items:center; margin-bottom:8px;"><input id="rc-c2-linked" type="checkbox" style="width:auto;" onchange="toggleRcC2()"> Ce contact a déjà un profil sur le site (ID à saisir)</label>
+          <div id="rc-c2idbox" style="display:none;"><input id="rc-c2-id" placeholder="Identifiant du profil" style="width:100%;margin-bottom:8px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit"></div>
+          <div id="rc-c2fields">
+            <input id="rc-c2-nom" placeholder="Nom du contact" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+            <input id="rc-c2-tel" type="tel" placeholder="Téléphone" style="width:100%;margin-bottom:6px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+          </div>
+          <input id="rc-c2-lien" placeholder="Lien avec l'enfant" style="width:100%;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit">
+        </div>
+
+        <div style="margin-top:14px;"><button class="btn btn-primary" type="submit">Envoyer la préinscription</button></div>
+        <p id="rc-msg" style="color:var(--brass); font-size:.88rem; margin:8px 0 0;"></p>
+      </form>
+    </div>
+
+    <p style="font-size:.85rem; opacity:.7; margin:0 0 20px;">Le formulaire ci-dessous (inscription adulte) est encore une maquette de démonstration — il sera branché à la vraie base à la prochaine étape.</p>
     <p>Cotisation annuelle donnant accès aux cours, aux répétitions d'orchestre et aux événements réservés aux membres. L'adhésion peut se faire en famille. Elle est annuelle (de septembre à juin ou juillet) et se renouvelle chaque année : chaque adhérent reçoit un ID unique, qu'il conserve d'une année à l'autre.</p>
     <ul style="max-width:66ch; padding-left:20px; margin:0 0 1em;">
       <li><b>180 €</b> par personne pour les deux premières personnes d'une même famille et d'un même foyer, <b>gratuit</b> à partir de la troisième</li>
@@ -860,6 +904,7 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
 
 
 
+
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const eur=n=>n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
@@ -950,10 +995,11 @@ try{ if(window.supabase) sbClient=window.supabase.createClient(SUPABASE_URL,SUPA
 
 function applyFetchedRole(prof,authUser){
   ME.role=DB_ROLE_MAP[prof.role]||'adherent';
-  ME.realUser={id:authUser.id,email:authUser.email,prenom:prof.prenom,nom:prof.nom,status:prof.status};
+  ME.realUser={id:authUser.id,profileId:prof.id,email:authUser.email,prenom:prof.prenom,nom:prof.nom,status:prof.status};
   const isAdmin=ME.role==='administrateur'||ME.role==='admin_comm';
   ME.adminId=ME.role==='super'?0:isAdmin?7:null; // identite de demo utilisee pour les fonctionnalites pas encore reliees a Supabase
 }
+function isAdminRole(r){return r==='administrateur'||r==='admin_comm'||r==='super';}
 
 async function login(){
   const msg=$('loginMsg');
@@ -963,7 +1009,7 @@ async function login(){
   msg.textContent='Connexion…';
   const {data,error}=await sbClient.auth.signInWithPassword({email,password:pass});
   if(error){msg.textContent='Connexion refusee : '+(error.message||'identifiants invalides.');return;}
-  const {data:prof,error:perr}=await sbClient.from('profiles').select('role,status,prenom,nom').eq('id',data.user.id).single();
+  const {data:prof,error:perr}=await sbClient.from('profiles').select('id,role,status,prenom,nom').eq('auth_user_id',data.user.id).single();
   if(perr||!prof){msg.textContent='Compte authentifie, mais aucun profil associe dans la base.';await sbClient.auth.signOut();return;}
   applyFetchedRole(prof,data.user);
   msg.textContent='';
@@ -974,13 +1020,100 @@ async function logout(){
   ME.role='';ME.adminId=null;ME.realUser=null;
   $('loginGate').style.display='';$('resources').classList.remove('unlocked');applyRole();refreshAll();
 }
+/* ---- Classes (reelles, depuis Supabase) ---- */
+let dbClasses=[];
+async function loadClasses(){
+  if(!sbClient)return;
+  const {data,error}=await sbClient.from('classes').select('id,label,parcours,niveau,is_transversal').order('parcours').order('niveau');
+  if(!error&&data)dbClasses=data;
+  fillDbClassSelects();
+}
+function dbLevelOpts(parcours){return dbClasses.filter(c=>c.parcours===parcours&&!c.is_transversal);}
+function dbAtelierOf(parcours){return dbClasses.find(c=>c.parcours===parcours&&c.is_transversal);}
+function dbClassOptsHtml(list,selId){return list.map(c=>`<option value="${c.id}">${esc(c.label)}</option>`).join('');}
+function renderRcQuiVisibility(){
+  const box=$('rc-qui-box');
+  if(box)box.style.display=isAdminRole(ME.role)?'none':'block';
+}
+function fillDbClassSelects(){
+  const lv=dbLevelOpts('Enfant'),at=dbAtelierOf('Enfant');
+  if($('rc-niveau')){
+    $('rc-niveau').innerHTML='<option value="">Choisir un niveau…</option>'+dbClassOptsHtml(lv);
+    $('rc-niveau2').innerHTML='<option value="">— Aucune 2e classe —</option>'+dbClassOptsHtml(lv);
+    $('rc-atelier').innerHTML='<option value="">Aucun</option>'+(at?`<option value="${at.id}">${esc(at.label)}</option>`:'');
+  }
+}
+
+/* ---- Inscription d'un enfant : ouverte a tous, sans compte ---- */
+function toggleRcC1(){$('rc-c1fields').style.display=$('rc-c1-linked').checked?'none':'block';$('rc-c1idbox').style.display=$('rc-c1-linked').checked?'block':'none';}
+function toggleRcC2enable(){$('rc-c2box').style.display=$('rc-c2-enable').checked?'block':'none';}
+function toggleRcC2(){$('rc-c2fields').style.display=$('rc-c2-linked').checked?'none':'block';$('rc-c2idbox').style.display=$('rc-c2-linked').checked?'block':'none';}
+
+async function buildDbContact(pfx){
+  const linked=$(pfx+'-linked').checked,lien=$(pfx+'-lien').value.trim();
+  if(linked){
+    const idRaw=$(pfx+'-id').value.trim();
+    if(!idRaw)return{error:"Indiquez l'identifiant du profil a lier."};
+    const {data,error}=await sbClient.from('profiles').select('id,prenom,nom').eq('id',idRaw).maybeSingle();
+    if(error||!data)return{error:'Profil introuvable pour ce contact.'};
+    return{ok:true,contact:{linked:true,memberId:data.id,lien}};
+  }
+  const nom=$(pfx+'-nom').value.trim(),tel=$(pfx+'-tel').value.trim();
+  if(!nom||!tel)return{error:'Renseignez le nom et le telephone du contact.'};
+  return{ok:true,contact:{linked:false,nom,tel,lien}};
+}
+
+async function submitChildRegistration(){
+  const msg=$('rc-msg');
+  if(!sbClient){msg.textContent='Connexion a la base indisponible.';return;}
+  const prenom=$('rc-prenom').value.trim(),nom=$('rc-nom').value.trim();
+  const niveauId=$('rc-niveau').value,niveau2Id=$('rc-niveau2').value||null,atelierId=$('rc-atelier').value||null;
+  const statut=$('rc-statut').value;
+  if(!prenom||!nom){msg.textContent='Renseignez le prenom et le nom de l\'enfant.';return;}
+  if(!niveauId){msg.textContent='Choisissez le niveau souhaite.';return;}
+
+  const c1=await buildDbContact('rc-c1');
+  if(c1.error){msg.textContent=c1.error;return;}
+  const contacts=[c1.contact];
+  if($('rc-c2-enable').checked){
+    const c2=await buildDbContact('rc-c2');
+    if(c2.error){msg.textContent=c2.error;return;}
+    contacts.push(c2.contact);
+  }
+
+  const submittedBy=isAdminRole(ME.role)?'administrateur':($('rc-qui').value||'tiers');
+  msg.textContent='Envoi…';
+
+  const {data:prof,error}=await sbClient.from('profiles').insert({
+    prenom,nom,parcours:'Enfant',statut,
+    niveau_souhaite:niveauId,niveau_souhaite_2:niveau2Id,atelier_souhaite:atelierId,
+    submitted_by:submittedBy,
+    submitted_by_profile_id:(ME.realUser&&ME.realUser.profileId)||null
+  }).select('id').single();
+  if(error){msg.textContent='Erreur : '+error.message;return;}
+
+  for(const c of contacts){
+    const {error:cerr}=await sbClient.from('emergency_contacts').insert({
+      child_id:prof.id,
+      linked_member_id:c.linked?c.memberId:null,
+      nom:c.linked?null:c.nom, tel:c.linked?null:c.tel, lien:c.lien
+    });
+    if(cerr){msg.textContent='Profil enfant cree, mais erreur sur un contact : '+cerr.message;return;}
+  }
+
+  msg.textContent="Préinscription envoyée. Elle sera étudiée par un administrateur.";
+  ['rc-prenom','rc-nom'].forEach(id=>$(id).value='');
+  $('rc-c1-nom').value='';$('rc-c1-tel').value='';$('rc-c1-lien').value='';$('rc-c1-id').value='';
+  $('rc-c2-nom').value='';$('rc-c2-tel').value='';$('rc-c2-lien').value='';$('rc-c2-id').value='';
+}
+
 async function restoreSession(){
   if(!sbClient)return;
   try{
     const {data}=await sbClient.auth.getSession();
     if(!data||!data.session)return;
     const uid=data.session.user.id;
-    const {data:prof,error:perr}=await sbClient.from('profiles').select('role,status,prenom,nom').eq('id',uid).single();
+    const {data:prof,error:perr}=await sbClient.from('profiles').select('id,role,status,prenom,nom').eq('auth_user_id',uid).single();
     if(perr||!prof)return;
     applyFetchedRole(prof,data.session.user);
     $('loginGate').style.display='none';$('resources').classList.add('unlocked');applyRole();refreshAll();
@@ -1434,7 +1567,7 @@ function applyRole(){
   });
   applyPerms();
 }
-function refreshAll(){applyPerms();renderMembers();renderFiche();renderProfile();renderPending();renderCalendar();renderJournal();renderPostsAll();renderClassTasks();renderArchives();renderInstMessages();renderMyMessages();renderSiteLinksAll();}
+function refreshAll(){applyPerms();renderMembers();renderFiche();renderProfile();renderPending();renderCalendar();renderJournal();renderPostsAll();renderClassTasks();renderArchives();renderInstMessages();renderMyMessages();renderSiteLinksAll();renderRcQuiVisibility();}
 
 /* ---- Adhérents (vue administrateur) ---- */
 function isSuper(){return ME.role==='super';}
@@ -1896,6 +2029,7 @@ if($('admPostClasse'))$('admPostClasse').innerHTML='<option value="">Choisir une
 renderViews();renderMembers();renderPending();renderLedger();renderTemplates();renderComms();renderDrafts();renderJournal();renderProfile();renderCalendar();renderArchives();renderSiteLinksAll();applyPerms();
 document.getElementById('navtoggle').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
 document.querySelectorAll('nav.links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
+loadClasses();
 restoreSession();
 </script>
 </body>
