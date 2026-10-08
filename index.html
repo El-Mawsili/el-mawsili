@@ -448,14 +448,33 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
       </form>
     </div>
 
-    <p style="font-size:.85rem; opacity:.7; margin:0 0 20px;">Le formulaire ci-dessous (inscription adulte) est encore une maquette de démonstration — il sera branché à la vraie base à la prochaine étape.</p>
     <p>Cotisation annuelle donnant accès aux cours, aux répétitions d'orchestre et aux événements réservés aux membres. L'adhésion peut se faire en famille. Elle est annuelle (de septembre à juin ou juillet) et se renouvelle chaque année : chaque adhérent reçoit un ID unique, qu'il conserve d'une année à l'autre.</p>
     <ul style="max-width:66ch; padding-left:20px; margin:0 0 1em;">
       <li><b>180 €</b> par personne pour les deux premières personnes d'une même famille et d'un même foyer, <b>gratuit</b> à partir de la troisième</li>
       <li><b>90 €</b> pour un étudiant ou un demandeur d'emploi</li>
       <li><b>180 €</b> pour les autres adhérents</li>
     </ul>
-    <p>Le formulaire ci-dessous crée votre profil adhérent ; une fois votre adhésion validée par l'équipe, vous recevez vos identifiants pour accéder à l'espace adhérents.</p>
+    <div style="border:2px solid var(--brass); padding:22px; margin:0 0 34px; background:var(--card-bg);">
+      <h3 style="margin-top:0;">M'inscrire (adulte)</h3>
+      <p style="font-size:.9rem; opacity:.85;">Cette préinscription crée votre compte. L'accès à l'espace adhérent s'ouvre après le paiement de la cotisation et la validation par un administrateur. Venu directement à l'association ? Un administrateur peut aussi vous inscrire et vous envoyer une invitation par email.</p>
+      <form onsubmit="event.preventDefault(); submitAdultRegistration();" style="display:contents;">
+        <div class="field"><label for="ra-prenom">Prénom</label><input id="ra-prenom" required></div>
+        <div class="field"><label for="ra-nom">Nom</label><input id="ra-nom" required></div>
+        <div class="field"><label for="ra-tel">Téléphone</label><input id="ra-tel" type="tel" required></div>
+        <div class="field"><label for="ra-adresse">Adresse</label><input id="ra-adresse"></div>
+        <div class="field"><label for="ra-statut">Statut</label>
+          <select id="ra-statut"><option>Autre</option><option>Étudiant</option><option>Demandeur d'emploi</option></select>
+        </div>
+        <div class="field"><label for="ra-niveau">Niveau souhaité</label><select id="ra-niveau"></select></div>
+        <div class="field"><label for="ra-niveau2">2e classe souhaitée (facultatif)</label><select id="ra-niveau2"></select></div>
+        <div class="field"><label for="ra-atelier">Atelier transversal souhaité (facultatif)</label><select id="ra-atelier"></select></div>
+        <div class="field"><label for="ra-email">Email (identifiant de connexion)</label><input id="ra-email" type="email" required></div>
+        <div class="field"><label for="ra-pass">Mot de passe (8 caractères minimum)</label><input id="ra-pass" type="password" minlength="8" required></div>
+        <div style="margin-top:14px;"><button class="btn btn-primary" type="submit">Envoyer ma préinscription</button></div>
+        <p id="ra-msg" style="color:var(--brass); font-size:.88rem; margin:8px 0 0;"></p>
+      </form>
+    </div>
+    <div style="display:none" aria-hidden="true">
     <form class="contact" onsubmit="event.preventDefault(); addPending(this);" style="margin-top:24px;">
       <div class="field"><label for="i-prenom">Prénom</label><input id="i-prenom" required></div>
       <div class="field"><label for="i-nom">Nom</label><input id="i-nom" required></div>
@@ -506,6 +525,7 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
       <div><button class="btn btn-primary" type="submit">Créer mon profil adhérent</button></div>
       <p class="confirm" hidden style="color:var(--brass);">Votre demande a été enregistrée. Vous serez contacté·e pour la validation de votre adhésion.</p>
     </form>
+    </div>
   </div>
 </section>
 
@@ -902,6 +922,7 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
 
 
 
+
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const eur=n=>n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
@@ -1008,6 +1029,10 @@ async function login(){
   if(error){msg.textContent='Connexion refusee : '+(error.message||'identifiants invalides.');return;}
   const {data:prof,error:perr}=await sbClient.from('profiles').select('id,role,status,prenom,nom').eq('auth_user_id',data.user.id).single();
   if(perr||!prof){msg.textContent='Compte authentifie, mais aucun profil associe dans la base.';await sbClient.auth.signOut();return;}
+  if(['preinscrit','paye','rejete'].includes(prof.status)){
+    msg.textContent=prof.status==='rejete'?"Votre demande d'adhesion n'a pas ete retenue. Contactez l'association.":"Votre preinscription est en cours de traitement : l'espace adherent sera accessible apres validation par un administrateur.";
+    await sbClient.auth.signOut();return;
+  }
   applyFetchedRole(prof,data.user);
   msg.textContent='';
   $('loginGate').style.display='none';$('resources').classList.add('unlocked');applyRole();refreshAll();
@@ -1033,12 +1058,14 @@ function renderRcQuiVisibility(){
   if(box)box.style.display=isAdminRole(ME.role)?'none':'block';
 }
 function fillDbClassSelects(){
-  const lv=dbLevelOpts('Enfant'),at=dbAtelierOf('Enfant');
-  if($('rc-niveau')){
-    $('rc-niveau').innerHTML='<option value="">Choisir un niveau…</option>'+dbClassOptsHtml(lv);
-    $('rc-niveau2').innerHTML='<option value="">— Aucune 2e classe —</option>'+dbClassOptsHtml(lv);
-    $('rc-atelier').innerHTML='<option value="">Aucun</option>'+(at?`<option value="${at.id}">${esc(at.label)}</option>`:'');
-  }
+  [['rc','Enfant'],['ra','Adulte']].forEach(([p,parcours])=>{
+    const lv=dbLevelOpts(parcours),at=dbAtelierOf(parcours);
+    if($(p+'-niveau')){
+      $(p+'-niveau').innerHTML='<option value="">Choisir un niveau…</option>'+dbClassOptsHtml(lv);
+      $(p+'-niveau2').innerHTML='<option value="">— Aucune 2e classe —</option>'+dbClassOptsHtml(lv);
+      $(p+'-atelier').innerHTML='<option value="">Aucun</option>'+(at?`<option value="${at.id}">${esc(at.label)}</option>`:'');
+    }
+  });
 }
 
 /* ---- Inscription d'un enfant : ouverte a tous, sans compte ---- */
@@ -1113,6 +1140,7 @@ async function restoreSession(){
     const uid=data.session.user.id;
     const {data:prof,error:perr}=await sbClient.from('profiles').select('id,role,status,prenom,nom').eq('auth_user_id',uid).single();
     if(perr||!prof)return;
+    if(['preinscrit','paye','rejete'].includes(prof.status)){await sbClient.auth.signOut();return;}
     applyFetchedRole(prof,data.session.user);
     $('loginGate').style.display='none';$('resources').classList.add('unlocked');applyRole();refreshAll();
   }catch(e){}
@@ -1695,12 +1723,103 @@ function parentBlock(p,idprefix){
   if(p.parcours!=='Enfant')return'';
   return (p.contacts||[]).map((c,ci)=>`<div style="margin-top:6px">${(ci+1)}. ${contactLabel(c)}</div>`).join('')||'—';
 }
-function renderPending(){
-  $('pendingBox').innerHTML=pending.length?`<div style="overflow-x:auto"><table class="admin-table"><tr><th>Adhérent</th><th>Parcours</th><th>Statut</th><th>Famille (ID)</th><th>Contact urgence (enfant)</th><th>Niveau souhaité → validé</th><th>2e classe (facultatif)</th><th>Atelier transversal</th><th>Tarif</th><th></th></tr>`+pending.map((p,i)=>{
-    const list=levelOpts(p.parcours),lbl=p.isRenewal?`${esc(p.nom+' '+p.prenom)} <span class="tag">Renouvellement — ID ${p.memberId}</span>`:esc(p.nom+' '+p.prenom);
-    const famCell=p.isRenewal?'—':`<input id="pf${i}" value="${esc((p.famille||[]).join(', '))}" oninput="suggest(${i})" placeholder="ex. 2, 8" style="width:90px;padding:6px 8px;border:1px solid var(--line);background:var(--card-bg);color:var(--text);font-family:inherit">`;
-    return `<tr><td>${lbl}</td><td>${p.parcours}</td><td>${esc(p.statut||'—')}</td><td>${famCell}</td><td>${parentBlock(p,'pp'+i)}</td><td><select id="pc${i}"><option value="">Choisir un niveau…</option>${opts(list,p.niveauSouhaite)}</select></td><td><select id="pc2${i}"><option value="">—</option>${opts(list,p.niveauSouhaite2)}</select></td><td><select id="pa${i}"><option value="">Aucun</option><option value="${esc(ATELIER_OF[p.parcours])}"${p.atelierSouhaite?' selected':''}>${esc(ATELIER_OF[p.parcours])}</option></select></td><td><select id="pt${i}">${optsKV(Object.keys(TARIFS).map(k=>[k,tarifLabel(k)]),suggestTarif(p.statut,p.famille||[]))}</select></td><td><button class="btn-line" type="button" onclick="validateProfile(${i})">Valider</button></td></tr>`;
-  }).join('')+`</table></div><p style="font-size:.84rem;opacity:.75;margin:8px 0 0">Le niveau et l'atelier proposés viennent du choix de l'adhérent ; l'administrateur les valide ou les modifie. Un nouvel ID est attribué uniquement pour une première adhésion.</p>`:`<p style="font-size:.9rem;opacity:.7">Aucun profil en attente.</p>`;
+/* ---- Inscription adulte (auto-inscription) ---- */
+async function submitAdultRegistration(){
+  const msg=$('ra-msg'),v=id=>$(id).value.trim();
+  if(!sbClient){msg.textContent='Connexion a la base indisponible.';return;}
+  const prenom=v('ra-prenom'),nom=v('ra-nom'),tel=v('ra-tel'),adresse=v('ra-adresse'),email=v('ra-email'),pass=$('ra-pass').value;
+  if(!prenom||!nom||!tel||!email||!pass){msg.textContent='Renseignez prenom, nom, telephone, email et mot de passe.';return;}
+  if(pass.length<8){msg.textContent='Le mot de passe doit contenir au moins 8 caracteres.';return;}
+  if(!$('ra-niveau').value){msg.textContent='Choisissez le niveau souhaite.';return;}
+  msg.textContent='Creation du compte…';
+  const {data,error}=await sbClient.auth.signUp({email,password:pass,options:{data:{
+    prenom,nom,tel,adresse,statut:$('ra-statut').value,
+    niveau_souhaite:$('ra-niveau').value,niveau_souhaite_2:$('ra-niveau2').value||'',atelier_souhaite:$('ra-atelier').value||''
+  }}});
+  if(error){msg.textContent='Erreur : '+error.message;return;}
+  if(data&&data.session){try{await sbClient.auth.signOut();}catch(e){}}
+  msg.textContent="Préinscription enregistrée. Si un email de confirmation vous est envoyé, cliquez sur le lien qu'il contient. L'accès à l'espace adhérent s'ouvrira après le paiement de la cotisation et la validation par un administrateur.";
+  ['ra-prenom','ra-nom','ra-tel','ra-adresse','ra-email','ra-pass'].forEach(id=>$(id).value='');
+}
+
+/* ---- File d'attente administrateur : preinscrit -> paye -> actif ---- */
+let queueData=[],queueContacts=[];
+const TARIF_KEYS=[['Plein tarif','Plein tarif — 180 €'],["Étudiant / demandeur d'emploi","Étudiant / demandeur d'emploi — 90 €"],['Famille (3e personne et +)','Famille (3e personne et +) — gratuit']];
+function classLabel(id){const c=dbClasses.find(x=>x.id===id);return c?c.label:'—';}
+function classOpts(parcours,sel,withEmpty){
+  const list=dbClasses.filter(c=>c.parcours===parcours&&!c.is_transversal);
+  return (withEmpty?'<option value="">—</option>':'')+list.map(c=>`<option value="${c.id}"${c.id===sel?' selected':''}>${esc(c.label)}</option>`).join('');
+}
+async function renderPending(){
+  const box=$('pendingBox');if(!box)return;
+  if(!sbClient||!isAdminRole(ME.role)){box.innerHTML='';return;}
+  box.innerHTML='<p style="opacity:.7;font-size:.9rem">Chargement…</p>';
+  const {data,error}=await sbClient.from('profiles').select('id,prenom,nom,tel,parcours,statut,status,niveau_souhaite,niveau_souhaite_2,atelier_souhaite,submitted_by,created_at').in('status',['preinscrit','paye']).order('created_at');
+  if(error){box.innerHTML=`<p class="neg">Erreur de chargement : ${esc(error.message)}</p>`;return;}
+  queueData=data||[];queueContacts=[];
+  const kids=queueData.filter(p=>p.parcours==='Enfant').map(p=>p.id);
+  if(kids.length){const r=await sbClient.from('emergency_contacts').select('child_id,linked_member_id,nom,tel,lien').in('child_id',kids);queueContacts=r.data||[];}
+  if(!queueData.length){box.innerHTML='<p style="font-size:.9rem;opacity:.7">Aucune préinscription en attente.</p>';return;}
+  box.innerHTML=queueData.map((p,i)=>{
+    const sug=(p.statut==='Étudiant'||p.statut==="Demandeur d'emploi")?90:180;
+    const souhaits=[p.niveau_souhaite,p.niveau_souhaite_2,p.atelier_souhaite].filter(Boolean).map(classLabel).join(' · ')||'—';
+    const cts=queueContacts.filter(c=>c.child_id===p.id).map(c=>c.linked_member_id?'Adhérent lié ('+esc(c.lien||'—')+')':esc(c.nom||'—')+' ('+esc(c.lien||'—')+') '+esc(c.tel||'')).join('<br>');
+    const head=`<b>${esc(p.prenom)} ${esc(p.nom)}</b> <span class="tag">${p.parcours}</span> <span class="tag">${p.status==='paye'?'Payé':'Préinscrit'}</span>
+      <div style="font-size:.85rem;opacity:.8;margin:6px 0">Déposé par : ${esc(p.submitted_by||'—')} le ${esc(frd((p.created_at||'').slice(0,10)))}${p.tel?' · '+esc(p.tel):''}${p.parcours==='Adulte'&&p.statut?' · '+esc(p.statut):''}<br>Souhaits : ${esc(souhaits)}${cts?'<br>Contacts : '+cts:''}</div>`;
+    let action='';
+    if(p.status==='preinscrit'){
+      action=`<div class="toolbar" style="margin:6px 0">
+        <input id="q-amt-${i}" type="number" step="0.01" min="0.01" value="${sug}" style="flex:0 0 110px;min-width:90px" placeholder="Montant €">
+        <select id="q-mode-${i}" onchange="$('q-due-${i}').style.display=this.value==='Chèque'?'inline-block':'none'"><option>Espèce</option><option>Chèque</option></select>
+        <input id="q-due-${i}" type="date" style="display:none" title="Date prévisionnelle d'encaissement">
+        <button class="btn-line" type="button" onclick="queuePay(${i})">Enregistrer le paiement</button></div>`;
+    }else{
+      action=`<div class="toolbar" style="margin:6px 0">
+        <select id="q-c1-${i}">${classOpts(p.parcours,p.niveau_souhaite,false)}</select>
+        <select id="q-c2-${i}">${classOpts(p.parcours,p.niveau_souhaite_2,true)}</select>
+        <select id="q-at-${i}"><option value="">Aucun atelier</option>${(()=>{const at=dbAtelierOf(p.parcours);return at?`<option value="${at.id}"${at.id===p.atelier_souhaite?' selected':''}>${esc(at.label)}</option>`:'';})()}</select>
+        <select id="q-tarif-${i}">${TARIF_KEYS.map(([k,l])=>`<option value="${esc(k)}"${(k==='Plein tarif'&&sug===180)||(k!=='Plein tarif'&&k!=='Famille (3e personne et +)'&&sug===90)?' selected':''}>${esc(l)}</option>`).join('')}</select>
+        <button class="btn btn-primary" type="button" onclick="queueValidate(${i})">Valider l'adhésion</button></div>`;
+    }
+    return `<div class="tplcard" style="margin-bottom:12px">${head}${action}<button class="btn-line" type="button" onclick="queueReject(${i})">Rejeter</button></div>`;
+  }).join('');
+}
+async function queuePay(i){
+  const p=queueData[i],msg=$('pendingMsg');
+  const amt=parseFloat($('q-amt-'+i).value),mode=$('q-mode-'+i).value,today=new Date().toISOString().slice(0,10);
+  if(!(amt>0)){msg.textContent='Indiquez un montant superieur a 0.';return;}
+  const entry={type:'R',category:'Adhésion / inscription',label:'Cotisation '+p.prenom+' '+p.nom,tiers:p.prenom+' '+p.nom,amount:amt,entry_date:today,payment_method:mode,created_by:ME.realUser.profileId};
+  if(mode==='Chèque'){
+    const due=$('q-due-'+i).value;
+    if(!due){msg.textContent="Indiquez la date previsionnelle d'encaissement du cheque.";return;}
+    entry.cheque_received=today;entry.cheque_due=due;entry.cheque_status='En attente';
+  }
+  msg.textContent='Enregistrement…';
+  const {data:led,error}=await sbClient.from('ledger_entries').insert(entry).select('id').single();
+  if(error){msg.textContent='Erreur comptabilite : '+error.message;return;}
+  const {error:e2}=await sbClient.rpc('record_payment',{p_profile_id:p.id,p_ledger_entry_id:led.id});
+  if(e2){msg.textContent='Recette '+led.id+' creee, mais erreur sur le profil : '+e2.message;return;}
+  msg.textContent='Paiement enregistre (recette '+led.id+').';
+  renderPending();
+}
+async function queueValidate(i){
+  const p=queueData[i],msg=$('pendingMsg');
+  const c1=$('q-c1-'+i).value,c2=$('q-c2-'+i).value,at=$('q-at-'+i).value,tarif=$('q-tarif-'+i).value;
+  if(!c1){msg.textContent='Choisissez au moins une classe.';return;}
+  if(c2&&c2===c1){msg.textContent='La 2e classe doit etre differente de la premiere.';return;}
+  msg.textContent='Validation…';
+  const {error}=await sbClient.rpc('validate_membership',{p_profile_id:p.id,p_class_ids:[c1,c2,at].filter(Boolean),p_tarif:tarif});
+  if(error){msg.textContent='Erreur : '+error.message;return;}
+  msg.textContent='Adhesion validee pour '+p.prenom+' '+p.nom+'.';
+  renderPending();
+}
+async function queueReject(i){
+  const p=queueData[i],msg=$('pendingMsg');
+  if(!confirm('Rejeter la demande de '+p.prenom+' '+p.nom+' ?'))return;
+  const {error}=await sbClient.rpc('reject_profile',{p_profile_id:p.id});
+  if(error){msg.textContent='Erreur : '+error.message;return;}
+  msg.textContent='Demande rejetee.';
+  renderPending();
 }
 function suggest(i){if($('pf'+i))$('pt'+i).value=suggestTarif(pending[i].statut,parseIds($('pf'+i).value));}
 function validateProfile(i){
