@@ -266,6 +266,18 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
   </div>
 </header>
 
+<section id="authNotice" hidden style="padding:28px 24px; background:var(--card-bg); border-bottom:2px solid var(--brass);">
+  <div class="wrap">
+    <h3 id="an-title" style="margin-top:0;"></h3>
+    <p id="an-text"></p>
+    <form id="an-form" hidden onsubmit="event.preventDefault(); submitNewPassword();" style="max-width:420px;">
+      <div class="field"><label for="an-pass">Nouveau mot de passe (8 caractères minimum)</label><input id="an-pass" type="password" minlength="8"></div>
+      <button class="btn btn-primary" type="submit">Enregistrer</button>
+    </form>
+    <p id="an-msg" style="color:var(--brass); font-size:.88rem; margin:8px 0 0;"></p>
+  </div>
+</section>
+
 <section class="hero" id="accueil">
   <div class="hero-bg" aria-hidden="true">
     <svg viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
@@ -577,6 +589,7 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
         <button class="btn btn-primary" type="submit">Se connecter</button>
         <p id="loginMsg" style="color:#b04a3a; font-size:.88rem; margin:8px 0 0;"></p>
       </form>
+      <p class="gate-note"><a href="#" onclick="forgotPassword(); return false;">Mot de passe oublié ?</a> (saisissez votre email ci-dessus)</p>
       <p class="gate-note">Pas encore de profil ? <a href="#adhesion">Faites une demande d'adhésion</a>.</p>
       <p class="gate-note" style="font-size:.8rem; opacity:.7;">La connexion est maintenant réelle (compte Supabase). Les données affichées une fois connecté (adhérents, comptabilité, messages…) restent pour l'instant celles de démonstration — elles seront branchées sur la vraie base aux étapes suivantes.</p>
     </div>
@@ -873,6 +886,22 @@ footer{ padding:40px 24px; text-align:center; font-size:.82rem; opacity:.7; }
     </div>
     <div id="tasksBox"></div>
     <p>Toute nouvelle inscription obtient par défaut le rôle « Adhérent ». Un administrateur choisit le niveau et le tarif, et associe chaque adhérent à sa classe. Seul le <b>super administrateur</b> peut créer ou retirer un administrateur, et attribuer les permissions (comme Communication) ; il n'est lui-même ni révocable ni rétrogradable. Un administrateur peut désactiver un adhérent, mais cette action reste en attente jusqu'à la validation du super administrateur, affichée ci-dessus.</p>
+    <h3 class="sub">Inscrire un adulte venu à l'association</h3>
+    <p style="font-size:.9rem; opacity:.8;">La personne reçoit une invitation par email pour choisir elle-même son mot de passe. Pour un enfant, utilisez le formulaire « Inscrire un enfant » de la page Adhésion.</p>
+    <form class="contact" style="max-width:520px;" onsubmit="event.preventDefault(); submitAdultByAdmin();">
+      <div class="field"><label for="aa-prenom">Prénom</label><input id="aa-prenom" required></div>
+      <div class="field"><label for="aa-nom">Nom</label><input id="aa-nom" required></div>
+      <div class="field"><label for="aa-tel">Téléphone</label><input id="aa-tel" type="tel" required></div>
+      <div class="field"><label for="aa-adresse">Adresse</label><input id="aa-adresse"></div>
+      <div class="field"><label for="aa-email">Email (pour l'invitation)</label><input id="aa-email" type="email" required></div>
+      <div class="field"><label for="aa-statut">Statut</label><select id="aa-statut"><option>Autre</option><option>Étudiant</option><option>Demandeur d'emploi</option></select></div>
+      <div class="field"><label for="aa-niveau">Niveau souhaité</label><select id="aa-niveau"></select></div>
+      <div class="field"><label for="aa-niveau2">2e classe souhaitée (facultatif)</label><select id="aa-niveau2"></select></div>
+      <div class="field"><label for="aa-atelier">Atelier transversal souhaité (facultatif)</label><select id="aa-atelier"></select></div>
+      <div><button class="btn btn-primary" type="submit">Créer le profil et envoyer l'invitation</button></div>
+      <p id="aa-msg" style="color:var(--brass); font-size:.88rem; margin:0;"></p>
+    </form>
+
     <h3 class="sub">Nouveaux profils à valider</h3>
     <div id="pendingBox"></div>
     <p id="pendingMsg" style="color:var(--brass); font-size:.88rem; margin:6px 0 0;"></p>
@@ -1005,6 +1034,8 @@ let journal=[
 function addLog(a,d,w){journal.unshift({t:now(),w:w||who(),a,d});renderJournal();}
 
 /* ---- Connexion reelle Supabase ---- */
+const AUTH_HASH_TYPE=((location.hash||'').match(/type=(\w+)/)||[])[1]||'';
+const AUTH_HASH_ERROR=((location.hash||'').match(/error_description=([^&]+)/)||[])[1]||'';
 const SUPABASE_URL='https://tnutrmehdisidobtomah.supabase.co';
 const SUPABASE_KEY='sb_publishable_ZVzCNxryoPc8s5r47vc8mQ_sBtl9ZYu';
 const DB_ROLE_MAP={adherent:'adherent',instituteur:'instituteur',administrateur:'administrateur',super_administrateur:'super'};
@@ -1058,7 +1089,7 @@ function renderRcQuiVisibility(){
   if(box)box.style.display=isAdminRole(ME.role)?'none':'block';
 }
 function fillDbClassSelects(){
-  [['rc','Enfant'],['ra','Adulte']].forEach(([p,parcours])=>{
+  [['rc','Enfant'],['ra','Adulte'],['aa','Adulte']].forEach(([p,parcours])=>{
     const lv=dbLevelOpts(parcours),at=dbAtelierOf(parcours);
     if($(p+'-niveau')){
       $(p+'-niveau').innerHTML='<option value="">Choisir un niveau…</option>'+dbClassOptsHtml(lv);
@@ -1723,6 +1754,66 @@ function parentBlock(p,idprefix){
   if(p.parcours!=='Enfant')return'';
   return (p.contacts||[]).map((c,ci)=>`<div style="margin-top:6px">${(ci+1)}. ${contactLabel(c)}</div>`).join('')||'—';
 }
+/* ---- Liens recus par email (invitation, confirmation, mot de passe oublie) ---- */
+function handleAuthRedirect(){
+  const box=$('authNotice');if(!box)return;
+  const set=(title,text,showForm)=>{$('an-title').textContent=title;$('an-text').textContent=text;$('an-form').hidden=!showForm;box.hidden=false;box.scrollIntoView();};
+  if(AUTH_HASH_ERROR){set('Lien invalide ou expiré',"Ce lien n'est plus valable. Demandez un nouveau lien (mot de passe oublié) ou contactez l'association.",false);return;}
+  if(AUTH_HASH_TYPE==='invite')set('Bienvenue chez El-Mawsili','Choisissez votre mot de passe pour activer votre compte.',true);
+  else if(AUTH_HASH_TYPE==='recovery')set('Nouveau mot de passe','Choisissez votre nouveau mot de passe.',true);
+  else if(AUTH_HASH_TYPE==='signup'||AUTH_HASH_TYPE==='email_change')set('Adresse email confirmée','Merci, votre adresse est confirmée. Votre préinscription sera traitée par un administrateur.',false);
+}
+async function submitNewPassword(){
+  const msg=$('an-msg'),pass=$('an-pass').value;
+  if(pass.length<8){msg.textContent='Le mot de passe doit contenir au moins 8 caracteres.';return;}
+  msg.textContent='Enregistrement…';
+  const {error}=await sbClient.auth.updateUser({password:pass});
+  if(error){msg.textContent='Erreur : '+error.message;return;}
+  try{await sbClient.auth.signOut();}catch(e){}
+  $('an-pass').value='';$('an-form').hidden=true;
+  $('an-text').textContent='Mot de passe enregistré. Vous pouvez maintenant vous connecter depuis l\'espace adhérents.';
+  msg.textContent='';
+  history.replaceState(null,'',location.pathname);
+}
+async function forgotPassword(){
+  const msg=$('loginMsg'),email=$('l-mail').value.trim();
+  if(!sbClient){msg.textContent='Connexion a la base indisponible.';return;}
+  if(!email){msg.textContent="Saisissez d'abord votre email dans le champ ci-dessus.";return;}
+  const {error}=await sbClient.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+  msg.style.color=error?'#b04a3a':'var(--brass)';
+  msg.textContent=error?'Erreur : '+error.message:'Si cette adresse correspond à un compte, un email de réinitialisation vient d\'être envoyé.';
+}
+
+/* ---- Inscription d'un adulte par un administrateur (+ invitation email) ---- */
+async function fnErrorText(e,data){
+  if(data&&data.error)return data.error;
+  try{const j=await e.context.json();return j.error||e.message;}catch(_){return e.message;}
+}
+async function submitAdultByAdmin(){
+  const msg=$('aa-msg'),v=id=>$(id).value.trim();
+  if(!sbClient||!isAdminRole(ME.role)||!ME.realUser){msg.textContent='Reserve aux administrateurs connectes.';return;}
+  const prenom=v('aa-prenom'),nom=v('aa-nom'),tel=v('aa-tel'),adresse=v('aa-adresse'),email=v('aa-email');
+  if(!prenom||!nom||!tel||!email){msg.textContent='Renseignez prenom, nom, telephone et email.';return;}
+  if(!$('aa-niveau').value){msg.textContent='Choisissez le niveau souhaite.';return;}
+  msg.style.color='var(--brass)';msg.textContent='Enregistrement…';
+  const id=crypto.randomUUID();
+  const {error}=await sbClient.from('profiles').insert({
+    id,prenom,nom,tel,adresse,parcours:'Adulte',statut:$('aa-statut').value,
+    niveau_souhaite:$('aa-niveau').value,niveau_souhaite_2:$('aa-niveau2').value||null,atelier_souhaite:$('aa-atelier').value||null,
+    submitted_by:'administrateur',submitted_by_profile_id:ME.realUser.profileId
+  });
+  if(error){msg.style.color='#b04a3a';msg.textContent='Erreur : '+error.message;return;}
+  const {data,error:e2}=await sbClient.functions.invoke('invite-member',{body:{profile_id:id,email}});
+  if(e2||(data&&data.error)){
+    msg.style.color='#b04a3a';
+    msg.textContent='Profil cree, mais invitation non envoyee : '+await fnErrorText(e2,data);
+    renderPending();return;
+  }
+  msg.textContent='Profil cree et invitation envoyee a '+email+'.';
+  ['aa-prenom','aa-nom','aa-tel','aa-adresse','aa-email'].forEach(i=>$(i).value='');
+  renderPending();
+}
+
 /* ---- Inscription adulte (auto-inscription) ---- */
 async function submitAdultRegistration(){
   const msg=$('ra-msg'),v=id=>$(id).value.trim();
@@ -2147,7 +2238,8 @@ renderViews();renderMembers();renderPending();renderLedger();renderTemplates();r
 document.getElementById('navtoggle').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
 document.querySelectorAll('nav.links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
 loadClasses();
-restoreSession();
+handleAuthRedirect();
+if(AUTH_HASH_TYPE!=='invite'&&AUTH_HASH_TYPE!=='recovery')restoreSession();
 </script>
 </body>
 </html>
